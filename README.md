@@ -24,7 +24,7 @@ Rails 5.0.2
 	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
 `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
 
-  _Install the latest stable version of ruby (as of 3/12/2017)_ 
+  _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
   _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
 	`$ rvm gemset create woof`  
