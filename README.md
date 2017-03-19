@@ -67,10 +67,16 @@ Rails 5.0.2
 	• Navigate to where you want the project  
 	• Clone the forked repo  
 ## Database creation
-
+In your rails app directory, run the database migration
+	`$ rake db:migrate`
 ## Database initialization
-  Start mysql
-  mysql.server start
+Install mysql with brew (follow the configuration process above)  
+  	`$ brew install mysql`  
+  _Start mysql_  
+  	`$ mysql.server start`  
+_MySQL Client_  
+	I recommend that mac users use Sequel Pro. https://www.sequelpro.com/  
+	After you have run the database migration, setup a socket conection with username as root and database as woof_development.
 ## How to run the test suite
 
 ## Services (job queues, cache servers, search engines, etc.)
