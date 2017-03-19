@@ -7,7 +7,7 @@
 
 <p>
   <strong>Owner:</strong>
-  <%= @group.owner %>
+  <%= "#{@group.owner.first_name} #{@group.owner.last_name}" %>
 </p>
 
 <%= link_to 'Edit', edit_group_path(@group) %> |
