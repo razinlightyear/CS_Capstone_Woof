@@ -1,6 +1,12 @@
 # README
 
 
+* Run rails server  
+In the application directory:  
+```
+$ rails s
+```
+The server is accepting requests at localhost:3000  
 * Ruby version  
 ```
 $ ruby -v
@@ -10,7 +16,7 @@ ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-darwin16]
 ```
 $ rails -v
 Rails 5.0.2
-```
+```  
 * System dependencies
 
 ## Configuration  
@@ -70,7 +76,7 @@ Rails 5.0.2
 In your rails app directory, run the database migration
 	`$ rake db:migrate`
 ## Database initialization
-Install mysql with brew (follow the configuration process above)  
+Install mysql with brew (follow the configuration process above to install brew)  
   	`$ brew install mysql`  
   _Start mysql_  
   	`$ mysql.server start`  
