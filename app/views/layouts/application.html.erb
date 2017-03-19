@@ -6,6 +6,8 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag "favicon.ico" %>
+    <%= favicon_link_tag "apple-touch-icon.png", :rel => 'apple-touch-icon', :type => 'image/png' %>
   </head>
 
   <body>
@@ -13,21 +15,9 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">
-        <%= image_tag "letter-w.svg", width: 30, height: 30%>
-      </a>
-
+      <%= link_to(image_tag("letter-w.svg", class: 'image-responsive', width: 30, height: 30), root_path, :method => :get) %>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Stuff
@@ -39,6 +29,7 @@
             </div>
           </li>
         </ul>
+        <%= link_to(image_tag("sarina.regular.png", class: 'image-responsive', width: 122, height: 42), root_path, :method => :get, class: 'mx-auto') %>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -48,6 +39,12 @@
     <div class"container">
       <%= yield %>
     </div>
+    </div>
+    <div class="footer" style="background-color: #e3f2fd;">
+      <div class="copyright" style="text-align: center">
+        <%= link_to(image_tag("letter-w.svg", class: 'image-responsive', width: 30, height: 30), root_path, :method => :get) %>
+        Copyright &copy; 2017 Team Woof
+      </div>
     </div>
   </body>
 </html>

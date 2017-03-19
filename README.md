@@ -15,7 +15,7 @@ Rails 5.0.2
 
 ## Configuration  
   **Mac**  
-  Install brew  
+  _Install brew_  
 	• Go to https://brew.sh/  
 	• Paste the line in terminal and follow the directions
 
@@ -39,18 +39,44 @@ Rails 5.0.2
 	• Navigate to where you want the project  
 	• Clone the forked repo  
   
-  **Ubuntu**
-  Install brew  
-	• http://linuxbrew.sh/
-	• Paste the line in terminal and follow the directions
+  **Ubuntu**  
+  _Install a version of ruby to get going_ (as described at https://www.ruby-lang.org/en/documentation/installation/)  
+	 `$ sudo apt-get install ruby-full`  
+  _Install brew_  
+	• http://linuxbrew.sh/  
+	• Paste the commands in terminal and follow the directions  
+  _Install curl_ (used by RVM)  
+	`$ sudo apt-get curl`  
+    _Install rvm (ruby version manager)_  
+`$ curl -L get.rvm.io | bash`  
+	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
+`[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
 
-  sudo apt-get curl
-  
+  _Install the latest stable version of ruby (as of 3/12/2017)_  
+	`$ rvm install 2.4.0`  
+  _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
+	`$ rvm gemset create woof`  
+  _Switch to the woof gemset_  
+	`$ rvm use 2.4.0@woof`  
+
+  _Install Rails!_  
+	`$ gem install rails -v 5.0.2`
+
+  _Get the Codes_  
+	• Fork the repo https://github.com/andycho7/CS_Capstone_Woof  
+	• Navigate to where you want the project  
+	• Clone the forked repo  
 ## Database creation
-
+In your rails app directory, run the database migration
+	`$ rake db:migrate`
 ## Database initialization
-  Start mysql
-  mysql.server start
+Install mysql with brew (follow the configuration process above)  
+  	`$ brew install mysql`  
+  _Start mysql_  
+  	`$ mysql.server start`  
+_MySQL Client_  
+	I recommend that mac users use Sequel Pro. https://www.sequelpro.com/  
+	After you have run the database migration, setup a socket conection with username as root and database as woof_development.
 ## How to run the test suite
 
 ## Services (job queues, cache servers, search engines, etc.)
