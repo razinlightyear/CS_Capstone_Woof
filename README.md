@@ -1,24 +1,5 @@
 # README
 
-
-* Run rails server  
-In the application directory:  
-```
-$ rails s
-```
-The server is accepting requests at localhost:3000  
-* Ruby version  
-```
-$ ruby -v
-ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-darwin16]
-```
-* Rails version  
-```
-$ rails -v
-Rails 5.0.2
-```  
-* System dependencies
-
 ## Configuration  
   **Mac**  
   _Install brew_  
@@ -29,7 +10,8 @@ Rails 5.0.2
 `$ curl -L get.rvm.io | bash`  
 	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
 `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
-
+  _Follow the Database initialization_
+  * Follow the Database initilaization below
   _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
   _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
@@ -53,11 +35,12 @@ Rails 5.0.2
 	• Paste the commands in terminal and follow the directions  
   _Install curl_ (used by RVM)  
 	`$ sudo apt-get curl`  
-    _Install rvm (ruby version manager)_  
+  _Install rvm (ruby version manager)_  
 `$ curl -L get.rvm.io | bash`  
 	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
 `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
-
+  _Follow the Database initialization_
+  * Follow the Database initilaization below
   _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
   _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
@@ -73,7 +56,7 @@ Rails 5.0.2
 	• Navigate to where you want the project  
 	• Clone the forked repo  
 ## Database creation
-In your rails app directory, run the database migration
+In your rails app directory, run the database migration  
 	`$ rake db:migrate`
 ## Database initialization
 Install mysql with brew (follow the configuration process above to install brew)  
@@ -81,8 +64,28 @@ Install mysql with brew (follow the configuration process above to install brew)
   _Start mysql_  
   	`$ mysql.server start`  
 _MySQL Client_  
-	I recommend that mac users use Sequel Pro. https://www.sequelpro.com/  
-	After you have run the database migration, setup a socket conection with username as root and database as woof_development.
+	I recommend that mac users use Sequel Pro, https://www.sequelpro.com/ , since it is simple and powerful.  
+	After you have run the database migration to create the database, setup a socket conection with username as root and database as woof_development.  
+	The database credentials are saved in app/config/database.yml  
+## Common commands  
+* Run rails server  
+In the application directory:  
+```
+$ rails s
+```
+The server is accepting requests at localhost:3000  
+* Ruby version  
+```
+$ ruby -v
+ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-darwin16]
+```
+* Rails version  
+```
+$ rails -v
+Rails 5.0.2
+```  
+* System dependencies
+
 ## How to run the test suite
 
 ## Services (job queues, cache servers, search engines, etc.)
