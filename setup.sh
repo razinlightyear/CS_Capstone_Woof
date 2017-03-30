@@ -26,4 +26,4 @@ docker-compose build app
 
 docker-compose run --rm app rake db:create db:migrate
 
-docker-compose up app # spin up woof
+docker-compose up -d app # spin up woof
