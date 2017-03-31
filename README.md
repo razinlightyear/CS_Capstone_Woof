@@ -3,25 +3,24 @@
 ## Configuration  
   **Mac**  
   _Install brew_  
-	• Go to https://brew.sh/  
-	• Paste the line in terminal and follow the directions
+  * `$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` https://brew.sh/  
 
   _Install rvm (ruby version manager)_  
-`$ curl -L get.rvm.io | bash`  
-	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
-`[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
-  _Follow the Database initialization_
-  * Follow the Database initilaization below
+* `$ curl -L get.rvm.io | bash`  
+* Make sure this line is in your `~/.profile` so that it's loaded for every terminal session:  
+   `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
   _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
   _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
 	`$ rvm gemset create woof`  
   _Switch to the woof gemset_  
-	`$ rvm use 2.4.0@woof`  
-
+	`$ rvm --default use 2.4.0@woof`  
+  _Database initialization_  
+  * Follow the Database initilaization below  
   _Install Rails!_  
 	`$ gem install rails -v 5.0.2`
-
+  _Database creation_
+    * Follow the Database creation below
   _Get the Codes_  
 	• Fork the repo https://github.com/andycho7/CS_Capstone_Woof  
 	• Navigate to where you want the project  
@@ -39,7 +38,7 @@
 `$ curl -L get.rvm.io | bash`  
 	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
 `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
-  _Follow the Database initialization_
+  _Database initialization_
   * Follow the Database initilaization below
   _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
@@ -50,13 +49,15 @@
 
   _Install Rails!_  
 	`$ gem install rails -v 5.0.2`
-
+  _Database creation
+  * Follow the Database creation below
   _Get the Codes_  
 	• Fork the repo https://github.com/andycho7/CS_Capstone_Woof  
 	• Navigate to where you want the project  
 	• Clone the forked repo  
 ## Database creation
 In your rails app directory, run the database migration  
+	`$ rake db:create`  
 	`$ rake db:migrate`
 ## Database initialization
 Install mysql with brew (follow the configuration process above to install brew)  
@@ -72,6 +73,11 @@ _MySQL Client_
 In the application directory:  
 ```
 $ rails s
+```
+* Run rails console  
+In the application directory:  
+```
+$ rails c
 ```
 The server is accepting requests at localhost:3000  
 * Ruby version  
