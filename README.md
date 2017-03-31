@@ -16,11 +16,11 @@
   _Switch to the woof gemset_  
 	`$ rvm --default use 2.4.0@woof`  
   _Database initialization_  
-  * Follow the Database initilaization below  
+* Follow the Database initilaization below  
   _Install Rails!_  
 	`$ gem install rails -v 5.0.2`
-  _Database creation_
-    * Follow the Database creation below
+  _Database creation_  
+* Follow the Database creation below
   _Get the Codes_  
 	• Fork the repo https://github.com/andycho7/CS_Capstone_Woof  
 	• Navigate to where you want the project  
@@ -39,7 +39,7 @@
 	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
 `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
   _Database initialization_
-  * Follow the Database initilaization below
+  * Follow the Database initilaization below  
   _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
   _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
@@ -49,7 +49,7 @@
 
   _Install Rails!_  
 	`$ gem install rails -v 5.0.2`
-  _Database creation
+  _Database creation  
   * Follow the Database creation below
   _Get the Codes_  
 	• Fork the repo https://github.com/andycho7/CS_Capstone_Woof  
