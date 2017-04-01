@@ -58,7 +58,14 @@
 ## Database creation
 In your rails app directory, run the database migration  
 	`$ rake db:create`  
-	`$ rake db:migrate`
+	`$ rake db:migrate`  
+#### db commands  
+	`$ rake db:migrate` runs (single) migrations that have not run yet.  
+	`$ rake db:create` creates the database  
+	`$ rake db:drop` deletes the database  
+	`$ rake db:schema:load` creates tables and columns within the (existing) database following schema.rb  
+	`$ rake db:setup` does db:create, db:schema:load, db:seed  
+	`$ rake db:reset` does db:drop, db:setup  
 ## Database initialization
 Install mysql with brew (follow the configuration process above to install brew)  
   	`$ brew install mysql`  
