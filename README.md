@@ -57,16 +57,17 @@
 	• Clone the forked repo  
 ## Database creation
 In your rails app directory, run the database migration  
-	`$ rails db:create`  
-	`$ rails db:migrate`  
+* `$ rails db:create`  
+* `$ rails db:migrate`  
 #### db commands  
-	`$ rails db:drop && rails db:create && rails db:migrate && rails db:seed` I've had problems reseting the db
-	`$ rails db:migrate` runs (single) migrations that have not run yet.  
-	`$ rails db:create` creates the database  
-	`$ rails db:drop` deletes the database  
-	`$ rails db:schema:load` creates tables and columns within the (existing) database following schema.rb  
-	`$ rails db:setup` does db:create, db:schema:load, db:seed  
-	`$ rails db:reset` does db:drop, db:setup  
+* `$ rails db:drop && rails db:create && rails db:migrate && rails db:seed` I've had problems reseting the db so I've used this command
+* `$ rails db:migrate` runs (single) migrations that have not run yet.  
+* `$ rails db:create` creates the database  
+* `$ rails db:drop` deletes the database  
+* `$ rails db:schema:load` creates tables and columns within the (existing) database following schema.rb  
+* `$ rails db:setup` does db:create, db:schema:load, db:seed  
+* `$ rails db:reset` does db:drop, db:setup  
+* `$ rails db:seed` this populates the database with stuff in the db/seed.rb  
 ## Database initialization
 Install mysql with brew (follow the configuration process above to install brew)  
   	`$ brew install mysql`  
@@ -78,16 +79,10 @@ _MySQL Client_
 	The database credentials are saved in app/config/database.yml  
 ## Common commands  
 * Run rails server  
-In the application directory:  
-```
-$ rails s
-```
-* Run rails console  
-In the application directory:  
-```
-$ rails c
-```
+`$ rails s` make sure your in the application directory  
 The server is accepting requests at localhost:3000  
+* Run rails console  
+`$ rails c` make sure your in the application directory
 * Ruby version  
 ```
 $ ruby -v
