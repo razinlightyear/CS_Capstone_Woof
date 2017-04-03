@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start weight:</strong>
+  <%= @weight.start_weight %>
+</p>
+
+<p>
+  <strong>End weight:</strong>
+  <%= @weight.end_weight %>
+</p>
+
+<%= link_to 'Edit', edit_weight_path(@weight) %> |
+<%= link_to 'Back', weights_path %>
