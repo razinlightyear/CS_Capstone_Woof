@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :colors
+  resources :weights
+  resources :breeds
   resources :pets
   resources :groups
   resources :users
