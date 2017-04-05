@@ -1,0 +1,5 @@
+<h1>AroundMe for <%="#{@user.first_name} #{@user.last_name}"%></h1>
+<% @around_me_events.each do |event|%>
+  <% around_me = event.pet_event %>
+  <p><%="id #{around_me.id}, longitude #{around_me.longitude}, latitude #{around_me.latitude}"%></p>
+<% end %>
