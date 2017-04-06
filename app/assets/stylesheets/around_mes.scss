@@ -1,3 +1,23 @@
 // Place all the styles related to the around_mes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Optional: Makes the sample page fill the window. */
+
+
+#map 
+{
+  height: 80%;
+}
+
+#map-canvas
+{
+  width: 800px; 
+  height: 800px
+}
+
+/* Optional: Makes the sample page fill the window. */
+html, body 
+{
+  height: 400px;
+}
