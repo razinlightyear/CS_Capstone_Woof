@@ -14,7 +14,8 @@ default: &default
   encoding: utf8
   pool: 5
   username: <%= ENV['DB_USER'] %> #root
-  password: <%= ENV['DB_PASSWORD'] %>
+#  password: <%= ENV['DB_PASSWORD'] %>
+  password: coco
   host: <%= ENV['DB_HOST'] %> #localhost
 
 development:
