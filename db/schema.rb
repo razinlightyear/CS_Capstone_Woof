@@ -12,14 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20170403004242) do
 
-  create_table "around_mes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "around_me", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.decimal  "longitude",            precision: 15, scale: 13
     t.decimal  "latitude",             precision: 15, scale: 13
     t.string   "around_me_event_type"
     t.integer  "around_me_event_id"
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
-    t.index ["around_me_event_type", "around_me_event_id"], name: "index_around_mes_on_around_me_event_type_and_around_me_event_id", using: :btree
+    t.index ["around_me_event_type", "around_me_event_id"], name: "index_around_me_on_around_me_event_type_and_around_me_event_id", using: :btree
   end
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

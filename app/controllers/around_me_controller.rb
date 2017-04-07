@@ -1,7 +1,7 @@
-class AroundMesController < ApplicationController
+class AroundMeController < ApplicationController
   before_action :set_around_me, only: [:edit, :update, :destroy]
   def index
-    @around_me_events = AroundMe
+    @around_me_events = AroundMe.all
   end
 
   def show
