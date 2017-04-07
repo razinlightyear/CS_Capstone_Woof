@@ -61,6 +61,8 @@ In your rails app directory, run the database migration
 * `$ rails db:migrate`  
 ## Environment variables  
 We are using `dotenv` to load environment variables from the `.env` file in your directory. Make sure that the `.env` file exists. Credentials for the database are expected in the `config/database.yml` file. We will eventually add secret credentials for production. 
+## Authentication 
+I did something really bad and set SSL to not verify `config/application.rb`. REMOVE THIS LINE BEFORE DEPLOYING. 
 #### db commands  
 * `$ rails db:drop && rails db:create && rails db:migrate && rails db:seed` I've had problems reseting the db so I've used this command
 * `$ rails db:migrate` runs (single) migrations that have not run yet.  
