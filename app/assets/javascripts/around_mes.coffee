@@ -2,4 +2,12 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-console.log 'hello'
+map = undefined
+
+initMap = ->
+  map = new (google.maps.Map)(document.getElementById('map-canvas'),
+    center:
+      lat: 40.7608
+      lng: -111.8910
+    zoom: 8)
+  return
