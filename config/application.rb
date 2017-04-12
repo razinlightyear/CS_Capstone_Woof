@@ -6,7 +6,6 @@ Dotenv.load(".env")
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE # CHANGE THIS
 module Woof
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

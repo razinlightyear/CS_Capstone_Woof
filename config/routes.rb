@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :around_me, except: :show
+  resources :around_me, except: :show do
+    collection do
+      post :create_lost_dog
+    end
+  end
   resources :colors
   resources :weights
   resources :breeds
