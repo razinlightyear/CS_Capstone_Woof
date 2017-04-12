@@ -70,6 +70,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+    @user = User.find(params[:user_id])
+    @groups = Group.joins(:groups_users).where('groups_users.user_id' => params[:user_id]).includes(:users, :pets)
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     # callbacks for models and controllers. in models, use them for validation. you can do rich validation on them: when was it created, after it is updated.

@@ -21,4 +21,9 @@ class AroundMeController < ApplicationController
   def set_around_me
     @around_me = AroundMe.find(params[:id])
   end
+  
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def lost_dog_params
+    params.permit(:description, :latitude, :longitude, :pet_id, :user_id)
+  end
 end
