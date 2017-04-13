@@ -9,10 +9,21 @@ class AroundMeController < ApplicationController
     @around_me_events = Event.where(pet_event_type: "AroundMe", user_id: params[:user_id]).includes(:pet_event)
   end
   
+  def create_lost_dog
+    ld = LostDog.create(description: params[:description])
+    am = AroundMe.create(around_me_event: ld, latitude: params[:latitude], longitude: params[:longitude])
+    e = Event.create(pet_event: am, pet_id: params[:pet_id], user_id: params[:user_id])
+    render plain: "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"
+  end
   private
   
   # Use callbacks to share common setup or constraints between actions.
   def set_around_me
     @around_me = AroundMe.find(params[:id])
+  end
+  
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def lost_dog_params
+    params.permit(:description, :latitude, :longitude, :pet_id, :user_id)
   end
 end
