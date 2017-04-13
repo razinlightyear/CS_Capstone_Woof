@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 20170403004242) do
 
   create_table "around_me", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.decimal  "longitude",            precision: 15, scale: 13
-    t.decimal  "latitude",             precision: 15, scale: 13
+    t.decimal  "longitude",            precision: 15, scale: 12
+    t.decimal  "latitude",             precision: 15, scale: 12
     t.string   "around_me_event_type"
     t.integer  "around_me_event_id"
     t.datetime "created_at",                                     null: false
