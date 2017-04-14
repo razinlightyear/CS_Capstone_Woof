@@ -15,8 +15,9 @@
 <!-- <div id="map"></div> -->
 <div id="map-canvas"></div>
 <script>
+// console.log('<%= @around_me_events %>')
 
-    var mapOption = {
+  var mapOption = {
                       center: {lat: 40.7608, lng: -111.8910},
                       zoom: 8
                       }
@@ -26,12 +27,19 @@
     {
       map = new google.maps.Map(document.getElementById('map-canvas'), mapOption);
 
+      /*
+      var marker = new google.maps.Marker({
+        position: {lat: 40.7608, lng: -111.8910},
+        map: map
+      });*/
+
       google.maps.event.addListener(map, 'click', function(event){
         var marker = new google.maps.Marker({
           position: event.latLng,
           map: map
         });
       });
+
     }
       
 </script>
