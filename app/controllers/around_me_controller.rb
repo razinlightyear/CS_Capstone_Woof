@@ -6,7 +6,7 @@ class AroundMeController < ApplicationController
 
   def show
     @user = User.find(params[:user_id])
-    @around_me_events = Event.where(pet_event_type: "AroundMe", user_id: params[:user_id]).includes(:pet_event)
+    @around_me_events = Event.where(pet_event_type: "AroundMe").includes(:user,pet: [:colors,:breed,:weight],pet_event: :around_me_event)
   end
   
   def create_lost_dog
