@@ -1,7 +1,7 @@
 class AroundMeController < ApplicationController
   before_action :set_around_me, only: [:edit, :update, :destroy]
   def index
-    @around_me_events = AroundMe.all
+    @around_me_events = Event.where(pet_event_type: "AroundMe").includes(:user,pet: [:colors,:breed,:weight],pet_event: :around_me_event)
   end
 
   def show
