@@ -5,7 +5,9 @@ class AroundMeController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:user_id]) # The user that is "logged in"
+    @pets = Pet.where(group: @user.groups).includes(:breed,:weight,:colors) # The "logged in" user's pets (so they can create a lost dog event)
+    # If you find yourself needing to eager load on a specfic polymorphic associations, try this gem 'activerecord_lax_includes'
     @around_me_events = Event.where(pet_event_type: "AroundMe").includes(:user,pet: [:colors,:breed,:weight],pet_event: :around_me_event)
   end
   
