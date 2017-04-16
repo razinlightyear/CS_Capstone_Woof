@@ -465,10 +465,21 @@ ld = LostDog.create(description: "I lost my dog")
 am = AroundMe.create(around_me_event: ld, latitude: 40.5513, longitude: -112.20)
 e = Event.create(pet_event: am, pet: coco, user: diego)
 
+# Create an event2
+ld = LostDog.create(description: "I lost my dog no 2")
+am = AroundMe.create(around_me_event: ld, latitude: 41.3149, longitude: -111.59)
+e = Event.create(pet_event: am, pet: coco, user: diego)
+
+# Create an event2
+ld = LostDog.create(description: "I lost my dog no 2")
+am = AroundMe.create(around_me_event: ld, latitude: 41.4962, longitude: -112.582)
+e = Event.create(pet_event: am, pet: coco, user: diego)
+
 fd = FoundDog.new(description: "I found a brown/white dog. It's ugly")
 fd.breed = Breed.where('name LIKE ?',"%labrador%").first
 fd.weight = Weight.last # Biggest weight range, over 100 lbs
 fd.colors = Color.where(name: ["brown","white"])
 fd.save
+
 am2 = AroundMe.create(around_me_event: fd, latitude: 40.463, longitude: -111.632)
 e2 = Event.create(pet_event: am2, user: andrew)
