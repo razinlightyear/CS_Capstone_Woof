@@ -26,6 +26,9 @@ class AroundMeController < ApplicationController
     ld = LostDog.create(description: params[:description])
     am = AroundMe.create(around_me_event: ld, latitude: params[:latitude], longitude: params[:longitude])
     e = Event.create(pet_event: am, pet_id: params[:pet_id], user_id: params[:user_id])
+
+    #render "/show/2"
+    format.html {render :index, notice: "You created a lost dog"}
     render plain: "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"
   end
   private

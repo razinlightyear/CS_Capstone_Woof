@@ -27,9 +27,21 @@
   <%= submit_tag("Create Event") %>
 <% end %>
 
+  <div id="closeButton">
+     <button onclick="closeForm()">Close</button> 
+  </div>
+
 <script>
 
   $("#lost_dog_event").hide();
+  $("#closeButton").hide();
+
+  function closeForm()
+  {
+    $("#lost_dog_event").hide();
+    $("#closeButton").hide();
+    document.getElementById("lost_dog_event").description.value = " ";
+  }
 
   var mapOption = {
                       center: {lat: 40.7608, lng: -111.8910},
@@ -72,6 +84,7 @@
         //console.log("Latitude is : "  + latitude);
         //console.log("Longitude is : "  + longitude);
         $("#lost_dog_event").show();
+        $("#closeButton").show();
 
         document.getElementById("lost_dog_event").latitude.value = latitude;
         document.getElementById("lost_dog_event").longitude.value = longitude;
