@@ -15,9 +15,7 @@ class AroundMeController < ApplicationController
       @around_me_locations.push(around_me.pet_event)
     end
 
-    #gon.pets = @pets
     gon.around_me_events = @around_me_locations
-    #gon.user = @user
 
     return @around_me_events
   end
@@ -26,7 +24,12 @@ class AroundMeController < ApplicationController
     ld = LostDog.create(description: params[:description])
     am = AroundMe.create(around_me_event: ld, latitude: params[:latitude], longitude: params[:longitude])
     e = Event.create(pet_event: am, pet_id: params[:pet_id], user_id: params[:user_id])
-    render plain: "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"
+
+    respond_to do |format|
+      format.js{ render 'around_me/lost_dog_event_creation', :locals => {:latitude => params[:latitude] , :longitude => params[:longitude]} }
+      
+      format.json{ render plain:  "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"}
+    end
   end
   private
   
