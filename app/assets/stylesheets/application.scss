@@ -13,8 +13,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
+//= require font-awesome
 //= require_self
 //= require_tree .
 
 @import "bootstrap";
-
+@import "font-awesome";
