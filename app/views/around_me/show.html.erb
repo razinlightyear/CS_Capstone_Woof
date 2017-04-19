@@ -1,26 +1,41 @@
-<!--<%= stylesheet_link_tag '/around_mes.css' %>
-<h1>AroundMe for <%="#{@user.first_name} #{@user.last_name}"%></h1>
-<% @around_me_events.each do |event|%>
-  <% around_me = event.pet_event %>
-  <p><%="id #{around_me.id}, longitude #{around_me.longitude}, latitude #{around_me.latitude}"%></p>
-<% end %>-->
-<!--<head>
-  <link rel = "stylesheet" href="style.css">
-</head>-->
-<!-- <%= javascript_include_tag 'around_mes', 'data-turbolinks-track': 'reload' %>
-<%= stylesheet_link_tag    'around_mes', media: 'all', 'data-turbolinks-track': 'reload' %> -->
-
 <h1>Map</h1>
 <div id="map-canvas"></div>
 
+<%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>
+  <%= label_tag(:user_id, "User ID") %>
+  <%= text_field_tag(:user_id, @user.id, :readonly => true) %><br>
+  <%= label_tag(:pet_id, "Pet ID") %>
+  <%= text_field_tag(:pet_id, @pets[0].id, :readonly => true) %><br><!-- You have to changee this to dynamically select the pet-->
+  <%= label_tag(:latitude, "Latitude") %>
+  <%= text_field_tag (:latitude) %><br>
+  <%= label_tag(:longitude, "Longitude") %>
+  <%= text_field_tag (:longitude) %><br>
+  <%= label_tag(:description, "Description") %>
+  <%= text_field_tag (:description) %><br>
+  <%= submit_tag("Create Event") %>
+<% end %>
+
+  <div id="closeButton">
+     <button onclick="closeForm()">Close</button> 
+  </div>
+
 <script>
+
+  closeForm();
+
+  var map;
+
+  function closeForm()
+  {
+    $("#lost_dog_event").hide();
+    $("#closeButton").hide();
+    document.getElementById("lost_dog_event").description.value = " ";
+  }
 
   var mapOption = {
                       center: {lat: 40.7608, lng: -111.8910},
                       zoom: 8
                   }
-
-    var map;
 
     function initMap() 
     {
@@ -38,13 +53,24 @@
           position: co_ordinates,
           map: map
         });
-      }  
-      /*google.maps.event.addListener(map, 'click', function(event){
-        var marker = new google.maps.Marker({
-          position: event.latLng,
-          map: map
-        });
-      });*/
+      }
+      activateClick();
+    }
+
+    function activateClick()
+    {
+       google.maps.event.addListener(map, 'click', function(event){
+
+        // Take the description from the user
+
+        var latitude = event.latLng.lat();
+        var longitude = event.latLng.lng();
+        $("#lost_dog_event").show();
+        $("#closeButton").show();
+
+        document.getElementById("lost_dog_event").latitude.value = latitude;
+        document.getElementById("lost_dog_event").longitude.value = longitude;
+      });
     }
       
 </script>

@@ -9,7 +9,6 @@ class AroundMeController < ApplicationController
     @pets = Pet.where(group: @user.groups).includes(:breed,:weight,:colors) # The "logged in" user's pets (so they can create a lost dog event)
     # If you find yourself needing to eager load on a specfic polymorphic associations, try this gem 'activerecord_lax_includes'
     @around_me_events = Event.where(pet_event_type: "AroundMe").includes(:user,pet: [:colors,:breed,:weight],pet_event: :around_me_event)
-
     @around_me_locations = Array.new();
 
     @around_me_events.each do |around_me|
@@ -17,6 +16,7 @@ class AroundMeController < ApplicationController
     end
 
     gon.around_me_events = @around_me_locations
+
     return @around_me_events
   end
   
@@ -24,7 +24,12 @@ class AroundMeController < ApplicationController
     ld = LostDog.create(description: params[:description])
     am = AroundMe.create(around_me_event: ld, latitude: params[:latitude], longitude: params[:longitude])
     e = Event.create(pet_event: am, pet_id: params[:pet_id], user_id: params[:user_id])
-    render plain: "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"
+
+    respond_to do |format|
+      format.js{ render 'around_me/lost_dog_event_creation', :locals => {:latitude => params[:latitude] , :longitude => params[:longitude]} }
+      
+      format.json{ render plain:  "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"}
+    end
   end
   private
   
