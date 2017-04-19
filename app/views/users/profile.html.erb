@@ -1,170 +1,136 @@
 <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-<% @groups.each do |g| %>
-  <%= g.name %></br>
-  <%= g.users.pluck(:first_name) %></br>
-  <%= g.pets.pluck(:name) %>
-<% end %>
-<!-- I'm just printing the stuff out for debugging purposes now -->
-      <div class="card">
-        <div class="card-block">
 
-      
-          <ul class="nav nav-tabs">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Group 1</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Group 2</a>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="btn btn-outline-primary">New Group</button>
-            </li>
-          </ul>
+<div class="card">
+  <div class="card-block">
+    <!-- Create group buttons -->
+    <ul class="nav nav-tabs" role="tablist">
+      <% @groups.each_with_index do |g,i| %>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if i==0 %>" data-toggle="tab" href="#group_<%=i%>" role="tab"><%= g.name %></a>
+        </li>
+      <% end %>
+      <li class="nav-item">
+        <button type="button" class="btn btn-outline-primary">New Group</button>
+      </li>
+    </ul>
+    <div class="tab-content">
+     <% @groups.each_with_index do |g,i| %>
+      <div class="tab-pane fade <%= 'show active' if i==0 %>" id="group_<%=i%>" role="tabpanel">
+        <div class="row vdivide">
+          
+          <!-- Pets Section -->
+          <div class="col-sm-6"><!-- Column that takes up half the row -->
+            <div class="card" style="height: 650px;">
+             <h3 class="card-header">Pets</h3>
+             <div class="card-block">
+               <div id="pet_accordion_<%=i%>" role="tablist" aria-multiselectable="true">
 
-          <!--<div class="card-deck">-->
-          <div class="row vdivide">
-            <div class="col-sm-6">
-    
-              <div class="card" style="height: 650px;">
-                <h3 class="card-header">Pets</h3>
-                <div class="card-block">
-                  <div id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="card">
-                      <div class="card-header" role="tab" id="headingOne">
+                   
+                 <% g.pets.each_with_index do |p,j| %>
+                   <div class="card">
+                      <div class="card-header" role="tab" id="heading_group_<%=i%>_pet_<%=j%>">
                         <h5 class="mb-0">
                           <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                             Coco<!-- New Pet -->
+                          <a class="collapsed" data-toggle="collapse" data-parent="#pet_accordion_<%=i%>" href="#collapse_group_<%=i%>_pet_<%=j%>" aria-expanded="false" aria-controls="collapse_group_<%=i%>_pet_<%=j%>">
+                            <%=p.name%>
                           </a>
                         </h5>
                       </div>
-
-                      <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                      <div id="collapse_group_<%=i%>_pet_<%=j%>" class="collapse<%= ' show' if j==0 %>" role="tabpanel" aria-labelledby="heading_group_<%=i%>_pet_<%=j%>">
                         <div class="card-block">
-                              
-                           <table class="table table-sm">
-                                <tbody>
-                                    <tr><td><p class="text-muted"><strong>Name</strong></p></td><td>Coco</td></tr>
-                                    <tr><td><p class="text-muted"><strong>ID tag#</strong></p></td><td>123456789</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Breed</strong></p></td><td>Shitzu</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Weight</strong></p></td><td>&lt; 10 lbs</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Color</strong></p></td><td>white</td></tr>
-                                </tbody>
-                              </table>
-                              <button class="btn btn-info btn-sm">Edit</button>
-                              <button class="btn btn-danger btn-sm float-right">Remove Pet</button>
-                              
-                            
-                            <!--<table class="table table-sm">
-                                <tbody>
-                                    <tr><td><p class="text-muted"><strong>Name</strong></p></td><td><input type="text" class="form-control" value="Coco"></td></tr>
-                                    <tr><td><p class="text-muted"><strong>ID tag#</strong></p></td><td><input type="number" class="form-control" value="123456789"></td></tr>
-                                    <tr><td><p class="text-muted"><strong>Breed</strong></p></td><td><select class="form-control"><option>Shitzu</option></select></td></tr>
-                                    <tr><td><p class="text-muted"><strong>Weight</strong></p></td><td><select class="form-control"><option>&lt; 10 lbs</option></select></td></tr>
-                                    <tr><td><p class="text-muted"><strong>Color</strong></p></td><td><select class="form-control"><option>white</option></select></td></tr>
-                                </tbody>
-                              </table>
-                              <button class="btn btn-info btn-sm">Save</button>
-                              -->
+                          <table class="table table-sm">
+                            <tbody>
+                              <tr>
+                                <td><p class="text-muted"><strong>Name</strong></p></td>
+                                <td><%=p.name%></td>
+                              </tr>
+                              <tr>
+                                <td><p class="text-muted"><strong>Breed</strong></p></td>
+                                <td><%=p.breed.name%></td>
+                              </tr>
+                              <tr>
+                                <td><p class="text-muted"><strong>Weight</strong></p></td>
+                                <td><%=p.weight.start_weight%> lbs - <%=p.weight.end_weight%> lbs</td>
+                              </tr>
+                              <tr>
+                                <td><p class="text-muted"><strong>Colors</strong></p></td>
+                                <td>
+                                  <% p.colors.each do |c| %>
+                                    <span class="badge badge-default"><%=c.name%></span>
+                                  <% end %>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <button class="btn btn-info btn-sm">Edit</button>
+                          <button class="btn btn-danger btn-sm float-right">Remove Pet</button>
                         </div>
                       </div>
-                    </div>
-                  
-                  <div class="card">
-                      <div class="card-header" role="tab" id="headingTwo">
-                        <h5 class="mb-0">
-                          <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
-                          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Sadie
-                          </a>
-                        </h5>
-                      </div>
+                    </div><!-- <%= p.name %> -->
+                  <% end %>
+                   
 
-                      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="card-block">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr><td><p class="text-muted"><strong>Name</strong></p></td><td>Sadie</td></tr>
-                                    <tr><td><p class="text-muted"><strong>ID tag#</strong></p></td><td>987654323</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Breed</strong></p></td><td>Lab</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Weight</strong></p></td><td>50 - 60 lbs</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Color</strong></p></td><td>black</td></tr>
-                                </tbody>
-                              </table>
-                              <button class="btn btn-info btn-sm">Edit</button>
-                              <button class="btn btn-danger btn-sm float-right">Remove Pet</button>
-                        </div>
-                      </div>
-                    </div>
-
-
-                  </div>
-                  <button class="btn btn-outline-primary btn-sm float-right">Add Pet</button>
-                </div>
+                <button class="btn btn-outline-primary btn-sm float-right">Add Pet</button>
               </div>
-    
-
-            </div><!--  Pets-->
-            <div class="col-sm-6"><!-- -->
-              <div class="card" style="height: 650px;">
-                <h3 class="card-header">People</h3>
-                <div class="card-block">
-                  <div id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="card">
-                      <div class="card-header" role="tab" id="headingOne">
-                        <h5 class="mb-0">
-                          <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
-                          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Diego
-                          </a>
-                        </h5>
-                      </div>
-
-                      <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                        <div class="card-block">
-                              <table class="table">
-                                <tbody>
-                                    <tr><td><p class="text-muted"><strong>First Name</strong></p></td><td>Diego</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Last Name</strong></p></td><td>Pardo</td></tr>
-                                    <tr><td><p class="text-muted"><strong>username</strong></p></td><td>me&#64;diegopardo.com</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Group Owner</strong></p></td><td>Yes</td></tr>
-                                </tbody>
-                              </table>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="card">
-                      <div class="card-header" role="tab" id="headingTwo">
-                        <h5 class="mb-0">
-                          <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
-                          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            Maria
-                          </a>
-                        </h5>
-                      </div>
-
-                      <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-                        <div class="card-block">
-                            <table class="table">
-                                <tbody>
-                                    <tr><td><p class="text-muted"><strong>First Name</strong></p></td><td>Maria</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Last Name</strong></p></td><td>Pardo</td></tr>
-                                    <tr><td><p class="text-muted"><strong>username</strong></p></td><td>maria&#64;pardo.com</td></tr>
-                                    <tr><td><p class="text-muted"><strong>Group Owner</strong></p></td><td>No</td></tr>
-                                </tbody>
-                              </table>
-                              <button class="btn btn-danger btn-sm">Remove Person</button>
-                        </div>
-                      </div>
-                    </div>
+            </div>
+            </div><!-- Pet Card -->
+          </div><!--  Pets column -->
+          
+          <!-- User section -->
+          <div class="col-sm-6"><!-- Column that takes up half the row -->
+            <div class="card" style="height: 650px;">
+              <h3 class="card-header">People</h3>
+              <div class="card-block">
+                <div id="user_accordion_<%=i%>" role="tablist" aria-multiselectable="true">
                     
-                  </div>
-                  <button class="btn btn-outline-primary btn-sm float-right">Invite Person</button>
+                  <% g.users.each_with_index do |u,j| %>
+                    <div class="card">
+                      <div class="card-header" role="tab" id="heading_group_<%=i%>_user_<%=j%>">
+                        <h5 class="mb-0">
+                          <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
+                          <a class="collapsed" data-toggle="collapse" data-parent="#user_accordion_<%=i%>" href="#collapse_group_<%=i%>_user_<%=j%>" aria-expanded="false" aria-controls="collapse_group_<%=i%>_user_<%=j%>">
+                            <%=u.first_name%>
+                          </a>
+                        </h5>
+                      </div>
+                      
+                      <div id="collapse_group_<%=i%>_user_<%=j%>" class="collapse<%= ' show' if j==0 %>" role="tabpanel" aria-labelledby="heading_group_<%=i%>_user_<%=j%>">
+                        <div class="card-block">
+                          <table class="table">
+                            <tbody>
+                                <tr>
+                                  <td><p class="text-muted"><strong>First Name</strong></p></td>
+                                  <td><%=u.first_name%></td>
+                                </tr>
+                                <tr>
+                                  <td><p class="text-muted"><strong>Last Name</strong></p></td>
+                                  <td><%=u.last_name%></td>
+                                </tr>
+                                <tr>
+                                  <td><p class="text-muted"><strong>username</strong></p></td>
+                                  <td><%=u.email%></td>
+                                </tr>
+                                <tr>
+                                  <td><p class="text-muted"><strong>Group Owner</strong></p></td>
+                                  <td><i class="fa fa-<%=g.owner==u ? 'check' : 'times'%>" aria-hidden="true"></i></td>
+                                </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                  
                 </div>
+                <button class="btn btn-outline-primary btn-sm float-right">Invite Person</button>
               </div>
-            </div><!--  People -->
-          </div><!--  row vdivide -->
-          <!--</div> card deck -->
-        </div>
-      </div><!-- card -->
+            </div>
+          </div><!--  People -->
+          
+          
+        </div><!--  row vdivide -->
+       </div><!-- tab pane -->
+     <% end %><!-- group loop -->
+    </div><!-- tab content -->
+  </div><!-- card block -->
+</div><!-- card -->
