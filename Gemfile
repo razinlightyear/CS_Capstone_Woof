@@ -36,6 +36,12 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 gem 'bootstrap', '~> 4.0.0.alpha6'
 
+# Load environment variables from the .env file
+gem 'dotenv', '~> 2.2'
+
+# Use nice icons from http://fontawesome.io/
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
+
 # Bootstrap tooltips
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
@@ -57,3 +63,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Added by readme
+gem 'gon'

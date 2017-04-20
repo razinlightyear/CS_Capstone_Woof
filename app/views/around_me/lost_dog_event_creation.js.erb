@@ -1,0 +1,16 @@
+/*
+    It is called when a new around_me event is created.
+*/
+
+var new_co_ordinates = {lat: parseFloat(latitude.value),
+                        lng: parseFloat(longitude.value) };
+
+var hello = 23;
+
+
+closeForm();
+
+var marker = new google.maps.Marker({
+    position: new_co_ordinates,
+    map: map
+});

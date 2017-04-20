@@ -1,2 +1,3 @@
-json.extract! user, :id, :first_name, :last_name, :email, :created_at, :updated_at
-json.url user_url(user, format: :json)
+json.extract! user, :id, :first_name, :last_name, :email
+json.group_ids  user.groups.pluck :id
+json.group_names  user.groups.pluck :name

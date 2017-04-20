@@ -3,25 +3,24 @@
 ## Configuration  
   **Mac**  
   _Install brew_  
-	• Go to https://brew.sh/  
-	• Paste the line in terminal and follow the directions
+  * `$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` https://brew.sh/  
 
   _Install rvm (ruby version manager)_  
-`$ curl -L get.rvm.io | bash`  
-	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
-`[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
-  _Follow the Database initialization_
-  * Follow the Database initilaization below
+* `$ curl -L get.rvm.io | bash`  
+* Make sure this line is in your `~/.profile` so that it's loaded for every terminal session:  
+   `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
   _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
   _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
 	`$ rvm gemset create woof`  
   _Switch to the woof gemset_  
-	`$ rvm use 2.4.0@woof`  
-
+	`$ rvm --default use 2.4.0@woof`  
+  _Database initialization_  
+* Follow the Database initilaization below  
   _Install Rails!_  
 	`$ gem install rails -v 5.0.2`
-
+  _Database creation_  
+* Follow the Database creation below
   _Get the Codes_  
 	• Fork the repo https://github.com/andycho7/CS_Capstone_Woof  
 	• Navigate to where you want the project  
@@ -39,8 +38,8 @@
 `$ curl -L get.rvm.io | bash`  
 	Make sure this line is in your `~/.profile` so that it's loaded for every terminal session  
 `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"`  
-  _Follow the Database initialization_
-  * Follow the Database initilaization below
+  _Database initialization_
+  * Follow the Database initilaization below  
   _Install the latest stable version of ruby (as of 3/12/2017)_  
 	`$ rvm install 2.4.0`  
   _Create a gemset for our application (Do this so that you can isolate your ruby dependencies)_  
@@ -50,14 +49,29 @@
 
   _Install Rails!_  
 	`$ gem install rails -v 5.0.2`
-
+  _Database creation  
+  * Follow the Database creation below
   _Get the Codes_  
 	• Fork the repo https://github.com/andycho7/CS_Capstone_Woof  
 	• Navigate to where you want the project  
 	• Clone the forked repo  
 ## Database creation
 In your rails app directory, run the database migration  
-	`$ rake db:migrate`
+* `$ rails db:create`  
+* `$ rails db:migrate`  
+## Environment variables  
+We are using `dotenv` to load environment variables from the `.env` file in your directory. Make sure that the `.env` file exists. Credentials for the database are expected in the `config/database.yml` file. We will eventually add secret credentials for production. 
+## Authentication 
+I did something really bad and set SSL to not verify `config/application.rb`. REMOVE THIS LINE BEFORE DEPLOYING. 
+#### db commands  
+* `$ rails db:drop && rails db:create && rails db:migrate && rails db:seed` I've had problems reseting the db so I've used this command
+* `$ rails db:migrate` runs (single) migrations that have not run yet.  
+* `$ rails db:create` creates the database  
+* `$ rails db:drop` deletes the database  
+* `$ rails db:schema:load` creates tables and columns within the (existing) database following schema.rb  
+* `$ rails db:setup` does db:create, db:schema:load, db:seed  
+* `$ rails db:reset` does db:drop, db:setup  
+* `$ rails db:seed` this populates the database with stuff in the db/seed.rb  
 ## Database initialization
 Install mysql with brew (follow the configuration process above to install brew)  
   	`$ brew install mysql`  
@@ -69,11 +83,10 @@ _MySQL Client_
 	The database credentials are saved in app/config/database.yml  
 ## Common commands  
 * Run rails server  
-In the application directory:  
-```
-$ rails s
-```
+`$ rails s` make sure your in the application directory  
 The server is accepting requests at localhost:3000  
+* Run rails console  
+`$ rails c` make sure your in the application directory
 * Ruby version  
 ```
 $ ruby -v
