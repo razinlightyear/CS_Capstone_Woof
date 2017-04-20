@@ -20,7 +20,7 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Stuff
+              Admin
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <%= link_to "Users", users_path, class: "dropdown-item" %>
@@ -30,7 +30,7 @@
           </li>
         </ul>
         <!-- the below line is for Woof Logo-->
-        <%= link_to(image_tag("sarina.regular.png", class: 'image-responsive', width: 122, height: 42), root_path, :method => :get, class: 'mx-auto') %>
+        <%= link_to(image_tag("sarina.regular.png", class: 'image-responsive', width: 122, height: 42), root_path, :method => :get, class: 'abs-center-x') %>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

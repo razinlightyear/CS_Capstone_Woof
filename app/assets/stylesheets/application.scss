@@ -18,3 +18,9 @@
 
 @import "bootstrap";
 @import "font-awesome";
+
+.abs-center-x {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
