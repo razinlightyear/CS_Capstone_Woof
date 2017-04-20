@@ -19,6 +19,19 @@ var infoWindow = new google.maps.InfoWindow({
     content: marker_description
 });
 
+google.maps.event.addListener(marker, 'click', (function(marker, marker_description,infoWindow){
+    return function()
+    {
+    // infoWindow.setContent(this.html);
+    infoWindow.setContent(marker_description);
+    infoWindow.open(map, marker);
+    };
+})(marker, marker_description, infoWindow));
+
+/*
+
 google.maps.event.addListener(marker, 'click', function(){
+    // infoWindow.setContent(this.html);
     infoWindow.open(map, this)
 });
+*/
