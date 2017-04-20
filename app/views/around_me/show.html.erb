@@ -41,6 +41,10 @@
     {
       map = new google.maps.Map(document.getElementById('map-canvas'), mapOption);
 
+      //console.log("The event is : " + gon.around_me_events[1]);
+     // console.log("The description length is : " + gon.descriptions.length);
+     // console.log("The around_me_events length is : " + gon.around_me_events.length);
+      
       for(var i = 0; i < gon.around_me_events.length; i++)
       {
         var latitude = gon.around_me_events[i].latitude;
@@ -51,8 +55,17 @@
 
         var marker = new google.maps.Marker({
           position: co_ordinates,
-          map: map
+          map: map,
         });
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: gon.descriptions[i]
+        });
+
+        google.maps.event.addListener(marker, 'click', function(){
+          infoWindow.open(map, this)
+        });
+        
       }
       activateClick();
     }
