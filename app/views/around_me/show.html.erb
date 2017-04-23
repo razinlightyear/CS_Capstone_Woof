@@ -1,11 +1,12 @@
-<h1>Map</h1>
-<div id="map-canvas"></div>
+<div id="map" class = "abs-center-x"></div>
 
 <%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>
   <%= label_tag(:user_id, "User ID") %>
   <%= text_field_tag(:user_id, @user.id, :readonly => true) %><br>
+
+  
   <%= label_tag(:pet_id, "Pet ID") %>
-  <%= text_field_tag(:pet_id, @pets[0].id, :readonly => true) %><br><!-- You have to changee this to dynamically select the pet-->
+  <%= text_field_tag(:pet_id, @pets[0].id, :readonly => true) %><br><!-- You have to change this to dynamically select the pet-->
   <%= label_tag(:latitude, "Latitude") %>
   <%= text_field_tag (:latitude) %><br>
   <%= label_tag(:longitude, "Longitude") %>
@@ -39,7 +40,7 @@
 
     function initMap() 
     {
-      map = new google.maps.Map(document.getElementById('map-canvas'), mapOption);
+      map = new google.maps.Map(document.getElementById('map'), mapOption);
       //console.log("The event is : " + gon.around_me_events[1]);
      // console.log("The description length is : " + gon.descriptions.length);
      // console.log("The around_me_events length is : " + gon.around_me_events.length);
