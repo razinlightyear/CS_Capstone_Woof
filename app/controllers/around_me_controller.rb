@@ -10,7 +10,6 @@ class AroundMeController < ApplicationController
     # If you find yourself needing to eager load on a specfic polymorphic associations, try this gem 'activerecord_lax_includes'
     @around_me_events = Event.where(pet_event_type: "AroundMe").includes(:user,pet: [:colors,:breed,:weight],pet_event: :around_me_event)
 
-
     @around_me_locations = Array.new();
     @descriptions = Array.new();
 
