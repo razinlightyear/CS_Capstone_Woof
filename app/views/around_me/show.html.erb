@@ -1,3 +1,4 @@
+<h1>User: <%= @user.first_name  + " " + @user.last_name %></h1>
 <div id="map" class = "abs-center-x"></div>
 
 <% @pet_name_id = Array.new %>
@@ -9,8 +10,9 @@
 <% end %>
 
 <%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>
-  <%= label_tag(:user_id, "User ID") %>
-  <%= text_field_tag(:user_id, @user.id, :readonly => true) %><br>
+  <%= hidden_field_tag(:user_id, @user.id) %>
+  <%= label_tag(:user_name, "User") %>
+  <%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>
   <%= label_tag(:pet_id, "Pet") %>
   <%= select_tag(:pet_id, options_for_select(@pet_name_id)) %><br>
   <%= label_tag(:latitude, "Latitude") %>
