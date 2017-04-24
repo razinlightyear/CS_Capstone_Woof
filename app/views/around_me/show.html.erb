@@ -11,8 +11,8 @@
 <%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>
   <%= label_tag(:user_id, "User ID") %>
   <%= text_field_tag(:user_id, @user.id, :readonly => true) %><br>
-  <%= label_tag(:pet_id, "Pet ID") %>
-  <%= select_tag(:pet_id_2, options_for_select(@pet_name_id)) %><br>
+  <%= label_tag(:pet_id, "Pet") %>
+  <%= select_tag(:pet_id, options_for_select(@pet_name_id)) %><br>
   <%= label_tag(:latitude, "Latitude") %>
   <%= text_field_tag (:latitude) %><br>
   <%= label_tag(:longitude, "Longitude") %>
