@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #5DC8C4;">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,10 +31,6 @@
         </ul>
         <!-- the below line is for Woof Logo-->
         <%= link_to(image_tag("sarina.regular.png", class: 'image-responsive', width: 122, height: 42), root_path, :method => :get, class: 'abs-center-x') %>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
     <div class = "container">
@@ -42,7 +38,7 @@
       <%= yield %>
     </div>
     </div>
-    <div class="footer" style="background-color: #e3f2fd;">
+    <div class="footer" style="background-color: #5DC8C4;">
       <div class="copyright" style="text-align: center">
         <!--The below line prints the 'W'' logo-->
         <%= link_to(image_tag("letter-w.svg", class: 'image-responsive', width: 30, height: 30), root_path, :method => :get) %>
