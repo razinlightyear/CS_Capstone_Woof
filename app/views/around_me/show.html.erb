@@ -74,8 +74,6 @@
         var marker_description = gon.descriptions[i];
         infoWindow = new google.maps.InfoWindow();
 
-        console.log("Description is: " + gon.descriptions[i]);
-
         google.maps.event.addListener(marker, 'click', (function(marker, marker_description, infoWindow){
           return function()
           {
