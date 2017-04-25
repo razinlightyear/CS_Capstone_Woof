@@ -5,8 +5,8 @@
 var new_co_ordinates = {lat: parseFloat(latitude.value),
                         lng: parseFloat(longitude.value) };
 
-var hello = 23;
 
+var marker_description = description.value;
 
 closeForm();
 
@@ -14,3 +14,16 @@ var marker = new google.maps.Marker({
     position: new_co_ordinates,
     map: map
 });
+
+var infoWindow = new google.maps.InfoWindow({
+    content: marker_description
+});
+
+google.maps.event.addListener(marker, 'click', (function(marker, marker_description,infoWindow){
+    return function()
+    {
+    // infoWindow.setContent(this.html);
+    infoWindow.setContent(marker_description);
+    infoWindow.open(map, marker);
+    };
+})(marker, marker_description, infoWindow));

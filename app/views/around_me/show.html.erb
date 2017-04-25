@@ -1,11 +1,20 @@
-<h1>Map</h1>
-<div id="map-canvas"></div>
+<h1>User: <%= @user.first_name  + " " + @user.last_name %></h1>
+<div id="map" class = "abs-center-x"></div>
+
+<% @pet_name_id = Array.new %>
+<% @pets.each do |pet| %>
+  <% @petInfo = Array.new %>
+  <% @petInfo.push(pet.name) %>
+  <% @petInfo.push(pet.id) %>
+  <% @pet_name_id.push(@petInfo) %>
+<% end %>
 
 <%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>
-  <%= label_tag(:user_id, "User ID") %>
-  <%= text_field_tag(:user_id, @user.id, :readonly => true) %><br>
-  <%= label_tag(:pet_id, "Pet ID") %>
-  <%= text_field_tag(:pet_id, @pets[0].id, :readonly => true) %><br><!-- You have to changee this to dynamically select the pet-->
+  <%= hidden_field_tag(:user_id, @user.id) %>
+  <%= label_tag(:user_name, "User") %>
+  <%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>
+  <%= label_tag(:pet_id, "Pet") %>
+  <%= select_tag(:pet_id, options_for_select(@pet_name_id)) %><br>
   <%= label_tag(:latitude, "Latitude") %>
   <%= text_field_tag (:latitude) %><br>
   <%= label_tag(:longitude, "Longitude") %>
@@ -39,7 +48,16 @@
 
     function initMap() 
     {
-      map = new google.maps.Map(document.getElementById('map-canvas'), mapOption);
+      map = new google.maps.Map(document.getElementById('map'), mapOption);
+      //console.log("The event is : " + gon.around_me_events[1]);
+     // console.log("The description length is : " + gon.descriptions.length);
+     // console.log("The around_me_events length is : " + gon.around_me_events.length);
+
+     //for()
+     //{
+
+     //}
+      var infoWindow = null;
 
       for(var i = 0; i < gon.around_me_events.length; i++)
       {
@@ -51,8 +69,29 @@
 
         var marker = new google.maps.Marker({
           position: co_ordinates,
-          map: map
+          map: map,
         });
+
+        // debugger;
+        var marker_description = gon.descriptions[i];
+        infoWindow = new google.maps.InfoWindow();
+
+        google.maps.event.addListener(marker, 'click', (function(marker, marker_description, infoWindow){
+          return function()
+          {
+            // infoWindow.setContent(this.html);
+            infoWindow.setContent(marker_description);
+            infoWindow.open(map, marker);
+          };
+        })(marker, marker_description, infoWindow));
+
+        /*google.maps.event.addListener(marker, 'click',(function(marker,marker_description, infoWindow){
+          return function(){
+            infoWindow.setContent(marker_description)
+            infoWindow.open(map, marker);
+          };
+        })(marker, marker_description, infoWindow));*/
+
       }
       activateClick();
     }
