@@ -122,8 +122,9 @@
                         '<%= hidden_field_tag(:user_id, @user.id) %>' +
                         '<%= label_tag(:user_name, "User") %><br>' +
                         '<%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>' +
-                        '<%= label_tag(:pet_id, "Pet") %>'+
-                        '<%= text_field_tag(:pet_id, @pets[0].id , :readonly => true) %><br>'+
+                        '<%= hidden_field_tag(:pet_id, @pets[0].id ) %>'+
+                        '<%= label_tag(:pet_name, "Pet") %>'+
+                        '<%= text_field_tag(:pet_name, @pets[0].name , :readonly => true) %><br>'+
                         '<%= label_tag(:latitude, "Latitude") %>' +
                         '<%= text_field_tag (:latitude) %><br>' +
                         '<%= label_tag(:longitude, "Longitude") %>' +
