@@ -24,11 +24,14 @@ class PetsController < ApplicationController
   # POST /pets
   # POST /pets.json
   def create
+    puts params[:group_index]
+    puts params[:next_pet_index]
     @pet = Pet.new(pet_params)
 
     respond_to do |format|
       if @pet.save
         format.html { redirect_to @pet, notice: 'Pet was successfully created.' }
+        format.js   { render 'pets/create', status: :created, pet: @pet, group_index: params[:group_index], next_pet_index: params[:next_pet_index]}
         format.json { render :show, status: :created, location: @pet }
       else
         format.html { render :new }
@@ -69,6 +72,6 @@ class PetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pet_params
-      params.require(:pet).permit(:name, :group_id, :breed_id, :weight_id, :color_ids)
+      params.require(:pet).permit(:name, :group_id, :breed_id, :weight_id, :chip_number, color_ids: [])
     end
 end
