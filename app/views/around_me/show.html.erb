@@ -1,37 +1,14 @@
 <h1>User: <%= @user.first_name  + " " + @user.last_name %></h1>
 <div id="map" class = "abs-center-x"></div>
 
-
-<% $pet_name_id = Array.new %>
+<% @pet_name_id = Array.new %>
 <% @pets.each do |pet| %>
-  <% @petInfo = Array.new %>
-  <% @petInfo.push(pet.name) %>
-  <% @petInfo.push(pet.id) %>
-  <% $pet_name_id.push(@petInfo) %>
+  <% @pet_info = Array.new %>
+  <% @pet_info.push(pet.id) %>  
+  <% @pet_info.push(pet.name) %>
+  <% @pet_name_id.push(@pet_info) %>
 <% end %>
-
-<!-- You have changed this-->
-<!--
-<%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event2", remote: true) do %>
-  <%= hidden_field_tag(:user_id, @user.id) %>
-  <%= label_tag(:user_name, "User") %>
-  <%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>
-  <%= label_tag(:pet_id, "Pet") %>
-  <%= select_tag(:pet_id, options_for_select($pet_name_id)) %><br>
-  <%= label_tag(:latitude, "Latitude") %>
-  <%= text_field_tag (:latitude) %><br>
-  <%= label_tag(:longitude, "Longitude") %>
-  <%= text_field_tag (:longitude) %><br>
-  <%= label_tag(:description, "Description") %>
-  <%= text_field_tag (:description) %><br>
-  <%= submit_tag("Create Event") %>
-<% end %>
-
-  <div id="closeButton">
-     <button onclick="closeForm()">Close</button> 
-  </div>
-  -->
-
+<%= @pet_name_id %>
 <script>
 
   //closeForm();
