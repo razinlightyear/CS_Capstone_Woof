@@ -5,10 +5,16 @@
 var new_co_ordinates = {lat: parseFloat(latitude.value),
                         lng: parseFloat(longitude.value) };
 
-
 var marker_description = description.value;
 
-closeForm();
+console.log("Event window is:  ");
+
+//closeForm();
+if(event_window != null)
+{
+    event_window.close();
+}
+
 
 var marker = new google.maps.Marker({
     position: new_co_ordinates,
@@ -22,8 +28,8 @@ var infoWindow = new google.maps.InfoWindow({
 google.maps.event.addListener(marker, 'click', (function(marker, marker_description,infoWindow){
     return function()
     {
-    // infoWindow.setContent(this.html);
-    infoWindow.setContent(marker_description);
-    infoWindow.open(map, marker);
+        infoWindow.setContent(marker_description);
+        infoWindow.open(map, marker);
     };
 })(marker, marker_description, infoWindow));
+

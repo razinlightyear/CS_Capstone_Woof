@@ -1,20 +1,23 @@
 <h1>User: <%= @user.first_name  + " " + @user.last_name %></h1>
 <div id="map" class = "abs-center-x"></div>
 
-<% @pet_name_id = Array.new %>
+
+<% $pet_name_id = Array.new %>
 <% @pets.each do |pet| %>
   <% @petInfo = Array.new %>
   <% @petInfo.push(pet.name) %>
   <% @petInfo.push(pet.id) %>
-  <% @pet_name_id.push(@petInfo) %>
+  <% $pet_name_id.push(@petInfo) %>
 <% end %>
 
-<%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>
+<!-- You have changed this-->
+<!--
+<%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event2", remote: true) do %>
   <%= hidden_field_tag(:user_id, @user.id) %>
   <%= label_tag(:user_name, "User") %>
   <%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>
   <%= label_tag(:pet_id, "Pet") %>
-  <%= select_tag(:pet_id, options_for_select(@pet_name_id)) %><br>
+  <%= select_tag(:pet_id, options_for_select($pet_name_id)) %><br>
   <%= label_tag(:latitude, "Latitude") %>
   <%= text_field_tag (:latitude) %><br>
   <%= label_tag(:longitude, "Longitude") %>
@@ -27,19 +30,22 @@
   <div id="closeButton">
      <button onclick="closeForm()">Close</button> 
   </div>
+  -->
 
 <script>
 
-  closeForm();
+  //closeForm();
 
   var map;
+  var event_window = null;
+  var infoWindow = null;
 
-  function closeForm()
+  /*function closeForm()
   {
     $("#lost_dog_event").hide();
     $("#closeButton").hide();
     document.getElementById("lost_dog_event").description.value = " ";
-  }
+  }*/
 
   var mapOption = {
                       center: {lat: 40.7608, lng: -111.8910},
@@ -49,18 +55,12 @@
     function initMap() 
     {
       map = new google.maps.Map(document.getElementById('map'), mapOption);
-      //console.log("The event is : " + gon.around_me_events[1]);
-     // console.log("The description length is : " + gon.descriptions.length);
-     // console.log("The around_me_events length is : " + gon.around_me_events.length);
-
-     //for()
-     //{
-
-     //}
-      var infoWindow = null;
 
       for(var i = 0; i < gon.around_me_events.length; i++)
       {
+        console.log("The around me is below:");
+        console.log(gon.around_me_events[i]);
+        console.log("This is the end of around me");
         var latitude = gon.around_me_events[i].latitude;
         var longitude = gon.around_me_events[i].longitude;
 
@@ -72,8 +72,10 @@
           map: map,
         });
 
-        // debugger;
-        var marker_description = gon.descriptions[i];
+        var marker_description = "";
+        marker_description+= "<p><b>Event Type:</b> "+gon.around_me_events[i].around_me_event_type+"</p>";
+        marker_description+= "<p><b>Description:</b>"+gon.descriptions[i]+"</p>";
+
         infoWindow = new google.maps.InfoWindow();
 
         google.maps.event.addListener(marker, 'click', (function(marker, marker_description, infoWindow){
@@ -84,14 +86,6 @@
             infoWindow.open(map, marker);
           };
         })(marker, marker_description, infoWindow));
-
-        /*google.maps.event.addListener(marker, 'click',(function(marker,marker_description, infoWindow){
-          return function(){
-            infoWindow.setContent(marker_description)
-            infoWindow.open(map, marker);
-          };
-        })(marker, marker_description, infoWindow));*/
-
       }
       activateClick();
     }
@@ -104,11 +98,51 @@
 
         var latitude = event.latLng.lat();
         var longitude = event.latLng.lng();
-        $("#lost_dog_event").show();
-        $("#closeButton").show();
+        //$("#lost_dog_event2").show();
+        //$("#closeButton").show();
+
+       // document.getElementById("lost_dog_event2").latitude.value = latitude;
+        //document.getElementById("lost_dog_event2").longitude.value = longitude;
+
+        var event_coordinates = {lat: latitude, lng: longitude}
+
+        if(event_window != null)
+        {
+          event_window.close();
+        }
+
+        event_window = new google.maps.InfoWindow({
+          position: event_coordinates,
+        });
+
+        var event_form = "";
+
+        // '<%= select_tag(:pet_id, options_for_select('+ #{@pet_name_id} + ')) %><br>'+
+        // '<%= text_field_tag(:pet_id, @pets[0].id , :readonly => true) %><br>'+
+        // '<%= select_tag(:pet_id, options_for_select("#{@pet_name_id}")) %><br>'+
+
+        event_form = '<%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>' +
+                        '<%= hidden_field_tag(:user_id, @user.id) %>' +
+                        '<%= label_tag(:user_name, "User") %><br>' +
+                        '<%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>' +
+                        '<%= label_tag(:pet_id, "Pet") %>'+
+                        '<%= text_field_tag(:pet_id, @pets[0].id , :readonly => true) %><br>'+
+                        '<%= label_tag(:latitude, "Latitude") %>' +
+                        '<%= text_field_tag (:latitude) %><br>' +
+                        '<%= label_tag(:longitude, "Longitude") %>' +
+                        '<%= text_field_tag (:longitude) %><br>' +
+                        '<%= label_tag(:description, "Description") %>' +
+                        '<%= text_field_tag (:description) %><br>' +
+                        '<%= submit_tag("Create Event") %>' +
+                      '<% end %>';
+
+        event_window.setContent(event_form);
+        event_window.open(map);
 
         document.getElementById("lost_dog_event").latitude.value = latitude;
         document.getElementById("lost_dog_event").longitude.value = longitude;
+        console.log("This is the super");
+        console.log(('#{@pet_name_id}'));
       });
     }
       
