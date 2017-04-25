@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403004242) do
+ActiveRecord::Schema.define(version: 20170425192835) do
 
   create_table "around_me", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.decimal  "longitude",            precision: 15, scale: 12
@@ -99,10 +99,11 @@ ActiveRecord::Schema.define(version: 20170403004242) do
   create_table "pets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "group_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "breed_id",   null: false
-    t.integer  "weight_id",  null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "breed_id",    null: false
+    t.integer  "weight_id",   null: false
+    t.string   "chip_number"
     t.index ["breed_id"], name: "index_pets_on_breed_id", using: :btree
     t.index ["group_id"], name: "index_pets_on_group_id", using: :btree
     t.index ["weight_id"], name: "index_pets_on_weight_id", using: :btree

@@ -31,7 +31,23 @@ $(document).ready ->
             </div>
            """
     return html
-  
+    
+  $('body').on 'click','.add-pet', ->
+    #$('.collapse.show').collapse('hide')
+    button = this
+    debugger
+    group_number = this.dataset.groupNumber
+    pet_count = this.dataset.petCount
+    group_id = this.dataset.groupId
+    $('#new-pet-card-'+group_number).show()
+    #$('.collapse.show').collapse('hide')
+    #$('#new-pet-card-'+group_number).collapse('show')
+    for i in [0..(pet_count-1)]
+      $('#collapse_group_'+group_number+'_pet_'+i).collapse('hide')
+    $('#collapse_group_'+group_number+'_pet_'+pet_count).collapse('show')
+    #$('#qwer'+group_number).collapse('show')
+    return
+###  
   $('.add-pet').click ->
     #console.log "click test"
     #console.log this
@@ -42,3 +58,4 @@ $(document).ready ->
     group_id = this.dataset.groupId
     $('#pet_accordion_'+group_number).append(newPetForm(group_number,pet_count,group_id))
     #debugger;
+###
