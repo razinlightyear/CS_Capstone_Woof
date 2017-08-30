@@ -463,26 +463,33 @@ sadie.weight = Weight.where(start_weight: 61, end_weight: 70).first
 sadie.colors = Color.where(name: ["black","white"]) # She's black and white
 sadie.save
 
-# Create an event
-ld = LostDog.create(description: "If you see her call 801-564-1354")
-am = AroundMe.create(around_me_event: ld, latitude: 40.5513, longitude: -112.20)
-e = Event.create(pet_event: am, pet: coco, user: diego)
+# Paarth, here are some commands that I tested in rails console
+# fd = FoundDog.new(description: "I found a brown/white dog. It's ugly", latitude: 40.463, longitude: -111.632, user: User.first, breed_id: 1, weight_id: 1, is_around_me: true)
+# fd.save!
+# ld = LostDog.create!(description: "If you see her call 801-564-1354", latitude: 40.5513, longitude: -112.20, user: diego, is_around_me: true, pet: coco)
+# f = Feeding.create!(amount: 2.5, latitude: 40.5513, longitude: -112.20, user: diego, is_around_me: false, pet: coco)
+# wp = WalkingPartner.create!(description: "walk my dog", latitude: 40.5513, longitude: -112.20,user: diego, is_around_me: true, pet: coco)
 
-# Create an event2
-ld = LostDog.create(description: "I keep losing Coco. I can't believe it.")
-am = AroundMe.create(around_me_event: ld, latitude: 41.3149, longitude: -111.59)
-e = Event.create(pet_event: am, pet: coco, user: diego)
-
-# Create an event3
-ld = LostDog.create(description: "She ran into traffic and I could catch her")
-am = AroundMe.create(around_me_event: ld, latitude: 41.4962, longitude: -112.582)
-e = Event.create(pet_event: am, pet: luna, user: alejandra)
-
-# create an event 4
-fd = FoundDog.new(description: "I found a brown/white dog. It's ugly")
-fd.breed = Breed.where('name LIKE ?',"%labrador%").first
-fd.weight = Weight.last # Biggest weight range, over 100 lbs
-fd.colors = Color.where(name: ["brown","white"])
-fd.save
-am2 = AroundMe.create(around_me_event: fd, latitude: 40.463, longitude: -111.632)
-e2 = Event.create(pet_event: am2, user: andrew)
+# # Create an event
+# ld = LostDog.create(description: "If you see her call 801-564-1354")
+# am = AroundMe.create(around_me_event: ld, latitude: 40.5513, longitude: -112.20)
+# e = Event.create(pet_event: am, pet: coco, user: diego)
+#
+# # Create an event2
+# ld = LostDog.create(description: "I keep losing Coco. I can't believe it.")
+# am = AroundMe.create(around_me_event: ld, latitude: 41.3149, longitude: -111.59)
+# e = Event.create(pet_event: am, pet: coco, user: diego)
+#
+# # Create an event3
+# ld = LostDog.create(description: "She ran into traffic and I could catch her")
+# am = AroundMe.create(around_me_event: ld, latitude: 41.4962, longitude: -112.582)
+# e = Event.create(pet_event: am, pet: luna, user: alejandra)
+#
+# # create an event 4
+# fd = FoundDog.new(description: "I found a brown/white dog. It's ugly")
+# fd.breed = Breed.where('name LIKE ?',"%labrador%").first
+# fd.weight = Weight.last # Biggest weight range, over 100 lbs
+# fd.colors = Color.where(name: ["brown","white"])
+# fd.save
+# am2 = AroundMe.create(around_me_event: fd, latitude: 40.463, longitude: -111.632)
+# e2 = Event.create(pet_event: am2, user: andrew)
