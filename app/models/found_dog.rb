@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-class FoundDog < ApplicationRecord
-  has_one :around_me, as: :around_me_event, dependent: :destroy
-  delegate :longitude, :latitude, to: :around_me
-  has_and_belongs_to_many :colors
-  belongs_to :breed
-  belongs_to :weight
-end
-
-# ruby determine class 
-# @paarth[3].pet_event.around_me_event.is_a?FoundDog
-
-# most of the type, we are going to expect right away.
-# you can view latitude and longitude in lostdog but you cannot set it in lost dog.
-# we have forwaded the values to lost dog
-#  if we want to change the values of latitude and longitude, that needs to be in around_me
-
-# when creating the marker, you have to also ceate the form with a unique identifier. pop overs on google maps.
-=======
 class FoundDog < Event
   has_one :delegate, class_name: "FoundDogDelegate", inverse_of: :found_dog, dependent: :destroy, autosave: true
 
@@ -41,4 +22,3 @@ class FoundDog < Event
     delegate || build_delegate
   end
 end
->>>>>>> 16e466f1d40a091baa71d12d46bdd7e7b937cb6c
