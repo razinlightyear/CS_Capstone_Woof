@@ -433,53 +433,63 @@ pardos.users = [diego, alejandra]
 pardos.save
 
 # Other way
-not_pardos = Group.create(name: "Not Pardos", owner: andrew, users: [andrew, andy, paarth])
+monkeys = Group.create(name: "Code Monkeys", owner: andrew, users: [andrew, andy, paarth, diego])
 
 # Create some pets
 coco = Pet.new
 coco.name = "Coco"
+coco.chip_number = "3534656543"
 coco.group = pardos
 coco.breed = Breed.where(name: "Miniature Schnauzer").first
 coco.weight = Weight.where(start_weight: 0, end_weight: 10).first
 coco.colors = Color.where(name: "white")
 coco.save
 
-coco2 = Pet.new
-coco2.name = "Coco twin"
-coco2.group = pardos
-coco2.breed = Breed.where(name: "Miniature Schnauzer").first
-coco2.weight = Weight.where(start_weight: 0, end_weight: 10).first
-coco2.colors = Color.where(name: "black")
-coco2.save
+luna = Pet.new
+luna.name = "Luna"
+luna.chip_number = "3534656543"
+luna.group = pardos
+luna.breed = Breed.where(name: "Chihuahua").first
+luna.weight = Weight.where(start_weight: 0, end_weight: 10).first
+luna.colors = Color.where(name: "black")
+luna.save
 
 sadie = Pet.new
 sadie.name = "Sadie"
-sadie.group = not_pardos
+sadie.chip_number = "23452345DSF"
+sadie.group = monkeys
 sadie.breed = Breed.where(name: "Pit Bull").first
 sadie.weight = Weight.where(start_weight: 61, end_weight: 70).first
 sadie.colors = Color.where(name: ["black","white"]) # She's black and white
 sadie.save
 
-# Create an event
-ld = LostDog.create(description: "I lost my dog")
-am = AroundMe.create(around_me_event: ld, latitude: 40.5513, longitude: -112.20)
-e = Event.create(pet_event: am, pet: coco, user: diego)
+# Paarth, here are some commands that I tested in rails console
+# fd = FoundDog.new(description: "I found a brown/white dog. It's ugly", latitude: 40.463, longitude: -111.632, user: User.first, breed_id: 1, weight_id: 1, is_around_me: true)
+# fd.save!
+# ld = LostDog.create!(description: "If you see her call 801-564-1354", latitude: 40.5513, longitude: -112.20, user: diego, is_around_me: true, pet: coco)
+# f = Feeding.create!(amount: 2.5, latitude: 40.5513, longitude: -112.20, user: diego, is_around_me: false, pet: coco)
+# wp = WalkingPartner.create!(description: "walk my dog", latitude: 40.5513, longitude: -112.20,user: diego, is_around_me: true, pet: coco)
 
-# Create an event2
-ld = LostDog.create(description: "I lost my dog no 2")
-am = AroundMe.create(around_me_event: ld, latitude: 41.3149, longitude: -111.59)
-e = Event.create(pet_event: am, pet: coco, user: diego)
-
-# Create an event3
-ld = LostDog.create(description: "I lost my dog no 3")
-am = AroundMe.create(around_me_event: ld, latitude: 41.4962, longitude: -112.582)
-e = Event.create(pet_event: am, pet: coco, user: diego)
-
-# create an event 4
-fd = FoundDog.new(description: "I found a brown/white dog. It's ugly")
-fd.breed = Breed.where('name LIKE ?',"%labrador%").first
-fd.weight = Weight.last # Biggest weight range, over 100 lbs
-fd.colors = Color.where(name: ["brown","white"])
-fd.save
-am2 = AroundMe.create(around_me_event: fd, latitude: 40.463, longitude: -111.632)
-e2 = Event.create(pet_event: am2, user: andrew)
+# # Create an event
+# ld = LostDog.create(description: "If you see her call 801-564-1354")
+# am = AroundMe.create(around_me_event: ld, latitude: 40.5513, longitude: -112.20)
+# e = Event.create(pet_event: am, pet: coco, user: diego)
+#
+# # Create an event2
+# ld = LostDog.create(description: "I keep losing Coco. I can't believe it.")
+# am = AroundMe.create(around_me_event: ld, latitude: 41.3149, longitude: -111.59)
+# e = Event.create(pet_event: am, pet: coco, user: diego)
+#
+# # Create an event3
+# ld = LostDog.create(description: "She ran into traffic and I could catch her")
+# am = AroundMe.create(around_me_event: ld, latitude: 41.4962, longitude: -112.582)
+# e = Event.create(pet_event: am, pet: luna, user: alejandra)
+#
+# # create an event 4
+# fd = FoundDog.new(description: "I found a brown/white dog. It's ugly")
+# fd.breed = Breed.where('name LIKE ?',"%labrador%").first
+# fd.weight = Weight.last # Biggest weight range, over 100 lbs
+# fd.colors = Color.where(name: ["brown","white"])
+# fd.save
+# am2 = AroundMe.create(around_me_event: fd, latitude: 40.463, longitude: -111.632)
+# e2 = Event.create(pet_event: am2, user: andrew)

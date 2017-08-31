@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403004242) do
-
-  create_table "around_me", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.decimal  "longitude",            precision: 15, scale: 12
-    t.decimal  "latitude",             precision: 15, scale: 12
-    t.string   "around_me_event_type"
-    t.integer  "around_me_event_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.index ["around_me_event_type", "around_me_event_id"], name: "index_around_me_on_around_me_event_type_and_around_me_event_id", using: :btree
-  end
+ActiveRecord::Schema.define(version: 20170425192835) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -34,11 +24,11 @@ ActiveRecord::Schema.define(version: 20170403004242) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "colors_found_dogs", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "found_dog_id"
+  create_table "colors_found_dog_delegates", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "found_dog_delegate_id"
     t.integer "color_id"
-    t.index ["color_id"], name: "index_colors_found_dogs_on_color_id", using: :btree
-    t.index ["found_dog_id"], name: "index_colors_found_dogs_on_found_dog_id", using: :btree
+    t.index ["color_id"], name: "index_colors_found_dog_delegates_on_color_id", using: :btree
+    t.index ["found_dog_delegate_id"], name: "index_colors_found_dog_delegates_on_found_dog_delegate_id", using: :btree
   end
 
   create_table "colors_pets", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -51,28 +41,30 @@ ActiveRecord::Schema.define(version: 20170403004242) do
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "pet_id"
-    t.string   "pet_event_type"
-    t.integer  "pet_event_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["pet_event_type", "pet_event_id"], name: "index_events_on_pet_event_type_and_pet_event_id", using: :btree
+    t.string   "type",                                   null: false
+    t.boolean  "is_around_me",                           null: false
+    t.decimal  "longitude",    precision: 15, scale: 12
+    t.decimal  "latitude",     precision: 15, scale: 12
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.index ["pet_id"], name: "index_events_on_pet_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
-  create_table "feedings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "feeding_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "feeding_id"
+    t.float   "amount",     limit: 24
+    t.index ["feeding_id"], name: "index_feeding_delegates_on_feeding_id", using: :btree
   end
 
-  create_table "found_dogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "breed_id",                  null: false
-    t.integer  "weight_id",                 null: false
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.index ["breed_id"], name: "index_found_dogs_on_breed_id", using: :btree
-    t.index ["weight_id"], name: "index_found_dogs_on_weight_id", using: :btree
+  create_table "found_dog_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "found_dog_id"
+    t.integer "breed_id",                   null: false
+    t.integer "weight_id",                  null: false
+    t.text    "description",  limit: 65535
+    t.index ["breed_id"], name: "index_found_dog_delegates_on_breed_id", using: :btree
+    t.index ["found_dog_id"], name: "index_found_dog_delegates_on_found_dog_id", using: :btree
+    t.index ["weight_id"], name: "index_found_dog_delegates_on_weight_id", using: :btree
   end
 
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -90,19 +82,20 @@ ActiveRecord::Schema.define(version: 20170403004242) do
     t.index ["user_id"], name: "index_groups_users_on_user_id", using: :btree
   end
 
-  create_table "lost_dogs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "lost_dog_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text    "description", limit: 65535
+    t.integer "lost_dog_id"
+    t.index ["lost_dog_id"], name: "index_lost_dog_delegates_on_lost_dog_id", using: :btree
   end
 
   create_table "pets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "group_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "breed_id",   null: false
-    t.integer  "weight_id",  null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "breed_id",    null: false
+    t.integer  "weight_id",   null: false
+    t.string   "chip_number"
     t.index ["breed_id"], name: "index_pets_on_breed_id", using: :btree
     t.index ["group_id"], name: "index_pets_on_group_id", using: :btree
     t.index ["weight_id"], name: "index_pets_on_weight_id", using: :btree
@@ -118,10 +111,10 @@ ActiveRecord::Schema.define(version: 20170403004242) do
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
-  create_table "walking_partners", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "walking_partner_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "walking_partner_id"
+    t.text    "description",        limit: 65535
+    t.index ["walking_partner_id"], name: "index_walking_partner_delegates_on_walking_partner_id", using: :btree
   end
 
   create_table "weights", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -131,14 +124,14 @@ ActiveRecord::Schema.define(version: 20170403004242) do
     t.datetime "updated_at",   null: false
   end
 
-  add_foreign_key "colors_found_dogs", "colors"
-  add_foreign_key "colors_found_dogs", "found_dogs"
+  add_foreign_key "colors_found_dog_delegates", "colors"
+  add_foreign_key "colors_found_dog_delegates", "found_dog_delegates"
   add_foreign_key "colors_pets", "colors"
   add_foreign_key "colors_pets", "pets"
   add_foreign_key "events", "pets"
   add_foreign_key "events", "users"
-  add_foreign_key "found_dogs", "breeds"
-  add_foreign_key "found_dogs", "weights"
+  add_foreign_key "found_dog_delegates", "breeds"
+  add_foreign_key "found_dog_delegates", "weights"
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"

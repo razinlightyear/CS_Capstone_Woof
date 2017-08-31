@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #5DC8C4;">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #e3f2fd;">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,14 +31,15 @@
         </ul>
         <!-- the below line is for Woof Logo-->
         <%= link_to(image_tag("sarina.regular.png", class: 'image-responsive', width: 122, height: 42), root_path, :method => :get, class: 'abs-center-x') %>
+        <%= link_to(image_tag("//placehold.it/40x40", class: 'rounded-circle pull-right', width: 40, height: 40),'#','data-toggle' => "popover", id: "profile_pic", "data-content"=>"User profile stuff goes here", "data-placement"=>"bottom") %>
       </div>
     </nav>
-    <div class = "container">
+    <div class = "container content">
       <!-- the below line prints the Animal; for every view, the yield below pastes the respective pages in the view.-->
       <%= yield %>
     </div>
     </div>
-    <div class="footer" style="background-color: #5DC8C4;">
+    <div class="footer" style="background-color: #e3f2fd;">
       <div class="copyright" style="text-align: center">
         <!--The below line prints the 'W'' logo-->
         <%= link_to(image_tag("letter-w.svg", class: 'image-responsive', width: 30, height: 30), root_path, :method => :get) %>
