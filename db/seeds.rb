@@ -463,12 +463,25 @@ sadie.weight = Weight.where(start_weight: 61, end_weight: 70).first
 sadie.colors = Color.where(name: ["black","white"]) # She's black and white
 sadie.save
 
-# Paarth, here are some commands that I tested in rails console
-# fd = FoundDog.new(description: "I found a brown/white dog. It's ugly", latitude: 40.463, longitude: -111.632, user: User.first, breed_id: 1, weight_id: 1, is_around_me: true)
-# fd.save!
-# ld = LostDog.create!(description: "If you see her call 801-564-1354", latitude: 40.5513, longitude: -112.20, user: diego, is_around_me: true, pet: coco)
-# f = Feeding.create!(amount: 2.5, latitude: 40.5513, longitude: -112.20, user: diego, is_around_me: false, pet: coco)
-# wp = WalkingPartner.create!(description: "walk my dog", latitude: 40.5513, longitude: -112.20,user: diego, is_around_me: true, pet: coco)
+@users = User.all
+@pets = Pet.all
+
+# seeds according to new models
+ld1 = LostDog.new(description: "My name is: Diego. I have lost my puppy", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: true, pet: @pets[0])
+ld1.save!
+
+ld2 = LostDog.new(description: "My puppy was lost in a park. Call me at: 123-123-1234. My name is Andy", latitude: 40.5513, longitude: -112.20, user: @users[2], is_around_me: true, pet: @pets[1])
+ld2.save!
+
+fd1 = FoundDog.new(description: "I found your puppy Diego. My name is Alejandra", latitude: 40.463,longitude: -111.632, user: @users[1], breed_id: 1, weight_id: 1, is_around_me: true)
+fd1.save!
+
+fd2 = FoundDog.new(description: "I found your puppy Andy. Your puppy was crying", latitude: 40.463,longitude: -111.632, user: @users[1], breed_id: 1, weight_id: 1, is_around_me: true)
+fd2.save!
+
+f = Feeding.create!(amount: 2.5, latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: false, pet: @pets[0])
+
+wp = WalkingPartner.create!(description: "I am looking for a company. Does anyone want to join", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: true, pet: @pets[0])
 
 # # Create an event
 # ld = LostDog.create(description: "If you see her call 801-564-1354")
