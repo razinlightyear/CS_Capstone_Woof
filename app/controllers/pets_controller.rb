@@ -24,8 +24,8 @@ class PetsController < ApplicationController
   # POST /pets
   # POST /pets.json
   def create
-    puts params[:group_index]
-    puts params[:next_pet_index]
+    # puts params[:group_index]
+    # puts params[:next_pet_index]
     @pet = Pet.new(pet_params)
 
     respond_to do |format|
