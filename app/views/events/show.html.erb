@@ -46,7 +46,8 @@
         });
 
         var marker_description = "";
-        marker_description+= "<p><b>Event Type:</b> "+gon.around_me_events[i].around_me_event_type+"</p>";
+        debugger;
+        marker_description+= "<p><b>Event Type:</b> "+gon.event_types[i]+"</p>";
         marker_description+= "<p><b>Description:</b>"+gon.descriptions[i]+"</p>";
 
         infoWindow = new google.maps.InfoWindow();
@@ -94,7 +95,7 @@
         // '<%= text_field_tag(:pet_id, @pets[0].id , :readonly => true) %><br>'+
         // '<%= select_tag(:pet_id, options_for_select("#{@pet_name_id}")) %><br>'+
 
-        event_form = '<%= form_tag("/around_me/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>' +
+        event_form = '<%= form_tag("/events/create_lost_dog", method: "post", id: "lost_dog_event", remote: true) do %>' +
                         '<%= hidden_field_tag(:user_id, @user.id) %>' +
                         '<%= label_tag(:user_name, "User") %><br>' +
                         '<%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>' +
