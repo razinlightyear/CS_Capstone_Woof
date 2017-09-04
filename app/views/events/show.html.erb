@@ -1,4 +1,6 @@
 <h1>User: <%= @user.first_name  + " " + @user.last_name %></h1>
+<h5 id="latitude"></h5>
+<h5 id="longitude"></h5>
 <div id="map" class = "abs-center-x"></div>
 
 <% @pet_name_id = Array.new %>
@@ -15,7 +17,16 @@
   var map;
   var event_window = null;
   var infoWindow = null;
-
+  
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(e) {
+      // Set the latitude, longitude
+      $('#latitude').text("Latitude: " + e.coords.latitude);
+      $('#longitude').text("Longitude: " + e.coords.longitude);
+    });
+  } else {
+      $('#latitude').text("Load the last event location for the user");
+  }
   /*function closeForm()
   {
     $("#lost_dog_event").hide();
