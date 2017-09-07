@@ -1,5 +1,5 @@
-class Feeding < Event
-  has_one :delegate, class_name: "FeedingDelegate", inverse_of: :feeding, dependent: :destroy, autosave: true
+class FeedingHistory < Event
+  has_one :delegate, class_name: "FeedingHistoryDelegate", inverse_of: :feeding_history, dependent: :destroy, autosave: true
 
   # Get me all of the these methods from the FeedingDelegate class
   methods_to_delegate = [

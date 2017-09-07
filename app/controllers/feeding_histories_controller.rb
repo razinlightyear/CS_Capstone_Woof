@@ -1,0 +1,3 @@
+class FeedingHistoriesController < ApplicationsController
+    
+end
