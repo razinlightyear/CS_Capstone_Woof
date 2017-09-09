@@ -5,8 +5,8 @@ class FeedingHistory < Event
   methods_to_delegate = [
                         :amount, :amount=,
                         :food_item, :food_item=,
-                        :feeding_id, :feeding_id=,
-                        :feeding, :feeding=
+                        :feeding_history_id, :feeding_history_id=,
+                        :feeding_history, :feeding_history=
   ]
   # splat operator *. It removes the surrounding array. ex: arr = [1, 2, 3]; *arr is just 1, 2, 3
   delegate *methods_to_delegate, to: :lazily_built_delegates
