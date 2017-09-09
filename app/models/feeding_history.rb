@@ -4,6 +4,7 @@ class FeedingHistory < Event
   # Get me all of the these methods from the FeedingDelegate class
   methods_to_delegate = [
                         :amount, :amount=,
+                        :food_item, :food_item=,
                         :feeding_id, :feeding_id=,
                         :feeding, :feeding=
   ]
