@@ -404,26 +404,29 @@ diego = User.new # Or can call .new and then .save to commit later
 diego.first_name = "Diego"
 diego.last_name = "Pardo"
 diego.email = "me@diegopardo.com"
-diego.password_digest = "1234"
+diego.password = "1234"
+diego.password_confirmation = "1234"
 diego.save
 
 alejandra = User.new
 alejandra.first_name = "Alejandra"
 alejandra.last_name = "Pardo"
 alejandra.email = "maria@diegopardo.com"
-alejandra.password_digest = "1234"
+alejandra.password = "1234"
+alejandra.password_confirmation = "1234"
 alejandra.save
 
 andy = User.new
 andy.first_name = "Andy"
 andy.last_name = "Cho"
 andy.email = "andy@cho.com"
-andy.password_digest = "1234"
+andy.password = "1234"
+andy.password_confirmation = "1234"
 andy.save
 
-paarth = User.create(first_name: "Paarth", last_name: "Lakhani", email: "paarth.com", password_digest: "1234")
+paarth = User.create(first_name: "Paarth", last_name: "Lakhani", email: "paarth.com", password: "1234", password_confirmation: "1234")
 
-andrew = User.create(first_name: "Andrew", last_name: "Emrazian", email: "andrew.com", password_digest: "1234")
+andrew = User.create(first_name: "Andrew", last_name: "Emrazian", email: "andrew.com", password: "1234", password_confirmation: "1234")
 
 # Create some groups
 pardos = Group.new

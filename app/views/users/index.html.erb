@@ -36,7 +36,7 @@
             </br>
           <% end %>
           </td>
-          <td><%= link_to 'Around Me', around_me_path(user.id), class: "btn btn-outline-success btn-sm" %></td>
+          <td><%= link_to 'Around Me Events', event_path(user.id), class: "btn btn-outline-success btn-sm" %></td>
           <td><%= link_to 'Profile', user_profile_path(user.id), class: "btn btn-outline-primary btn-sm" %></td>
           <td>
             <%= link_to 'Show', user, class: "btn btn-outline-info btn-sm" %>
