@@ -42,6 +42,8 @@ gem 'dotenv', '~> 2.2'
 # Use nice icons from http://fontawesome.io/
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
 
+gem 'status-page', '~> 0.1.4'
+
 # Bootstrap tooltips
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'

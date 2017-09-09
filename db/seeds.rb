@@ -404,26 +404,29 @@ diego = User.new # Or can call .new and then .save to commit later
 diego.first_name = "Diego"
 diego.last_name = "Pardo"
 diego.email = "me@diegopardo.com"
-diego.password_digest = "1234"
+diego.password = "1234"
+diego.password_confirmation = "1234"
 diego.save
 
 alejandra = User.new
 alejandra.first_name = "Alejandra"
 alejandra.last_name = "Pardo"
 alejandra.email = "maria@diegopardo.com"
-alejandra.password_digest = "1234"
+alejandra.password = "1234"
+alejandra.password_confirmation = "1234"
 alejandra.save
 
 andy = User.new
 andy.first_name = "Andy"
 andy.last_name = "Cho"
 andy.email = "andy@cho.com"
-andy.password_digest = "1234"
+andy.password = "1234"
+andy.password_confirmation = "1234"
 andy.save
 
-paarth = User.create(first_name: "Paarth", last_name: "Lakhani", email: "paarth.com", password_digest: "1234")
+paarth = User.create(first_name: "Paarth", last_name: "Lakhani", email: "paarth.com", password: "1234", password_confirmation: "1234")
 
-andrew = User.create(first_name: "Andrew", last_name: "Emrazian", email: "andrew.com", password_digest: "1234")
+andrew = User.create(first_name: "Andrew", last_name: "Emrazian", email: "andrew.com", password: "1234", password_confirmation: "1234")
 
 # Create some groups
 pardos = Group.new
@@ -479,6 +482,11 @@ fd1.save!
 fd2 = FoundDog.new(description: "I found your puppy Andy. Your puppy was crying", latitude: 40.463,longitude: -111.632, user: @users[1], breed_id: 1, weight_id: 1, is_around_me: true)
 fd2.save!
 
+<<<<<<< HEAD
+=======
+f = FeedingHistory.create!(amount: 2.5, food_item: "Puppy Chow", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: false, pet: @pets[0])
+
+>>>>>>> 080b26a958271c76860d30006213b3126a0e68e9
 wp = WalkingPartner.create!(description: "I am looking for a company. Does anyone want to join", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: true, pet: @pets[0])
 
 # # Create an event
