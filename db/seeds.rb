@@ -482,11 +482,8 @@ fd1.save!
 fd2 = FoundDog.new(description: "I found your puppy Andy. Your puppy was crying", latitude: 40.463,longitude: -111.632, user: @users[1], breed_id: 1, weight_id: 1, is_around_me: true)
 fd2.save!
 
-<<<<<<< HEAD
-=======
 f = FeedingHistory.create!(amount: 2.5, food_item: "Puppy Chow", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: false, pet: @pets[0])
 
->>>>>>> 080b26a958271c76860d30006213b3126a0e68e9
 wp = WalkingPartner.create!(description: "I am looking for a company. Does anyone want to join", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: true, pet: @pets[0])
 
 # # Create an event
