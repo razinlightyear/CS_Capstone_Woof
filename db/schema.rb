@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(version: 20170425192835) do
   end
 
   create_table "feeding_history_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "feeding_id"
-    t.float   "amount",     limit: 24
+    t.integer "feeding_history_id"
+    t.float   "amount",             limit: 24
     t.string  "food_item"
-    t.index ["feeding_id"], name: "index_feeding_history_delegates_on_feeding_id", using: :btree
+    t.index ["feeding_history_id"], name: "index_feeding_history_delegates_on_feeding_history_id", using: :btree
   end
 
   create_table "found_dog_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
