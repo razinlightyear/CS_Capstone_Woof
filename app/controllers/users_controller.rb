@@ -72,8 +72,9 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find(params[:user_id])
-    @groups = Group.joins(:groups_users).where('groups_users.user_id' => params[:user_id]).includes(:users, :pets => [:breed,:colors,:weight]).references(:users, :pets => [:breed,:colors,:weight])
+    @user = User.first # Temporarily
+    #@user = User.find(params[:user_id])
+    @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).includes(:users, :pets => [:breed,:colors,:weight]).references(:users, :pets => [:breed,:colors,:weight])
   end
   private
     # Use callbacks to share common setup or constraints between actions.

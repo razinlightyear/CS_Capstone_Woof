@@ -16,7 +16,7 @@
 //= require tether
 //= require bootstrap-sprockets
 //= require_tree .
-$(document).ready(function(){
+$(document).on('turbolinks:load', function() {
   $('[data-toggle="popover"]').popover(); 
 });
 //$('#profile_pic').popover()

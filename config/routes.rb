@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :users
+  #get 'profile', controller: :users, action: :profile
+  resources :users do 
+    collection do
+      get 'profile'
+    end
+  end
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
   #     Prefix Verb   URI Pattern                       Controller#Action
@@ -28,7 +33,6 @@ Rails.application.routes.draw do
   resources :walking_partners
   get 'login', controller: :home, action: :login
   post 'login', controller: :home, action: :login
-  get 'profile', controller: :users, action: :profile
   root 'home#index' # create a homepage that doesn't belong to a model
   mount StatusPage::Engine, at: '/' # GET /status
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
