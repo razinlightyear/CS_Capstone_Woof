@@ -1,7 +1,8 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-$(document).ready ->
+#$(document).ready ->
+$(document).on 'turbolinks:load', ->
   newPetForm = (group_number,pet_count,group_id)->
     html = """
            <div class="card">
