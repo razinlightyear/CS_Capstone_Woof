@@ -4,7 +4,7 @@ class PetsController < ApplicationController
   # GET /pets
   # GET /pets.json
   def index
-    @pets = Pet.all
+    @pets = Pet.active
   end
 
   # GET /pets/1
@@ -58,9 +58,10 @@ class PetsController < ApplicationController
   # DELETE /pets/1
   # DELETE /pets/1.json
   def destroy
-    @pet.destroy
+    @pet.update active: false
     respond_to do |format|
-      format.html { redirect_to pets_url, notice: 'Pet was successfully destroyed.' }
+      format.js   { render 'pets/destroy' }
+      format.html { redirect_to pets_url, notice: 'Pet was successfully removed.' }
       format.json { head :no_content }
     end
   end
