@@ -1,3 +1,41 @@
-<div style="text-align:center;">
-  <%= image_tag 'flying_dog.gif', style: "padding: 25px;" %>
+<!-- Create the woof page here -->
+
+<div class = 'container'>
+    <div class = "row">
+        <div class = "col-sm-6">
+            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-lg btn-primary" %>
+            <%= link_to 'Sign Out', home_sign_out_profile_path, class: "btn btn-lg btn-primary" %>
+        </div>
+        <div class = "col-sm-6">
+            <div class = "row">
+                <%= link_to "Log In Now", new_user_session_path, class: "btn btn-lg btn-primary" %>
+            </div>
+            <h1>Sign Up</h1>
+            <%= form_tag({controller: "users", action: "create"}, method: "post", class: "form") do %>
+                <div class = 'form-group row'>
+                    <%= label_tag(:first_name) %>
+                    <%= text_field_tag :first_name , "" , :class => "form-control" %>
+                    <%= label_tag(:last_name) %>
+                    <%= text_field_tag :last_name, "", :class => "form-control" %>
+                </div>
+                <div class = 'form-group row'>
+                    <%= label_tag(:email_address) %>
+                    <%= email_field_tag :email_address, "", :class => "form-control"  %>
+                </div>
+                <div class = 'form-group row'>
+                    <%= label_tag(:password) %>
+                    <%= password_field_tag :password, "", :class => "form-control" %>
+                </div>
+                
+                <div class = 'form-group row'>
+                    <%= label_tag(:confirm_password) %>
+                    <%= password_field_tag :confirm_password, "", :class => "form-control" %>
+                </div>
+
+                <div class = 'form-group row'>
+                    <%= submit_tag "Sign Up",  :class => 'btn btn-primary' %>
+                </div>
+            <% end %>
+        </div>
+    </div>
 </div>

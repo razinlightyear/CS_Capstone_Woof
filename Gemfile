@@ -68,3 +68,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Added by readme
 gem 'gon'
+
+# Autentication gem
+gem 'simple_token_authentication', '~> 1.15', '>= 1.15.1'
+gem 'devise', '~> 4.3'

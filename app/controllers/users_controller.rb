@@ -37,6 +37,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
+        
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -72,7 +73,8 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user)
+    #@user = User.find(params[:user_id])
     @groups = Group.joins(:groups_users).where('groups_users.user_id' => params[:user_id]).includes(:users, :pets => [:breed,:colors,:weight]).references(:users, :pets => [:breed,:colors,:weight])
   end
   private
