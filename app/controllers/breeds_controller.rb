@@ -61,6 +61,17 @@ class BreedsController < ApplicationController
     end
   end
 
+  # GET /breeds/find.json?name='pit'
+  def find
+    respond_to do |format|
+      if params[:name]
+        @breeds = Breed.contains(params[:name])
+      else
+        @breeds = Breed.all
+      end
+      format.json { render :index, status: :ok }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_breed
