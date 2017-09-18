@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425192835) do
+ActiveRecord::Schema.define(version: 20170918135009) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -92,11 +92,12 @@ ActiveRecord::Schema.define(version: 20170425192835) do
   create_table "pets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "group_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "breed_id",    null: false
-    t.integer  "weight_id",   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "breed_id",                   null: false
+    t.integer  "weight_id",                  null: false
     t.string   "chip_number"
+    t.boolean  "active",      default: true, null: false
     t.index ["breed_id"], name: "index_pets_on_breed_id", using: :btree
     t.index ["group_id"], name: "index_pets_on_group_id", using: :btree
     t.index ["weight_id"], name: "index_pets_on_weight_id", using: :btree
@@ -107,8 +108,9 @@ ActiveRecord::Schema.define(version: 20170425192835) do
     t.string   "last_name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "active",          default: true, null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 

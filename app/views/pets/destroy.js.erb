@@ -1,0 +1,4 @@
+console.log("destroy.js.erb file");
+<%= puts "destroy.js.erb file" %>
+<%= puts @pet.inspect %>
+$('#div_card_group_<%=@pet.group_id.to_s%>_pet_<%=@pet.id.to_s%>').hide();
