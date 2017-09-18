@@ -44,6 +44,11 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
 
 gem 'status-page', '~> 0.1.4'
 
+# https://select2.org/
+gem 'select2-rails', '~> 4.0', '>= 4.0.3'
+# http://underscorejs.org/
+gem 'underscore-rails', '~> 1.8', '>= 1.8.3'
+
 # Bootstrap tooltips
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'

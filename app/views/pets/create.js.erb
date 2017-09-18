@@ -1,5 +1,2 @@
-console.log("create.js.erb file");
-//debugger;
-//var pet_card = "<//%= escape_javascript(render partial: 'pets/pet_card',  p: pet, i: group_index, j: next_pet_index ) %>";
-//$("#items_grid").html();
-//$('#pet_accordion_'+group_index).append(pet_card)
+$('#new_pet_card_<%= @pet.group.id.to_s %>').before('<%= j render(:partial => 'pets/card', :locals => {group: @pet.group, pet: @pet, j: 0}) %>');
+// clear new form fields

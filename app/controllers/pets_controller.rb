@@ -31,11 +31,11 @@ class PetsController < ApplicationController
     respond_to do |format|
       if @pet.save
         format.html { redirect_to @pet, notice: 'Pet was successfully created.' }
-        format.js   { render 'pets/create', status: :created, pet: @pet, group_index: params[:group_index], next_pet_index: params[:next_pet_index]}
+        format.js   { render 'pets/create', status: :created }
         format.json { render :show, status: :created, location: @pet }
       else
         format.html { render :new }
-        format.json { render json: @pet.errors, status: :unprocessable_entity }
+        format.json { render json: @pet.errors, status: :unprocessable_entity } 
       end
     end
   end
@@ -46,6 +46,7 @@ class PetsController < ApplicationController
     respond_to do |format|
       if @pet.update(pet_params)
         format.html { redirect_to @pet, notice: 'Pet was successfully updated.' }
+        format.js   { render 'pets/update' }
         format.json { render :show, status: :ok, location: @pet }
       else
         format.html { render :edit }

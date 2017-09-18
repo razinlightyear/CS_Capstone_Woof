@@ -1,0 +1,20 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <td><p class="text-muted"><strong>First Name</strong></p></td>
+      <td><%=user.first_name%></td>
+    </tr>
+    <tr>
+      <td><p class="text-muted"><strong>Last Name</strong></p></td>
+      <td><%=user.last_name%></td>
+    </tr>
+    <tr>
+      <td><p class="text-muted"><strong>username</strong></p></td>
+      <td><%=user.email%></td>
+    </tr>
+    <tr>
+      <td><p class="text-muted"><strong>Group Owner</strong></p></td>
+      <td><i class="fa fa-<%=group.owner==user ? 'check' : 'times'%>" aria-hidden="true"></i></td>
+    </tr>
+  </tbody>
+</table>

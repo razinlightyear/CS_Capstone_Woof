@@ -1,14 +1,13 @@
 <h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-<% color_options = Color.all %>
 <% weight_options = Weight.all %>
 <div class="card">
   <div class="card-block">
     
     <!-- Create group tab buttons -->
     <ul class="nav nav-tabs" role="tablist">
-      <% @groups.each_with_index do |g,i| %>
+      <% @groups.each_with_index do |group,i| %>
         <li class="nav-item">
-          <a class="nav-link <%= 'active' if i==0 %>" data-toggle="tab" href="#group_<%=i%>" role="tab"><%= g.name %></a>
+          <a class="nav-link <%= 'active' if i==0 %>" data-toggle="tab" href="#group_<%=group.id%>" role="tab"><%= group.name %></a>
         </li>
       <% end %>
       <li class="nav-item">
@@ -16,179 +15,9 @@
       </li>
     </ul>
     <div class="tab-content">
-      <% @groups.each_with_index do |g,i| %>
-        <div class="tab-pane fade <%= 'show active' if i==0 %>" id="group_<%=i%>" role="tabpanel">
-          <div class="row">
-            <div class="col-lg-6"><!-- Pets Column -->
-              <div class="card" style="background-color: #e3f2fd">
-                <div class="card-block">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <h2 class="card-title">Pets</h2>
-                    </div>
-                    <div class="col-lg-6">
-                      <i class="fa fa-paw fa-3x pull-right" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="pet_accordion_<%=i%>" role="tablist" aria-multiselectable="true">
-                <% g.pets.each_with_index do |p,j| %>
-<!--                  <div class="card">
-                    <div class="card-header" role="tab" id="heading_group_<%=i%>_pet_<%=j%>">
-                      <h5 class="mb-0">
-                        <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
-                        <a id="qwer<%=i%>" class="collapsed" data-toggle="collapse" data-parent="#pet_accordion_<%=i%>" href="#collapse_group_<%=i%>_pet_<%=j%>" aria-expanded="false" aria-controls="collapse_group_<%=i%>_pet_<%=j%>">
-                        <%=p.name%>
-                        </a>
-                      </h5>
-                    </div>
-                    <div id="collapse_group_<%=i%>_pet_<%=j%>" class="collapse<%= ' show' if j==0 %>" role="tabpanel" aria-labelledby="heading_group_<%=i%>_pet_<%=j%>">
-                      <div class="card-block">
-                        <table class="table table-sm">
-                          <tbody>
-                            <tr>
-                              <td><p class="text-muted"><strong>Name</strong></p></td>
-                              <td><%=p.name%></td>
-                            </tr>
-                            <tr>
-                              <td><p class="text-muted"><strong>Breed</strong></p></td>
-                              <td><%=p.breed.name%></td>
-                            </tr>
-                            <tr>
-                              <td><p class="text-muted"><strong>Weight</strong></p></td>
-                              <td><%=p.weight.start_weight%> lbs - <%=p.weight.end_weight%> lbs</td>
-                            </tr>
-                            <tr>
-                              <td><p class="text-muted"><strong>Colors</strong></p></td>
-                              <td>
-                                <% p.colors.each do |c| %>
-                                  <span class="badge badge-default badge-<%=c.name%>"><%=c.name%></span>
-                                <% end %>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <button class="btn btn-info btn-sm">Edit</button>
-                        <button class="btn btn-danger btn-sm float-right">Remove Pet</button>
-                      </div>
-                    </div>
-                  </div>--><!-- <%= p.name %> -->
-                  <%= render 'pets/pet_card', p: p, i: i, j: j %>
-                <% end %>
-
-
-
-               <div id="new-pet-card-<%=i%>" class="card" style="display: none;">
-                  <div class="card-header" role="tab" id="heading_group_<%=i%>_pet_<%=g.pets.size%>">
-                    <h5 class="mb-0">
-                      <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
-                      <a class="collapsed" data-toggle="collapse" data-parent="#pet_accordion_<%=i%>" href="#collapse_group_<%=i%>_pet_<%=g.pets.size%>" aria-expanded="false" aria-controls="collapse_group_<%=i%>_pet_<%=g.pets.size%>">
-                        New Pet
-                      </a>
-                    </h5>
-                  </div>
-                  <div id="collapse_group_<%=i%>_pet_<%=g.pets.size%>" class="collapse show" role="tabpanel" aria-labelledby="heading_group_<%=i%>_pet_<%=g.pets.size%>">
-                    <div class="card-block">
-                      <%= form_for Pet.new, remote: true do |f| %>
-                        <table class="table table-sm">
-                          <tbody>
-                              <tr>
-                                <td><p class="text-muted"><strong>Name</strong></p></td>
-                                <td><%= f.text_field :name, class: "form-control" %></td>
-                              </tr>
-                              <tr>
-                                <td><p class="text-muted"><strong>Chip #</strong></p></td>
-                                <td><%= f.text_field :chip_number, class: "form-control" %></td>
-                              </tr>
-                              <tr>
-                                <td><p class="text-muted"><strong>Breed</strong></p></td>
-                                <td><%= f.select :breed_id, options_from_collection_for_select(Breed.all, :id, :name),{},class: "form-control" %></td>
-                              </tr>
-                              <tr>
-                                <td><p class="text-muted"><strong>Weight</strong></p></td>
-                                <td><%= f.select :weight_id, options_for_select(weight_range_dropdown(weight_options)),{}, class: "form-control" %></td>
-                              </tr>
-                              <tr>
-                                <td><p class="text-muted"><strong>Colors</strong></p></td>
-                                <td>
-                                  <%= f.select :color_ids, options_for_select(color_options.map{|c| [c.name, c.id,{class: "badge badge-default badge-#{c.name}",style: "margin:3px;"}]}), {include_hidden: false}, {class: "form-control multi", multiple: true} %>
-                                </td>
-                              </tr>
-                          </tbody>
-                        </table>
-                        <%= hidden_field_tag :group_index, i %>
-                        <%= hidden_field_tag :next_pet_index, g.pets.size %>
-                        <%= f.hidden_field :group_id, value: g.id %>
-                        <%= f.submit "Save", data: { disable_with: "Saving..." }, :class => 'btn btn-info btn-sm' %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div><!-- accordian -->
-              <button id="new-pet-<%=i%>" class="btn btn-outline-primary btn-sm float-right add-pet" data-group-number="<%=i%>" data-pet-count="<%=g.pets ? g.pets.count : 0%>" data-group-id="<%=g.id%>">Add Pet</button>
-            </div><!-- col-lg-6 -->
-          
-            <div class="col-lg-6"><!-- User column -->
-              <div class="card" style="background-color: #e3f2fd">
-                <div class="card-block">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <h2 class="card-title">People</h2>
-                    </div>
-                    <div class="col-lg-6">
-                      <i class="fa fa-users fa-3x pull-right" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="user_accordion_<%=i%>" role="tablist" aria-multiselectable="true">
-                <% g.users.each_with_index do |u,j| %>
-                  <div class="card">
-                    <div class="card-header" role="tab" id="heading_group_<%=i%>_user_<%=j%>">
-                      <h5 class="mb-0">
-                        <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#user_accordion_<%=i%>" href="#collapse_group_<%=i%>_user_<%=j%>" aria-expanded="false" aria-controls="collapse_group_<%=i%>_user_<%=j%>">
-                          <%=u.first_name%>
-                        </a>
-                      </h5>
-                    </div>
-                    
-                    <div id="collapse_group_<%=i%>_user_<%=j%>" class="collapse<%= ' show' if j==0 %>" role="tabpanel" aria-labelledby="heading_group_<%=i%>_user_<%=j%>">
-                      <div class="card-block">
-                        <table class="table">
-                          <tbody>
-                            <tr>
-                              <td><p class="text-muted"><strong>First Name</strong></p></td>
-                              <td><%=u.first_name%></td>
-                            </tr>
-                            <tr>
-                              <td><p class="text-muted"><strong>Last Name</strong></p></td>
-                              <td><%=u.last_name%></td>
-                            </tr>
-                            <tr>
-                              <td><p class="text-muted"><strong>username</strong></p></td>
-                              <td><%=u.email%></td>
-                            </tr>
-                            <tr>
-                              <td><p class="text-muted"><strong>Group Owner</strong></p></td>
-                              <td><i class="fa fa-<%=g.owner==u ? 'check' : 'times'%>" aria-hidden="true"></i></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-                <button class="btn btn-outline-primary btn-sm float-right">Invite Person</button>
-              </div><!-- accordian -->
-            </div><!-- col-lg-6 user column-->
-          
-          </div><!-- row -->
-        </div><!-- tab pane -->
-      <% end %><!-- group loop -->
+      <% @groups.each_with_index do |group,i| %>
+        <%= render 'groups/tab_pane', group: group, i: i, weight_options: weight_options %>
+      <% end %>
     </div><!-- tab content -->
   </div><!-- card block -->
 </div><!-- card -->

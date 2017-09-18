@@ -18,9 +18,17 @@ Rails.application.routes.draw do
   #            DELETE /colors/:id(.:format)             colors#destroy
   # In the views you can use the prefix to get the paths. Ex color_path(@color), 
   # edit_color_path(@color), new_color_path
-  resources :colors
+  resources :colors do
+    collection do
+      get 'find'
+    end
+  end
   resources :weights
-  resources :breeds
+  resources :breeds do
+    collection do
+      get 'find'
+    end
+  end
   resources :pets
   resources :groups do
     # group_feeding_histories GET    /groups/:group_id/feeding_histories(.:format) feeding_histories#index

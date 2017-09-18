@@ -1,0 +1,16 @@
+<div class="card" id="div_card_group_<%=group.id%>_pet_<%=pet.id%>">
+  <div class="card-header" role="tab" id="heading_group_<%=group.id%>_pet_<%=pet.id%>">
+    <h5 class="mb-0">
+      <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
+      <a id="qwer<%=group.id%>" class="collapsed" data-toggle="collapse" data-parent="#pet_accordion_group_<%=group.id%>" href="#collapse_group_<%=group.id%>_pet_<%=pet.id%>" aria-expanded="false" aria-controls="collapse_group_<%=group.id%>_pet_<%=pet.id%>">
+      <%=pet.name%>
+      </a>
+    </h5>
+  </div>
+  <div id="collapse_group_<%=group.id%>_pet_<%=pet.id%>" class="collapse<%= j == 0 ? ' show' : '' %>" role="tabpanel" aria-labelledby="heading_group_<%=group.id%>_pet_<%=pet.id%>">
+    <div class="card-block">
+      <%= render 'pets/show_card', group: group, pet: pet %>
+      <%= render 'pets/form_card', group: group, pet: pet, weight_options: weight_options, hide: true %>
+    </div>
+  </div>
+</div>
