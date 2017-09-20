@@ -5,11 +5,16 @@ class FeedingHistoriesController < ApplicationController
   # GET /groups/1/feeding_histories.json
   def index
     if params[:group_id]
-      @feeding_histories = FeedingHistory.includes(:delegate, pet: [:breed, :colors, :weight]).references(:delegate, pet: [:breed, :colors, :weight]).where('pets.group' =>  params[:group_id])
+      @feeding_histories = FeedingHistory.includes(:delegate, pet: [:breed, :colors, :weight])
+                                         .references(:delegate, pet: [:breed, :colors, :weight])
+                                         .where('pets.group' =>  params[:group_id])
     elsif params[:pet_id]
-      @feeding_histories = FeedingHistory.includes(:delegate, pet: [:breed, :colors, :weight]).references(:delegate, pet: [:breed, :colors, :weight]).where('pets.id' =>  params[:pet_id])
+      @feeding_histories = FeedingHistory.includes(:delegate, pet: [:breed, :colors, :weight])
+                                         .references(:delegate, pet: [:breed, :colors, :weight])
+                                         .where('pets.id' =>  params[:pet_id])
     else
-      @feeding_histories = FeedingHistory.includes(:delegate, pet: [:breed, :colors, :weight]).references(:delegate, pet: [:breed, :colors, :weight])
+      @feeding_histories = FeedingHistory.includes(:delegate, pet: [:breed, :colors, :weight])
+                                         .references(:delegate, pet: [:breed, :colors, :weight])
     end
   end
 
@@ -30,9 +35,7 @@ class FeedingHistoriesController < ApplicationController
   # POST /feeding_histories
   # POST /feeding_histories.json
   def create
-    @user = User.first
-    puts feeding_history_params.inspect
-    @feeding_history = FeedingHistory.new(feeding_history_params.merge(user: @user))
+    @feeding_history = FeedingHistory.new(feeding_history_params.merge(user: current_user))
 
     respond_to do |format|
       if @feeding_history.save
