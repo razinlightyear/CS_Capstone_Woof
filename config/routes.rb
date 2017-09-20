@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users
+  resources :users do 
+    collection do
+      get 'profile'
+    end
+  end
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
   #     Prefix Verb   URI Pattern                       Controller#Action
@@ -14,10 +18,20 @@ Rails.application.routes.draw do
   #            DELETE /colors/:id(.:format)             colors#destroy
   # In the views you can use the prefix to get the paths. Ex color_path(@color), 
   # edit_color_path(@color), new_color_path
-  resources :colors
+  resources :colors do
+    collection do
+      get 'find'
+    end
+  end
   resources :weights
-  resources :breeds
-  resources :pets
+  resources :breeds do
+    collection do
+      get 'find'
+    end
+  end
+  resources :pets do
+    resources :feeding_histories, only: :index
+  end
   resources :groups do
     # group_feeding_histories GET    /groups/:group_id/feeding_histories(.:format) feeding_histories#index
     resources :feeding_histories, only: :index
@@ -37,7 +51,6 @@ Rails.application.routes.draw do
   root 'home#index' # create a homepage that doesn't belong to a model. # This is the real homepage.
   get 'home/index'
   get 'home/sign_out_profile'
-
   mount StatusPage::Engine, at: '/' # GET /status
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

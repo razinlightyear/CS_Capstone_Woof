@@ -61,6 +61,17 @@ class ColorsController < ApplicationController
     end
   end
 
+  # GET /colors/find.json?name='red'
+  def find
+    respond_to do |format|
+      if params[:name]
+        @colors = Color.contains(params[:name])
+      else
+        @colors = Color.all
+      end
+      format.json { render :index, status: :ok }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_color

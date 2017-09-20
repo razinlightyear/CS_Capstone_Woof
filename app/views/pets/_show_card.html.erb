@@ -1,0 +1,31 @@
+<div class="pet-show-fields">
+  <table class="table table-sm">
+    <tbody>
+      <tr>
+        <td><p class="text-muted"><strong>Name</strong></p></td>
+        <td><%=pet.name%></td>
+      </tr>
+      <tr>
+        <td><p class="text-muted"><strong>Chip #</strong></p></td>
+        <td><%=pet.chip_number%></td>
+      </tr>
+      <tr>
+        <td><p class="text-muted"><strong>Breed</strong></p></td>
+        <td><%=pet.breed.name%></td>
+      </tr>
+      <tr>
+        <td><p class="text-muted"><strong>Weight</strong></p></td>
+        <td><%=pet.weight.start_weight%> lbs - <%=pet.weight.end_weight%> lbs</td>
+      </tr>
+      <tr>
+        <td><p class="text-muted"><strong>Colors</strong></p></td>
+        <td>
+          <% pet.colors.each do |c| %>
+            <span class="badge badge-default badge-<%=c.name%>"><%=c.name%></span>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-info btn-sm edit-btn">Edit</button>
+</div>

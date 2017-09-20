@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918081510) do
+ActiveRecord::Schema.define(version: 20170918135009) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -41,12 +41,12 @@ ActiveRecord::Schema.define(version: 20170918081510) do
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "pet_id"
-    t.string   "type",                                   null: false
-    t.boolean  "is_around_me",                           null: false
+    t.string   "type",                                                   null: false
+    t.boolean  "is_around_me",                           default: false, null: false
     t.decimal  "longitude",    precision: 15, scale: 12
     t.decimal  "latitude",     precision: 15, scale: 12
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.index ["pet_id"], name: "index_events_on_pet_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
@@ -92,11 +92,12 @@ ActiveRecord::Schema.define(version: 20170918081510) do
   create_table "pets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "group_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "breed_id",    null: false
-    t.integer  "weight_id",   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "breed_id",                   null: false
+    t.integer  "weight_id",                  null: false
     t.string   "chip_number"
+    t.boolean  "active",      default: true, null: false
     t.index ["breed_id"], name: "index_pets_on_breed_id", using: :btree
     t.index ["group_id"], name: "index_pets_on_group_id", using: :btree
     t.index ["weight_id"], name: "index_pets_on_weight_id", using: :btree
@@ -105,17 +106,18 @@ ActiveRecord::Schema.define(version: 20170918081510) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "encrypted_password",              default: "", null: false
-    t.integer  "sign_in_count",                   default: 0,  null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "encrypted_password",              default: "",   null: false
+    t.integer  "sign_in_count",                   default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "email",                           default: "", null: false
+    t.string   "email",                                          null: false
     t.datetime "remember_created_at"
     t.string   "authentication_token", limit: 30
+    t.boolean  "active",                          default: true, null: false
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end

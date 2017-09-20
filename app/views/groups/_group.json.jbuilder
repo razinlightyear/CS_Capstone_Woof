@@ -1,2 +1,2 @@
-json.extract! group, :id, :name, :owner, :created_at, :updated_at
-json.url group_url(group, format: :json)
+json.extract! group, :id, :name, :created_at, :updated_at
+json.owner group.owner, partial: "users/user", as: :user

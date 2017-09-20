@@ -16,7 +16,19 @@
 //= require tether
 //= require bootstrap-sprockets
 //= require_tree .
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover(); 
+//= require underscore
+//= require select2
+$(document).on('turbolinks:load', function() {
+  //$('[data-toggle="popover"]').popover();
+  
+  $('#profile_pic').popover({
+          html :     true,
+          placement: "left",
+          title:     "Valued User",
+          trigger:   "focus",
+          content:   "User profile stuff goes here",
+  });
+  $('#profile_pic').on("click",function(e){
+    e.preventDefault();
+  });
 });
-//$('#profile_pic').popover()

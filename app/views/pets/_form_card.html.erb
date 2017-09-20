@@ -1,0 +1,49 @@
+<div class="pet-form-fields" style="<%= hide ? "display: none;" : '' %>" <%= pet.new_record? ? "id=new_pet_card_group_#{group.id}" : '' %>>
+  <%= form_for pet, remote: true do |f| %>
+      <% if pet.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
+  
+        <ul>
+          <% pet.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    <table class="table table-sm">
+      <tbody>
+          <tr>
+            <td><p class="text-muted"><strong>Name</strong></p></td>
+            <td><%= f.text_field :name, class: "form-control" %></td>
+          </tr>
+          <tr>
+            <td><p class="text-muted"><strong>Chip #</strong></p></td>
+            <td><%= f.text_field :chip_number, class: "form-control" %></td>
+          </tr>
+          <tr>
+            <td><p class="text-muted"><strong>Breed</strong></p></td>
+            <td><%= f.collection_select :breed_id, (pet.breed ? [pet.breed] : []), :id, :name, { include_blank: true }, { class: "form-control breed-selector", style: "width: 100%;" } %></td>
+          </tr>
+          <tr>
+            <td><p class="text-muted"><strong>Weight</strong></p></td>
+          <td>
+          <%= f.collection_select :weight_id, weight_range_dropdown(weight_options), :last, :first, { include_blank: true, selected: pet.weight_id }, { class: "form-control weight-selector", style: "width: 100%;" } %></td>
+          </tr>
+          <tr>
+            <td><p class="text-muted"><strong>Colors</strong></p></td>
+            <td>
+            <%= f.collection_select :color_ids, pet.colors, :id, :name, {include_hidden: false}, {class: "form-control multi colors-selector", style: "width: 100%;", multiple: true} %>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    <%= f.hidden_field :group_id, value: group.id %>
+    <%= f.submit "Save", data: { disable_with: "Saving..." }, :class => 'btn btn-info btn-sm' %>
+    <% unless pet.new_record? %>
+      <button class="btn btn-outline-primary btn-sm cancel-btn">Cancel</button>
+      <!-- <button class="btn btn-danger btn-sm float-right" data-toggle="confirmation">Remove Pet</button> -->
+      <%= link_to 'Remove Pet', pet, remote: true, method: :delete, data: { confirm: 'Remove pet?' }, class: "btn btn-danger btn-sm float-right" %>
+    <% end %>
+  <% end %>
+</div>

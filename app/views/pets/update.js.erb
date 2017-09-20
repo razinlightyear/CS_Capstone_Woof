@@ -1,7 +1,10 @@
-$('#new_pet_card_<%= @pet.group.id.to_s %>').before('<%= j render(:partial => 'pets/card', :locals => {group: @pet.group, pet: @pet, j: 0, weight_options: Weight.all}) %>');
-// clear new form fields
-var card = $('#new_pet_card_group_<%=@pet.group_id.to_s%>');
-card.replaceWith('<%= j render(:partial => 'pets/form_card', :locals => {group: @pet.group, pet: Pet.new, weight_options: Weight.all, hide: false}) %>');
+// re-render show and view portion of the cards
+console.log("update.js.erb file");
+<%= puts "update.js.erb file" %>
+<%= puts @pet.inspect %>
+var card = $('#div_card_group_<%=@pet.group_id.to_s%>_pet_<%=@pet.id.to_s%>');
+card.replaceWith('<%= j render(:partial => 'pets/card', :locals => {group: @pet.group, pet: @pet, j: 0, weight_options: Weight.all}) %>');
+debugger;
 
 $('.breed-selector').select2({
   placeholder: 'Select breed',

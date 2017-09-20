@@ -1,0 +1,63 @@
+<div class="tab-pane fade <%= 'show active' if i==0 %>" id="group_<%=group.id%>" role="tabpanel"><!-- might need to add 'show active' back to class -->
+  <div class="row">
+    <div class="col-lg-6"><!-- Pets Column -->
+      <div class="card" style="background-color: #e3f2fd">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-lg-6">
+              <h2 class="card-title">Pets</h2>
+            </div>
+            <div class="col-lg-6">
+              <i class="fa fa-paw fa-3x pull-right" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="pet_accordion_group_<%=group.id%>" role="tablist" aria-multiselectable="true">
+        <% group.pets.active.each_with_index do |pet,j| %>
+          <%= render 'pets/card', group: group, pet: pet, j: j, weight_options: weight_options %>
+        <% end %>
+        <div id="new_pet_card_<%=group.id%>" class="card" style="display: none;">
+          <div class="card-header" role="tab" id="heading_group_<%=group.id%>_new_pet">
+            <h5 class="mb-0">
+              <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
+              <a class="collapsed" data-toggle="collapse" data-parent="#pet_accordion_group_<%=group.id%>" href="#collapse_group_<%=group.id%>_new_pet" aria-expanded="false" aria-controls="collapse_group_<%=group.id%>_new_pet">
+                New Pet
+              </a>
+            </h5>
+          </div>
+          <div id="collapse_group_<%=group.id%>_new_pet" class="collapse show" role="tabpanel" aria-labelledby="heading_group_<%=group.id%>_new_pet">
+            <div class="card-block">
+              <%= render 'pets/form_card', group: group, pet: Pet.new, weight_options: weight_options, hide: false %>
+            </div><!-- card-block -->
+          </div>
+        </div>
+
+
+      </div><!-- accordian -->
+      <button id="new-pet-<%=group.id%>" data-group-id="<%=group.id%>" class="btn btn-outline-primary btn-sm float-right add-pet">Add Pet</button>
+    </div><!-- col-lg-6 -->
+  
+    <div class="col-lg-6"><!-- User column -->
+      <div class="card" style="background-color: #e3f2fd">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-lg-6">
+              <h2 class="card-title">People</h2>
+            </div>
+            <div class="col-lg-6">
+              <i class="fa fa-users fa-3x pull-right" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="user_accordion_group_<%=group.id%>" role="tablist" aria-multiselectable="true">
+        <% group.users.each_with_index do |user,j| %>
+          <%= render 'users/card', group: group, user: user, j: j %>
+        <% end %>
+        <button class="btn btn-outline-primary btn-sm float-right">Invite Person</button>
+      </div><!-- accordian -->
+    </div><!-- col-lg-6 user column-->
+  
+  </div><!-- row -->
+</div><!-- tab pane -->
