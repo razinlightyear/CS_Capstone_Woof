@@ -1,13 +1,8 @@
-<!-- Create the woof page here -->
-
 <div class = 'container'>
     <div class = "row">
         <div class = "col-sm-6">
         </div>
         <div class = "col-sm-6">
-            <div class = "row">
-                <%= link_to "Log In Now", new_user_session_path, class: "btn btn-lg btn-primary" %>
-            </div>
             <h1>Sign Up</h1>
             <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
                 <div class = 'form-group row'>
@@ -36,21 +31,7 @@
                 </div>
             <% end %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <%= render "users/shared/links" %>
 
         </div>
     </div>

@@ -37,6 +37,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
+        
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -72,15 +73,16 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user)
     @groups = Group.joins(:groups_users).where('groups_users.user_id' => params[:user_id]).includes(:users, :pets => [:breed,:colors,:weight]).references(:users, :pets => [:breed,:colors,:weight])
   end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     # callbacks for models and controllers. in models, use them for validation. you can do rich validation on them: when was it created, after it is updated.
     # it makes sure that the user exists in the database.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(current_user)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -36,6 +36,12 @@
     </nav>
     <div class = "container content">
       <!-- the below line prints the Animal; for every view, the yield below pastes the respective pages in the view.-->
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
       <%= yield %>
     </div>
     </div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :users
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
@@ -26,10 +27,19 @@ Rails.application.routes.draw do
   resources :found_dogs
   resources :feeding_histories
   resources :walking_partners
-  get 'login', controller: :home, action: :login
-  post 'login', controller: :home, action: :login
-  get 'profile', controller: :users, action: :profile
-  root 'home#index' # create a homepage that doesn't belong to a model
+  resources :ios_sessions, only: [:create]
+
+  delete '/ios/sign_out', to: 'ios_sessions#destroy'
+  post '/ios/sign_up', to: 'ios_sessions#new'
+  get '/login', controller: :home, action: :login # if you are not signed in or token expires or this is the main woof homepage
+  post 'login', controller: :home, action: :create # when user enters credentials into the homepage and click 'Sign In', a post request sends all the credentials to this action
+  get 'profile', controller: :users, action: :profile # when user is authenticated, the profile page is loaded with this action
+  root 'home#index' # create a homepage that doesn't belong to a model. # This is the real homepage.
+  get 'home/index'
+  get 'home/sign_out_profile'
+
   mount StatusPage::Engine, at: '/' # GET /status
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+
+
