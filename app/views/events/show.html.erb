@@ -1,5 +1,5 @@
 <h1>User: <%= @user.first_name  + " " + @user.last_name %></h1>
-<%= link_to 'Sign Out', home_sign_out_profile_path %>
+<%= render "users/profile_features" %>
 <%= link_to 'My Profile', profile_path %>
 <h5 id="latitude"></h5>
 <h5 id="longitude"></h5>
