@@ -41,12 +41,12 @@ ActiveRecord::Schema.define(version: 20170918135009) do
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "pet_id"
-    t.string   "type",                                   null: false
-    t.boolean  "is_around_me",                           null: false
+    t.string   "type",                                                   null: false
+    t.boolean  "is_around_me",                           default: false, null: false
     t.decimal  "longitude",    precision: 15, scale: 12
     t.decimal  "latitude",     precision: 15, scale: 12
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.index ["pet_id"], name: "index_events_on_pet_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
