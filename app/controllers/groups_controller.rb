@@ -24,7 +24,9 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @group = Group.new(group_params)
+    @group = Group.new(group_params.merge owner: current_user)
+    current_user.groups << @group
+    current_user.save!
 
     respond_to do |format|
       if @group.save
