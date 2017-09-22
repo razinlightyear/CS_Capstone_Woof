@@ -6,9 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :owns_groups, class_name: "Group", foreign_key: "owner_id"
+  has_many :owns_groups, class_name: "Group", foreign_key: "owner_id", inverse_of: :owner # as an owner you can also have many groups
   has_and_belongs_to_many :groups
-  has_many :groups, inverse_of: :owner # as an owner you can also have many groups
   has_many :events, inverse_of: :user
   
   validates :password, length: { minimum: 6, message: "Password must be at least 6 characters" } # if devise wants something different, feel free to change

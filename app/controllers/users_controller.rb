@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.includes([:groups, :owns_groups])
+    @users = User.all.eager_load(:groups, :owns_groups)
   end
 
   # GET /users/1
