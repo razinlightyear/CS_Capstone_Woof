@@ -3,6 +3,13 @@ class Event < ApplicationRecord
   belongs_to :pet, optional: true # this is an  optional column, lost dog owner might not know which dog it is.
   belongs_to :user
   
+  #{ message: "This event needs to belong to a pet." }
+  validates :pet, presence: true, if: Proc.new { |e| e.is_around_me }
+  validates :user, presence: true
   # scope for around me events. Events.around_me
   scope :around_me, -> { where(is_around_me: true) }
+  
+  def self.around_me_events
+    [LostDog, FoundDog, WalkingPartner]
+  end
 end

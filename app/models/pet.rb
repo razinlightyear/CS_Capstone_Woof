@@ -5,5 +5,10 @@ class Pet < ApplicationRecord
   has_and_belongs_to_many :colors
   has_many :events
   
+  validates :group, presence: { message: "This pet must be belong to a group" }
+  validates :colors, presence: { message: "Please select the color(s) of the pet" }
+  validates :breed, presence: { message: "Please select a breed" }
+  validates :weight, presence: { message: "Please select a weight range" }
+  
   scope :active, -> {where(active: true)}
 end
