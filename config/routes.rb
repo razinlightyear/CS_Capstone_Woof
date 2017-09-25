@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'profile'
     end
   end
+
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
   #     Prefix Verb   URI Pattern                       Controller#Action
@@ -42,6 +43,8 @@ Rails.application.routes.draw do
   resources :feeding_histories
   resources :walking_partners
   resources :ios_sessions, only: [:create]
+
+  
 
   delete '/ios/sign_out', to: 'ios_sessions#destroy'
   post '/ios/sign_up', to: 'ios_sessions#new'
