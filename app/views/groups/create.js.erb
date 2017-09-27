@@ -1,0 +1,92 @@
+var new_group_pane = $('#group_new');
+// replace new group form fields
+new_group_pane.html('<%= j render(:partial => 'groups/form_card', :locals => { group: Group.new }) %>');
+
+// create button link
+$('#new_group_btn').parent().before('<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#group_<%=@group.id%>" role="tab"><%= @group.name %></a></li>')
+
+// Add tab-pane content
+new_group_pane.before('<%= j render(:partial => 'groups/tab_pane', :locals => {group: @group, i: current_user.groups.size - 1, weight_options: Weight.all}) %>');
+
+// toggle new tab
+$('a[href="#group_<%=@group.id%>"]').tab('show')
+
+$('.breed-selector').select2({
+  placeholder: 'Select breed',
+  allowClear: true,
+  theme: 'bootstrap',
+  ajax: {
+    url: '/breeds/find',
+    data: function(params) {
+      return {
+        name: params.term
+      };
+    },
+    dataType: 'json',
+    delay: 500,
+    processResults: function(data, params) {
+      return {
+        results: _.map(data, function(el) {
+          return {
+            id: el.id,
+            name: el.name
+          };
+        })
+      };
+    },
+    cache: true
+  },
+  escapeMarkup: function(markup) {
+    return markup;
+  },
+  minimumInputLength: 2,
+  templateResult: function(item) {
+    return item.name;
+  },
+  templateSelection: function(item) {
+    return item.name || item.text;
+  }
+});
+
+$('.colors-selector').select2({
+  placeholder: 'Select Colors',
+  allowClear: true,
+  theme: 'bootstrap',
+  ajax: {
+    url: '/colors/find',
+    data: function(params) {
+      return {
+        name: params.term
+      };
+    },
+    dataType: 'json',
+    delay: 500,
+    processResults: function(data, params) {
+      return {
+        results: _.map(data, function(el) {
+          return {
+            id: el.id,
+            name: el.name
+          };
+        })
+      };
+    },
+    cache: true
+  },
+  escapeMarkup: function(markup) {
+    return markup;
+  },
+  minimumInputLength: 2,
+  templateResult: function(item) {
+    return item.name;
+  },
+  templateSelection: function(item) {
+    return item.name || item.text;
+  }
+});
+
+$('.weight-selector').select2({
+  placeholder: 'Select weight range',
+  allowClear: true,
+  theme: 'bootstrap'
+});

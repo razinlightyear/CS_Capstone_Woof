@@ -24,13 +24,18 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @group = Group.new(group_params.merge owner: current_user)
-    current_user.groups << @group
-    current_user.save!
+    p = group_params
+    p[:owner] = current_user
+    @group = Group.new(p)
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        current_user.groups << @group
+        current_user.save!
+        @user = User.find(current_user)
+        @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).eager_load(:users, pets: [:breed,:colors,:weight])
+        format.html { redirect_to profile_users_path, notice: 'Group was successfully created.' }
+        format.js { render 'groups/create', status: :created }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }

@@ -1,4 +1,4 @@
-<div class="card" style="width: 20rem;">
+<div class="card" style="width: 20rem; width: 50%; margin: 50px auto;">
   <div class="card-block">
     <%= form_for(group) do |f| %>
     <% if group.errors.any? %>
@@ -14,7 +14,7 @@
     <% end %>
 
     <div class="form-group">
-      <%= f.label :name %>
+      <%= f.label :name, 'Group name' %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
 

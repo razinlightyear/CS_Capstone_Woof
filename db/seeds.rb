@@ -374,7 +374,7 @@ all_breeds = ["Affenpinscher",
               "Yugoslavian Mountain Dog"]
 
 all_breeds.each do |breed|
-  Breed.create(name: breed)
+  Breed.create!(name: breed)
 end
 
 weight_ranges = [[0,10],
@@ -390,12 +390,12 @@ weight_ranges = [[0,10],
                  [101,nil]]
 
 weight_ranges.each do |range|
-  Weight.create(start_weight: range.first, end_weight: range.last)
+  Weight.create!(start_weight: range.first, end_weight: range.last)
 end
 
 colors = ["brown","red","gold","yellow","cream","black","blue","white"]
 colors.each do |color|
-  Color.create(name: color)
+  Color.create!(name: color)
 end
 
 # Create some sample users
@@ -423,25 +423,25 @@ andy.password = "1234"
 andy.save
 =end
 
-diego = User.create(first_name: "Diego", last_name: "Pardo", email: "me@diegopardo.com", password: "hello1234")
+diego = User.create!(first_name: "Diego", last_name: "Pardo", email: "me@diegopardo.com", password: "hello1234")
 
-alejandra = User.create(first_name: "Alejandra", last_name: "Pardo", email: "maria@diegopardo.com", password: "hello1234")
+alejandra = User.create!(first_name: "Alejandra", last_name: "Pardo", email: "maria@diegopardo.com", password: "hello1234")
 
-andy = User.create(first_name: "Andy", last_name: "Cho", email: "andy@cho.com", password: "hello1234")
+andy = User.create!(first_name: "Andy", last_name: "Cho", email: "andy@cho.com", password: "hello1234")
 
-paarth = User.create(first_name: "Paarth", last_name: "Lakhani", email: "paarth@utah.com", password: "hello1234")
+paarth = User.create!(first_name: "Paarth", last_name: "Lakhani", email: "paarth@utah.com", password: "hello1234")
 
-andrew = User.create(first_name: "Andrew", last_name: "Emrazian", email: "andrew@utah.com", password: "hello1234")
+andrew = User.create!(first_name: "Andrew", last_name: "Emrazian", email: "andrew@utah.com", password: "hello1234")
 
 # Create some groups
 pardos = Group.new
 pardos.name = "Pardos"
 pardos.owner = diego
 pardos.users = [diego, alejandra]
-pardos.save
+pardos.save!
 
 # Other way
-monkeys = Group.create(name: "Code Monkeys", owner: andrew, users: [andrew, andy, paarth, diego])
+monkeys = Group.create!(name: "Code Monkeys", owner: andrew, users: [andrew, andy, paarth, diego])
 
 # Create some pets
 coco = Pet.new
@@ -451,7 +451,7 @@ coco.group = pardos
 coco.breed = Breed.where(name: "Miniature Schnauzer").first
 coco.weight = Weight.where(start_weight: 0, end_weight: 10).first
 coco.colors = Color.where(name: "white")
-coco.save
+coco.save!
 
 luna = Pet.new
 luna.name = "Luna"
@@ -460,7 +460,7 @@ luna.group = pardos
 luna.breed = Breed.where(name: "Chihuahua").first
 luna.weight = Weight.where(start_weight: 0, end_weight: 10).first
 luna.colors = Color.where(name: "black")
-luna.save
+luna.save!
 
 sadie = Pet.new
 sadie.name = "Sadie"
@@ -469,7 +469,7 @@ sadie.group = monkeys
 sadie.breed = Breed.where(name: "Pit Bull").first
 sadie.weight = Weight.where(start_weight: 61, end_weight: 70).first
 sadie.colors = Color.where(name: ["black","white"]) # She's black and white
-sadie.save
+sadie.save!
 
 @users = User.all
 @pets = Pet.all

@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :groups
   has_many :events, inverse_of: :user
   
-  validates :password, length: { minimum: 6, message: "Password must be at least 6 characters" } # if devise wants something different, feel free to change
+  #validates :password, length: { minimum: 6, message: "Password must be at least 6 characters" } # if devise wants something different, feel free to change
   validates :email, presence: { message: "Please enter an email" } # by confirming through the email, you know the email format is correct (no need for regex)
   validates :email, uniqueness: { message: "This email is already registered" }
   

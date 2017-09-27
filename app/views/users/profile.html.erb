@@ -12,16 +12,14 @@
         </li>
       <% end %>
       <li class="nav-item">
-        <button type="button" class="btn btn-outline-primary nav-link" id="new_group_btn" data-toggle="tab" role="tab" href="#group_new">New Group</button>
+        <button type="button" class="btn btn-outline-primary nav-link new-group-btn" id="new_group_btn" data-toggle="tab" role="tab" href="#group_new">New Group</button>
       </li>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content" style="background-color: #fafbfc; border-style: solid; border-width: 1px; border-radius: 5px; border-color: #ddd;">
       <% @groups.each_with_index do |group,i| %>
         <%= render 'groups/tab_pane', group: group, i: i, weight_options: weight_options %>
       <% end %>
-    </div><!-- tab content -->
-    <div class="tab-content">
-        <%= render 'groups/tab_pane_new', show: @groups.empty? %>
+      <%= render 'groups/tab_pane_new', show: @groups.empty? %>
     </div><!-- tab content -->
   </div><!-- card block -->
 </div><!-- card -->

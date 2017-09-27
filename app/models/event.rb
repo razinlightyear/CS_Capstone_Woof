@@ -4,7 +4,7 @@ class Event < ApplicationRecord
   belongs_to :user
   
   #{ message: "This event needs to belong to a pet." }
-  validates :pet, presence: true, if: Proc.new { |e| e.is_around_me }
+  validates :pet, presence: true, unless: Proc.new { |e| [FoundDog].include? e.class }
   validates :user, presence: true
   # scope for around me events. Events.around_me
   scope :around_me, -> { where(is_around_me: true) }
