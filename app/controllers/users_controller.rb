@@ -74,7 +74,7 @@ class UsersController < ApplicationController
 
   def profile
     @user = User.find(current_user)
-    @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).includes(:users, :pets => [:breed,:colors,:weight]).references(:users, :pets => [:breed,:colors,:weight])
+    @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).eager_load(:users, pets: [:breed,:colors,:weight])
   end
 
   private
