@@ -1,15 +1,16 @@
 class HomeController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    @user = User.new
+    if @user.nil?
+      @user = User.new
+    end
   end
 
   def login
   end
 
   def create
-    @email_address = params[:email_address]
-    @password = params[:password]
     redirect_to user_session_path
   end
 

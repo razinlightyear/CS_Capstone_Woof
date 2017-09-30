@@ -3,7 +3,8 @@
         <div class = "col-sm-6">
         </div>
         <div class = "col-sm-6">
-
+            <%= @user.errors.count %>
+            <%= @user.errors.full_messages %>
             <% if @user.errors.any? %>
                 <h2><%= pluralize(@user.errors.count, "error") %> prohibited the user to be saved into the database </h2>
 

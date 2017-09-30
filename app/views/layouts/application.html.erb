@@ -11,52 +11,17 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #e3f2fd;">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <%= link_to(image_tag("letter-w.svg", class: 'image-responsive', width: 30, height: 30), root_path, :method => :get) %>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Admin
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <%= link_to "Users", users_path, class: "dropdown-item" %>
-              <%= link_to "Pets", pets_path, class: "dropdown-item" %>
-              <%= link_to "Groups", groups_path, class: "dropdown-item" %>
-            </div>
-          </li>
-        </ul>
-        
-        <!-- the below line is for Woof Logo-->
-        <%= link_to(image_tag("sarina.regular.png", class: 'image-responsive navbar-brand', width: 122, height: 42), root_path, :method => :get, class: 'abs-center-x') %>
-
-        <form class = "form-inline">
-          <%= link_to "Log In Now", new_user_session_path, class: "btn btn-outline-secondary pull-right" %>
-        </form>
-        <%= link_to(image_tag("//placehold.it/40x40", class: 'rounded-circle pull-right', width: 40, height: 40),'#','data-toggle' => "popover", id: "profile_pic") %>
-      </div>
-    </nav>
-    <div class = "container content">
+      <% if user_signed_in? %>
+        <%= render 'users/user_navbar' %>
+        <% else %>
+        <%= render 'home/navbar2' %>
+      <% end %>
+      <%= yield %>
       <% if notice %>
         <p class="alert alert-success"><%= notice %></p>
       <% end %>
       <% if alert %>
         <p class="alert alert-danger"><%= alert %></p>
       <% end %>
-      <%= yield %>
-    </div>
-    </div>
-    <div class="footer" style="background-color: #e3f2fd;">
-      <div class="copyright" style="text-align: center">
-        <!--The below line prints the 'W'' logo-->
-        <%= link_to(image_tag("letter-w.svg", class: 'image-responsive', width: 30, height: 30), root_path, :method => :get) %>
-        Copyright &copy; 2017 Team Woof
-      </div>
-      <!--<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
-    </div>
   </body>
 </html>

@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   #protect_from_forgery with: :exception
   acts_as_token_authentication_handler_for User, fallback: :none
-  #before_action :authenticate_user!, except: [:home_index]
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
 
   protected
 

@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  resources :users do 
-    collection do
-      get 'profile'
-    end
-  end
-
+  devise_for :users, :controllers => {
+    :registrations => "users/registrations",
+    :sessions => "users/sessions"
+  }
+  
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
   #     Prefix Verb   URI Pattern                       Controller#Action
@@ -52,7 +50,6 @@ Rails.application.routes.draw do
   get 'profile', controller: :users, action: :profile # when user is authenticated, the profile page is loaded with this action
   root 'home#index' # create a homepage that doesn't belong to a model. # This is the real homepage
   get 'home/sign_out_profile'
+
   mount StatusPage::Engine, at: '/' # GET /status
 end
-
-
