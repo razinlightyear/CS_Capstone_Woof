@@ -32,3 +32,96 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
   });
 });
+
+function bindSelect2Elements(){
+  $('.breed-selector').select2({
+    placeholder: 'Select breed',
+    allowClear: true,
+    theme: 'bootstrap',
+    width: "resolve",
+    ajax: {
+      url: '/breeds/find',
+      data: function(params) {
+        return {
+          name: params.term
+        };
+      },
+      dataType: 'json',
+      delay: 500,
+      processResults: function(data, params) {
+        return {
+          results: _.map(data, function(el) {
+            return {
+              id: el.id,
+              name: el.name
+            };
+          })
+        };
+      },
+      cache: true
+    },
+    escapeMarkup: function(markup) {
+      return markup;
+    },
+    minimumInputLength: 2,
+    templateResult: function(item) {
+      return item.name;
+    },
+    templateSelection: function(item) {
+      return item.name || item.text;
+    }
+  });
+
+  $('.colors-selector').select2({
+    placeholder: 'Select Colors',
+    allowClear: true,
+    theme: 'bootstrap',
+    width: "resolve",
+    ajax: {
+      url: '/colors/find',
+      data: function(params) {
+        return {
+          name: params.term
+        };
+      },
+      dataType: 'json',
+      delay: 500,
+      processResults: function(data, params) {
+        return {
+          results: _.map(data, function(el) {
+            return {
+              id: el.id,
+              name: el.name
+            };
+          })
+        };
+      },
+      cache: true
+    },
+    escapeMarkup: function(markup) {
+      return markup;
+    },
+    minimumInputLength: 2,
+    templateResult: function(item) {
+      return item.name;
+    },
+    templateSelection: function(item) {
+      return item.name || item.text;
+    }
+  });
+
+  $('.weight-selector').select2({
+    placeholder: 'Select weight range',
+    allowClear: true,
+    theme: 'bootstrap',
+    width: "resolve"
+  });
+}
+
+function highlightSelect2Error(card, select2ClassType){
+  selectInput = card.find(select2ClassType).siblings('.select2-container');
+  selectInput.addClass('has-danger');
+
+  selectInput.find('.selection').addClass('form-control');
+  selectInput.find('.selection').css('padding','0px');
+}
