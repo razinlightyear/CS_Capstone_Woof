@@ -1,87 +1,11 @@
 // re-render show and view portion of the cards
-console.log("update.js.erb file");
-<%= puts "update.js.erb file" %>
-<%= puts @pet.inspect %>
-var card = $('#div_card_group_<%=@pet.group_id.to_s%>_pet_<%=@pet.id.to_s%>');
-card.replaceWith('<%= j render(:partial => 'pets/card', :locals => {group: @pet.group, pet: @pet, j: 0, weight_options: Weight.all}) %>');
-debugger;
+<% if @pet.errors.empty? %>
+  card = $('#div_card_group_<%=@pet.group_id.to_s%>_pet_<%=@pet.id.to_s%>');
+  card.replaceWith('<%= j render(:partial => 'pets/card', :locals => {group: @pet.group, pet: @pet, j: 0, weight_options: Weight.all}) %>');
+<% else %> // errors
+  // just update the form with the errors
+  form = $('#pet_<%=@pet.id.to_s%>_card_form_group_<%=@pet.group_id.to_s%>');
+  form.replaceWith('<%= j render(:partial => 'pets/form_card', :locals => {group: @pet.group, pet: @pet, weight_options: Weight.all, hide: false}) %>');
+<% end %>
 
-$('.breed-selector').select2({
-  placeholder: 'Select breed',
-  allowClear: true,
-  theme: 'bootstrap',
-  ajax: {
-    url: '/breeds/find',
-    data: function(params) {
-      return {
-        name: params.term
-      };
-    },
-    dataType: 'json',
-    delay: 500,
-    processResults: function(data, params) {
-      return {
-        results: _.map(data, function(el) {
-          return {
-            id: el.id,
-            name: el.name
-          };
-        })
-      };
-    },
-    cache: true
-  },
-  escapeMarkup: function(markup) {
-    return markup;
-  },
-  minimumInputLength: 2,
-  templateResult: function(item) {
-    return item.name;
-  },
-  templateSelection: function(item) {
-    return item.name || item.text;
-  }
-});
-
-$('.colors-selector').select2({
-  placeholder: 'Select Colors',
-  allowClear: true,
-  theme: 'bootstrap',
-  ajax: {
-    url: '/colors/find',
-    data: function(params) {
-      return {
-        name: params.term
-      };
-    },
-    dataType: 'json',
-    delay: 500,
-    processResults: function(data, params) {
-      return {
-        results: _.map(data, function(el) {
-          return {
-            id: el.id,
-            name: el.name
-          };
-        })
-      };
-    },
-    cache: true
-  },
-  escapeMarkup: function(markup) {
-    return markup;
-  },
-  minimumInputLength: 2,
-  templateResult: function(item) {
-    return item.name;
-  },
-  templateSelection: function(item) {
-    return item.name || item.text;
-  }
-});
-
-$('.weight-selector').select2({
-  placeholder: 'Select weight range',
-  allowClear: true,
-  theme: 'bootstrap'
-});
+bindSelect2Elements(); // application.js

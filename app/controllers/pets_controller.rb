@@ -24,8 +24,6 @@ class PetsController < ApplicationController
   # POST /pets
   # POST /pets.json
   def create
-    # puts params[:group_index]
-    # puts params[:next_pet_index]
     @pet = Pet.new(pet_params)
 
     respond_to do |format|
@@ -34,7 +32,13 @@ class PetsController < ApplicationController
         format.js   { render 'pets/create', status: :created }
         format.json { render :show, status: :created, location: @pet }
       else
+        if @pet.errors.any?
+          error_messages = ["Please fix the following errors:"]
+          error_messages << @pet.errors.messages.values
+          flash[:error] = error_messages.join('<br/>')
+        end
         format.html { render :new }
+        format.js   { render 'pets/create', status: :unprocessable_entity }
         format.json { render json: @pet.errors, status: :unprocessable_entity } 
       end
     end
@@ -49,7 +53,13 @@ class PetsController < ApplicationController
         format.js   { render 'pets/update' }
         format.json { render :show, status: :ok, location: @pet }
       else
+        if @pet.errors.any?
+          error_messages = ["Please fix the following errors:"]
+          error_messages << @pet.errors.messages.values
+          flash[:error] = error_messages.join('<br/>')
+        end
         format.html { render :edit }
+        format.js   { render 'pets/update', status: :unprocessable_entity }
         format.json { render json: @pet.errors, status: :unprocessable_entity }
       end
     end

@@ -9,6 +9,7 @@ class Pet < ApplicationRecord
   validates :colors, presence: { message: "Please select the color(s) of the pet" }
   validates :breed, presence: { message: "Please select a breed" }
   validates :weight, presence: { message: "Please select a weight range" }
+  validates :name, presence: { message: "Please enter a name for the pet" }
   
   scope :active, -> {where(active: true)}
 end
