@@ -27,9 +27,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user = resource
       clean_up_passwords resource
       set_minimum_password_length
-      #respond_with resource
-      # easy way is: instance variable as a local variable. that you check on the root path
-      # key word between model and controller
       response_to_sign_up_failure @user
     end
   end
@@ -40,11 +37,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       index = 0
       
       flash['signUpError'] = resource.errors.messages
-      resource.errors.full_messages.each do |x|
-        flash["error#{index}"] = x
-        index+=1
-      end
-      byebug
+      
       redirect_to root_path
   end
 
