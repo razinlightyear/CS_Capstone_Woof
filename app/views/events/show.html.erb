@@ -10,9 +10,8 @@
   <% @pet_info.push(pet.name) %>
   <% @pet_name_id.push(@pet_info) %>
 <% end %>
-<script>
 
-  //closeForm();
+<script>
 
   var map;
   var event_window = null;
@@ -66,10 +65,10 @@
         google.maps.event.addListener(marker, 'click', (function(marker, marker_description, infoWindow){
           return function()
           {
-            // infoWindow.setContent(this.html);
             infoWindow.setContent(marker_description);
             infoWindow.open(map, marker);
           };
+
         })(marker, marker_description, infoWindow));
       }
       activateClick();
@@ -79,15 +78,8 @@
     {
        google.maps.event.addListener(map, 'click', function(event){
 
-        // Take the description from the user
-
         var latitude = event.latLng.lat();
         var longitude = event.latLng.lng();
-        //$("#lost_dog_event2").show();
-        //$("#closeButton").show();
-
-       // document.getElementById("lost_dog_event2").latitude.value = latitude;
-        //document.getElementById("lost_dog_event2").longitude.value = longitude;
 
         var event_coordinates = {lat: latitude, lng: longitude}
 
@@ -102,25 +94,23 @@
 
         var event_form = "";
 
-        // '<%= select_tag(:pet_id, options_for_select('+ #{@pet_name_id} + ')) %><br>'+
-        // '<%= text_field_tag(:pet_id, @pets[0].id , :readonly => true) %><br>'+
-        // '<%= select_tag(:pet_id, options_for_select("#{@pet_name_id}")) %><br>'+
-
-        event_form = '<%= form_tag("/lost_dogs", method: "post", id: "lost_dog_event", remote: true) do %>' +
-                        '<%= hidden_field_tag(:user_id, @user.id) %>' +
-                        '<%= label_tag(:user_name, "User") %><br>' +
-                        '<%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>' +
-                        '<%= hidden_field_tag(:pet_id, @pets[0].id ) %>'+
-                        '<%= label_tag(:pet_name, "Pet") %>'+
-                        '<%= text_field_tag(:pet_name, @pets[0].name , :readonly => true) %><br>'+
-                        '<%= label_tag(:latitude, "Latitude") %>' +
-                        '<%= text_field_tag (:latitude) %><br>' +
-                        '<%= label_tag(:longitude, "Longitude") %>' +
-                        '<%= text_field_tag (:longitude) %><br>' +
-                        '<%= label_tag(:description, "Description") %>' +
-                        '<%= text_field_tag (:description) %><br>' +
-                        '<%= submit_tag("Create Event") %>' +
-                      '<% end %>';
+        event_form =    '<% if !@pets.empty? %>' + 
+                          '<%= form_tag("/lost_dogs", method: "post", id: "lost_dog_event", remote: true) do %>' +
+                          '<%= hidden_field_tag(:user_id, @user.id) %>' +
+                          '<%= label_tag(:user_name, "User") %><br>' +
+                          '<%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>' +
+                          '<%= hidden_field_tag(:pet_id, @pets[0].id ) %>'+
+                          '<%= label_tag(:pet_name, "Pet") %>'+
+                          '<%= text_field_tag(:pet_name, @pets[0].name , :readonly => true) %><br>'+
+                          '<%= label_tag(:latitude, "Latitude") %>' +
+                          '<%= text_field_tag (:latitude) %><br>' +
+                          '<%= label_tag(:longitude, "Longitude") %>' +
+                          '<%= text_field_tag (:longitude) %><br>' +
+                          '<%= label_tag(:description, "Description") %>' +
+                          '<%= text_field_tag (:description) %><br>' +
+                          '<%= submit_tag("Create Event") %>' +
+                          '<% end %>' + 
+                        '<% end %>';
 
         event_window.setContent(event_form);
         event_window.open(map);

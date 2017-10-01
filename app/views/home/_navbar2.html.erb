@@ -1,11 +1,8 @@
 <nav class = 'navbar navbar-light navbar-fixed-top' style = 'background-color: #bbb3b1;'>
     <div class = 'container'>
-        <a class='navbar-brand' href = '/'>
-            Woof
+        <a class='navbar-brand'>
+            <%= link_to(image_tag('woof_word.png', class: 'image-responsive navbar-brand', width: 122, height: 42), root_path, :method => :get) %>
          </a>
-        <!--<a class='navbar-brand'>
-            <%= link_to(image_tag('sarina.regular.png', class: 'image-responsive navbar-brand', width: 122, height: 42), root_path, :method => :get) %>
-         </a>-->
          <ul class = 'navbar-nav'>
             <li class = 'nav-item ml-auto'>
                 <form class = 'form-inline'>

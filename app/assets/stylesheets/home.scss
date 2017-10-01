@@ -5,8 +5,16 @@
 #sign-up-form {
     background-color: #F0FFF0;
     margin-top: 100px;
+    margin-left: 50px;
+    position: relative;
     border-style: solid;
     border-width: 1px;
+}
+
+#logo-style{
+    position: absolute;
+    margin-top: 180px;
+    margin-right: 100px;
 }
 
 .sign-up-form-elements {
@@ -17,3 +25,4 @@
 .sign-up-title{
     text-align: center;
 }
+
