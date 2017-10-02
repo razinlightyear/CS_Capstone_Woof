@@ -5,37 +5,29 @@ class EventsController < ApplicationController
   end
 
   def show
-    #@user = User.find(params[:user_id]) # The user that is "logged in"
-    if user_signed_in?
-      @user = User.find(current_user) # The user that is "logged in"
-      @pets = Pet.where(group: @user.groups).includes(:breed,:weight,:colors) # The "logged in" user's pets (so they can create a lost dog event)
-      
-      if !@pets.empty?
-
-        # If you find yourself needing to eager load on a specfic polymorphic associations, try this gem 'activerecord_lax_includes'
-        @around_me_events = Event.where(is_around_me: true).includes(:user,pet: [:colors,:breed,:weight])
-
-        @around_me_locations = Array.new();
-        @descriptions = Array.new();
-
-        @around_me_events.each do |around_me|
-          @around_me_locations.push(around_me)
-          @descriptions.push(around_me.description)
-        end
-        gon.around_me_events = @around_me_locations
-        gon.event_types = @around_me_locations.map {|e| e.model_name.human }
-        gon.descriptions = @descriptions
-
-        return @around_me_events
-      
-      else
-        redirect_to profile_path
-
-      end
+  #@user = User.find(params[:user_id]) # The user that is "logged in"
+    @user = User.find(current_user) # The user that is "logged in"
+    @pets = Pet.where(group: @user.groups).includes(:breed,:weight,:colors) # The "logged in" user's pets (so they can create a lost dog event)
     
+    if !@pets.empty?
+      @around_me_events = Event.where(is_around_me: true).includes(:user,pet: [:colors,:breed,:weight])
     else
-      redirect_to root_path
+      @around_me_events = Array.new
     end
+
+    @around_me_locations = Array.new();
+    @descriptions = Array.new();
+    
+    @around_me_events.each do |around_me|
+      @around_me_locations.push(around_me)
+      @descriptions.push(around_me.description)
+    end
+    gon.around_me_events = @around_me_locations
+    gon.event_types = @around_me_locations.map {|e| e.model_name.human }
+    gon.descriptions = @descriptions
+    
+    return @around_me_events
+
   end
   
   private

@@ -1,6 +1,6 @@
 class BreedsController < ApplicationController
   before_action :set_breed, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /breeds
   # GET /breeds.json
   def index
