@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918135009) do
+ActiveRecord::Schema.define(version: 20170924214026) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -109,11 +109,6 @@ ActiveRecord::Schema.define(version: 20170918135009) do
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.string   "encrypted_password",              default: "",   null: false
-    t.integer  "sign_in_count",                   default: 0,    null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.string   "email",                                          null: false
     t.datetime "remember_created_at"
     t.string   "authentication_token", limit: 30

@@ -1,0 +1,31 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <%= link_to(image_tag("letter-w.svg", class: 'image-responsive', width: 30, height: 30), root_path, :method => :get) %>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              
+              <%= link_to "Pets", pets_path, class: "dropdown-item" %>
+              <%= link_to "Groups", groups_path, class: "dropdown-item" %>
+            </div>
+          </li>
+        </ul>
+        
+        
+        <!-- the below line is for Woof Logo-->
+        <%= link_to(image_tag("sarina.regular.png", class: 'image-responsive navbar-brand', width: 122, height: 42), root_path, :method => :get, class: 'abs-center-x') %>
+
+        <form class = "form-inline">
+          <%= link_to "Log In Now", new_user_session_path, class: "btn btn-outline-secondary pull-right" %>
+        </form>
+        <%= link_to(image_tag("//placehold.it/40x40", class: 'rounded-circle pull-right', width: 40, height: 40),'#','data-toggle' => "popover", id: "profile_pic") %>
+      </div>
+</nav>
