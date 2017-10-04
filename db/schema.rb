@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170924214026) do
+ActiveRecord::Schema.define(version: 20171004010816) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 20170924214026) do
     t.integer "color_id"
     t.index ["color_id"], name: "index_colors_pets_on_color_id", using: :btree
     t.index ["pet_id"], name: "index_colors_pets_on_pet_id", using: :btree
+  end
+
+  create_table "devices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "device_token"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["user_id"], name: "index_devices_on_user_id", using: :btree
   end
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -134,6 +142,7 @@ ActiveRecord::Schema.define(version: 20170924214026) do
   add_foreign_key "colors_found_dog_delegates", "found_dog_delegates"
   add_foreign_key "colors_pets", "colors"
   add_foreign_key "colors_pets", "pets"
+  add_foreign_key "devices", "users"
   add_foreign_key "events", "pets"
   add_foreign_key "events", "users"
   add_foreign_key "found_dog_delegates", "breeds"
