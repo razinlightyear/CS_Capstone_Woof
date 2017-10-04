@@ -55,6 +55,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    commander (4.4.3)
+      highline (~> 1.7.2)
     concurrent-ruby (1.0.5)
     debug_inspector (0.0.2)
     devise (4.3.0)
@@ -76,6 +78,10 @@ GEM
       json
       multi_json
       request_store (>= 1.0)
+    highline (1.7.8)
+    houston (2.2.4)
+      commander (~> 4.4)
+      json
     i18n (0.8.1)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
@@ -201,6 +207,7 @@ DEPENDENCIES
   dotenv (~> 2.2)
   font-awesome-rails (~> 4.7, >= 4.7.0.1)
   gon
+  houston (~> 2.2, >= 2.2.4)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
@@ -221,4 +228,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.14.6
+   1.16.0.pre.2

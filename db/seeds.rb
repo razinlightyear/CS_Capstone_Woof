@@ -423,15 +423,15 @@ andy.password = "1234"
 andy.save
 =end
 
-diego = User.create!(first_name: "Diego", last_name: "Pardo", email: "me@diegopardo.com", password: "hello1234")
+diego = User.create!(first_name: "Diego", last_name: "Pardo", email: "me@diegopardo.com", password: "hello1234", password_confirmation: "hello1234")
 
-alejandra = User.create!(first_name: "Alejandra", last_name: "Pardo", email: "maria@diegopardo.com", password: "hello1234")
+alejandra = User.create!(first_name: "Alejandra", last_name: "Pardo", email: "maria@diegopardo.com", password: "hello1234", password_confirmation: "hello1234")
 
-andy = User.create!(first_name: "Andy", last_name: "Cho", email: "andy@cho.com", password: "hello1234")
+andy = User.create!(first_name: "Andy", last_name: "Cho", email: "andy@cho.com", password: "hello1234", password_confirmation: "hello1234")
 
-paarth = User.create!(first_name: "Paarth", last_name: "Lakhani", email: "paarth@utah.com", password: "hello1234")
+paarth = User.create!(first_name: "Paarth", last_name: "Lakhani", email: "paarth@utah.com", password: "hello1234", password_confirmation: "hello1234")
 
-andrew = User.create!(first_name: "Andrew", last_name: "Emrazian", email: "andrew@utah.com", password: "hello1234")
+andrew = User.create!(first_name: "Andrew", last_name: "Emrazian", email: "andrew@utah.com", password: "hello1234", password_confirmation: "hello1234")
 
 # Create some groups
 pardos = Group.new
