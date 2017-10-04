@@ -77,3 +77,6 @@ gem 'gon'
 # Autentication gem
 gem 'simple_token_authentication', '~> 1.15', '>= 1.15.1'
 gem 'devise', '~> 4.3'
+
+# iOS Notifications
+gem 'houston', '~> 2.2', '>= 2.2.4'
