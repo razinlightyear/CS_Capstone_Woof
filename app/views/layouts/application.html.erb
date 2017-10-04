@@ -3,14 +3,22 @@
   <head>
     <title>Woof</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', :recursive => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= favicon_link_tag "woof_faceOnly.png" %>
-    <%= favicon_link_tag "woof_letter.png", :rel => 'woof_letter', :type => 'image/png' %>
+    <%= favicon_link_tag "icon.png" %>
+    <%= favicon_link_tag "icon.png", :rel => 'icon', :type => 'image/png' %>
     <%= include_gon %>
   </head>
 
-  <body>
+  <% if @homepage %>
+    <% @body_id = 'home-page' %>
+    <% elsif @signin %>
+    <% @body_id = 'sign-in' %>
+    <% else %>
+    <% @body_id = '' %>
+  <% end %>
+
+  <body id = <%= @body_id %> >
       <% if user_signed_in? %>
         <%= render 'users/user_navbar' %>
         <% else %>

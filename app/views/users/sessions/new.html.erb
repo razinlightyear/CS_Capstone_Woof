@@ -1,25 +1,22 @@
-<div class = 'container'>
-    <div classs = 'row'>
-        <div class = 'col-sm-3'>
-        </div>
-        <div class = 'col-md-6' id = "sign_up_form">
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                <div class = 'form-group row'>
-                    <h2>Log in</h2>
-                </div>
-                <div class = 'form-group row sign_up_form_elements'>
-                    <%= f.label :email, "Email Address" %>
-                    <%= f.email_field :email , autofocus: true,:class => 'form-control' %>
-                </div>
-                <div class = 'form-group row sign_up_form_elements'>
-                    <%= f.label :password %>
-                    <%= f.password_field :password, :class => 'form-control', autocomplete: "off" %>
-                </div>
-                
-                <div class = 'actions form-group row sign_up_form_elements'>
-                    <%= f.submit "Log In", :class => 'btn btn-primary' %>
-                </div>
-            <% end %>
-        </div>
+<div class = 'row'>
+    <div class = 'col-sm-4'>
+    </div>
+    <div class = 'col-sm-5' id = "sign-in-form">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class = 'form-group row' id = "sign-in-heading">
+                <h2>Log in</h2>
+            </div>
+            <div class = 'form-group row sign-in-form-elements'>
+                <%= f.label :email, "Email Address" %>
+                <%= f.email_field :email , autofocus: true,:class => 'form-control' %>
+            </div>
+            <div class = 'form-group row sign-in-form-elements'>
+                <%= f.label :password %>
+                <%= f.password_field :password, :class => 'form-control', autocomplete: "off" %>
+            </div>
+            <div class = 'form-group row sign-in-form-elements'>
+                <%= f.submit "Log In", :class => 'btn btn-success btn-block' %>
+            </div>
+        <% end %>
     </div>
 </div>
