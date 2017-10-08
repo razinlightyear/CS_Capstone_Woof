@@ -20,6 +20,7 @@
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(e) {
       // Set the latitude, longitude
+      // I am in the mainpage branch
       $('#latitude').text("Latitude: " + e.coords.latitude);
       $('#longitude').text("Longitude: " + e.coords.longitude);
     });
