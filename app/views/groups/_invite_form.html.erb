@@ -1,0 +1,29 @@
+<div class="card" style="display: none;" id="group_<%=group.id%>_invite_card">
+  <div class="card-header">
+    <strong>Person to invite</strong>
+  </div>
+  <div class="card-block" id="group_<%=group.id%>_invite_form">
+    <div class="row">
+      <div class="col">
+      <%= form_for invite, html: {class: "form-inline"} do |f| %>
+        <div class="form-group <%= has_error?(invite, :invitee) ? "has-danger" : "" %>" style="width: 70%;">
+          <!-- <%= f.label :invitee, 'Person to invite' %> -->
+          <!-- <div class="col-lg-6"> -->
+          <%= f.collection_select :invitee_id, (invite.invitee ? [invite.invitee] : []), :id, :name, { include_blank: true }, { class: "form-control group-invitee-selector", style: "width: 100%;", data: {'group-id' => group.id} } %>
+          <%= form_feedback(invite, :invitee).html_safe %>
+        </div>
+        <!-- </div> -->
+      <!-- </div> -->
+      <!-- <div class="col-6"> -->
+        <!-- set the inviter in the controller -->
+                  <!-- <div class="col-lg-6"> -->
+        <%= f.hidden_field :group_id, value: group.id %>
+        <!-- <div class="form-actions"> -->
+          <%= f.submit nil, class: "btn btn-info btn-sm pull-right" %>
+        <!-- </div> -->
+        <!-- </div> -->
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

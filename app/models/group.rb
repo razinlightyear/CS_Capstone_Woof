@@ -4,6 +4,7 @@ class Group < ApplicationRecord
   has_many :pets, inverse_of: :group
   has_many :feeding_histories
   has_many :nudges
+  has_many :group_invites
   
   validates :name, presence: { message: "Please enter a group name" }
   validates :owner, presence: true
