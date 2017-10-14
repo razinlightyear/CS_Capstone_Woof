@@ -6,14 +6,12 @@
     <table class="table table-sm">
       <tbody>
           <tr>
-            <td>
-              <p class="text-muted">
-                <div class="form-group <%= has_error?( pet, :name ) ? "has-danger" : "" %>">
-                  <strong class="col-form-label">Name</strong>
-                </div>
-              </p>
+            <td class="label-td">
+              <div class="form-group <%= has_error?( pet, :name ) ? "has-danger" : "" %>">
+                <strong class="col-form-label text-muted">Name</strong>
+              </div>
             </td>
-            <td>
+            <td class="field-td">
               <div class="form-group <%= has_error?( pet, :name ) ? "has-danger" : "" %>">
                 <%= f.text_field :name, class: "form-control form-control-danger" %>
                 <%= form_feedback(pet, :name).html_safe %>
@@ -21,14 +19,12 @@
             </td>
           </tr>
           <tr>
-            <td>
-              <p class="text-muted">
-                <div class="form-group <%= has_error?( pet, :chip_number ) ? "has-danger" : "" %>">
-                  <strong class="col-form-label">Chip #</strong>
-                </div>
-              </p>
+            <td class="label-td">
+              <div class="form-group <%= has_error?( pet, :chip_number ) ? "has-danger" : "" %>">
+                <strong class="col-form-label text-muted">Chip #</strong>
+              </div>
             </td>
-            <td>
+            <td class="field-td">
               <div class="form-group <%= has_error?( pet, :chip_number ) ? "has-danger" : "" %>">
                 <%= f.text_field :chip_number, class: "form-control" %>
                 <%= form_feedback(pet, :chip_number).html_safe %>
@@ -36,14 +32,12 @@
             </td>
           </tr>
           <tr>
-            <td>
-              <p class="text-muted">
-                <div class="form-group <%= has_error?( pet, :breed ) ? "has-danger" : "" %>">
-                  <strong class="col-form-label">Breed</strong>
-                </div>
-              </p>
+            <td class="label-td">
+              <div class="form-group <%= has_error?( pet, :breed ) ? "has-danger" : "" %>">
+                <strong class="col-form-label text-muted">Breed</strong>
+              </div>
             </td>
-            <td>
+            <td class="field-td">
               <div class="form-group <%= has_error?( pet, :breed ) ? "has-danger" : "" %>">
                 <%= f.collection_select :breed_id, (pet.breed ? [pet.breed] : []), :id, :name, { include_blank: true }, { class: "form-control breed-selector", style: "width: 100%;" } %>
                 <%= form_feedback(pet, :breed).html_safe %>
@@ -51,14 +45,12 @@
             </td>
           </tr>
           <tr>
-            <td>
-              <p class="text-muted">
-                <div class="form-group <%= has_error?( pet, :weight ) ? "has-danger" : "" %>">
-                  <strong class="col-form-label">Weight</strong>
-                </div>
-              </p> 
+            <td class="label-td">
+              <div class="form-group <%= has_error?( pet, :weight ) ? "has-danger" : "" %>">
+                <strong class="col-form-label text-muted">Weight</strong>
+              </div>
             </td>
-            <td>
+            <td class="field-td">
               <div class="form-group <%= has_error?( pet, :weight ) ? "has-danger" : "" %>">
                 <%= f.collection_select :weight_id, weight_range_dropdown(weight_options), :last, :first, { include_blank: true, selected: pet.weight_id }, { class: "form-control weight-selector", style: "width: 100%;" } %>
                 <%= form_feedback(pet, :weight).html_safe %>
@@ -66,14 +58,12 @@
             </td>
           </tr>
           <tr>
-            <td>
-              <p class="text-muted">
-                <div class="form-group <%= has_error?( pet, :colors ) ? "has-danger" : "" %>">
-                  <strong class="col-form-label">Colors</strong>
-                </div>
-              </p>
+            <td class="label-td">
+              <div class="form-group <%= has_error?( pet, :colors ) ? "has-danger" : "" %>">
+                <strong class="col-form-label text-muted">Colors</strong>
+              </div>
             </td>
-            <td>
+            <td class="field-td">
               <div class="form-group <%= has_error?( pet, :colors ) ? "has-danger" : "" %>">
                 <%= f.collection_select :color_ids, pet.colors, :id, :name, {include_hidden: false, include_blank: false}, {class: "form-control multi colors-selector select2-multiple has-danger", style: "width: 100%;", multiple: true} %>
                 <%= form_feedback(pet, :colors).html_safe %>

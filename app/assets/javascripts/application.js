@@ -116,6 +116,45 @@ function bindSelect2Elements(){
     theme: 'bootstrap',
     width: "resolve"
   });
+  
+  $('.group-invitee-selector').select2({
+    placeholder: 'Search for a user to invite',
+    allowClear: true,
+    theme: 'bootstrap',
+    width: "resolve",
+    ajax: {
+      url: '/users/find',
+      data: function(params) {
+        return {
+          name: params.term,
+          group_id: $(this).data('group-id')
+        };
+      },
+      dataType: 'json',
+      delay: 500,
+      processResults: function(data, params) {
+        return {
+          results: _.map(data, function(el) {
+            return {
+              id: el.id,
+              name: el.name
+            };
+          })
+        };
+      },
+      cache: true
+    },
+    escapeMarkup: function(markup) {
+      return markup;
+    },
+    minimumInputLength: 2,
+    templateResult: function(item) {
+      return item.name;
+    },
+    templateSelection: function(item) {
+      return item.name || item.text;
+    }
+  });
 }
 
 function highlightSelect2Error(card, select2ClassType){

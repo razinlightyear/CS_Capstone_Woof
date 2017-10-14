@@ -55,7 +55,19 @@
         <% group.users.each_with_index do |user,j| %>
           <%= render 'users/card', group: group, user: user, j: j %>
         <% end %>
-        <button class="btn btn-outline-primary btn-sm float-right">Invite Person</button>
+        <% if !group.group_invites.empty? %>
+          <div class="card">
+            <div class="card-header">
+              <strong>Pending user invitations</strong>
+            </div>
+            <div class="card-block" id="group_<%=group.id%>_invites">
+              <%= render 'groups/invites', invites: group.group_invites %>
+            </div>
+          </div>
+        <% end %>
+        <% @group_invite ||= GroupInvite.new %>
+        <%= render 'groups/invite_form', group: group, invite: @group_invite %>
+        <button class="btn btn-outline-primary btn-sm group-invite-btn float-right" data-group-id="<%=group.id%>" id="invite-btn-group-<%=group.id%>">Invite Person</button>
       </div><!-- accordian -->
     </div><!-- col-lg-6 user column-->
   
