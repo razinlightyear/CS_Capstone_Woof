@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004010816) do
+ActiveRecord::Schema.define(version: 20171012130012) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -76,6 +76,18 @@ ActiveRecord::Schema.define(version: 20171004010816) do
     t.index ["weight_id"], name: "index_found_dog_delegates_on_weight_id", using: :btree
   end
 
+  create_table "group_invites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "group_id"
+    t.integer  "inviter_id",                 null: false
+    t.integer  "invitee_id",                 null: false
+    t.boolean  "accepted",   default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["group_id"], name: "index_group_invites_on_group_id", using: :btree
+    t.index ["invitee_id"], name: "fk_rails_3db2c34e19", using: :btree
+    t.index ["inviter_id"], name: "fk_rails_5fc70f3db0", using: :btree
+  end
+
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "owner_id",   null: false
@@ -114,14 +126,19 @@ ActiveRecord::Schema.define(version: 20171004010816) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.string   "encrypted_password",              default: "",   null: false
-    t.string   "email",                                          null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "encrypted_password",              default: "",    null: false
+    t.string   "email",                                           null: false
     t.datetime "remember_created_at"
     t.string   "authentication_token", limit: 30
-    t.boolean  "active",                          default: true, null: false
+    t.boolean  "active",                          default: true,  null: false
+    t.boolean  "private",                         default: false, null: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
@@ -147,6 +164,9 @@ ActiveRecord::Schema.define(version: 20171004010816) do
   add_foreign_key "events", "users"
   add_foreign_key "found_dog_delegates", "breeds"
   add_foreign_key "found_dog_delegates", "weights"
+  add_foreign_key "group_invites", "groups"
+  add_foreign_key "group_invites", "users", column: "invitee_id"
+  add_foreign_key "group_invites", "users", column: "inviter_id"
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"

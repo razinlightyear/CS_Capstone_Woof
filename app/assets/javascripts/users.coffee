@@ -24,4 +24,12 @@ $(document).on 'turbolinks:load', ->
     form_fields.siblings('.pet-show-fields').toggle()
     e.preventDefault()
     
+  $('body').on 'click','.group-invite-btn', ->
+    group_id = this.dataset.groupId
+    if $(this).text() == 'Invite Person'
+      $('#group_'+group_id+'_invite_card').show()
+      $(this).html('Cancel invite')
+    else
+      $('#group_'+group_id+'_invite_card').hide()
+      $(this).html('Invite Person')
   bindSelect2Elements() # application.js

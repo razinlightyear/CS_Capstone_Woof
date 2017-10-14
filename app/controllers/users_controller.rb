@@ -74,9 +74,22 @@ class UsersController < ApplicationController
 
   def profile
     @user = User.find(current_user)
-    @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).eager_load(:users, pets: [:breed,:colors,:weight])
+    @groups = Group.joins(:groups_users)
+                   .where('groups_users.user_id' => @user.id)
+                   .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
   end
 
+  # GET /users/find.json?name='diego'
+  def find
+    respond_to do |format|
+      if params[:name] && params[:group_id]
+        @users = User.contains_not_in_group(params[:name],params[:group_id])
+      else
+        @users = User.all.limit 100
+      end
+      format.json { render :find }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     # callbacks for models and controllers. in models, use them for validation. you can do rich validation on them: when was it created, after it is updated.

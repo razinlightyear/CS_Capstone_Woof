@@ -1,9 +1,10 @@
+require 'resque/server'
 Rails.application.routes.draw do
   devise_for :users, :controllers => {
     :registrations => "users/registrations",
     :sessions => "users/sessions"
   }
-  
+  get '/users/find', controller: :users, action: :find
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
   #     Prefix Verb   URI Pattern                       Controller#Action
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
   resources :feeding_histories
   resources :walking_partners
   resources :ios_sessions, only: [:create]
+  resources :group_invites
 
   delete '/ios/sign_out', to: 'ios_sessions#destroy'
   post '/ios/sign_up', to: 'ios_sessions#new'
@@ -51,5 +53,6 @@ Rails.application.routes.draw do
   root 'home#index' # create a homepage that doesn't belong to a model. # This is the real homepage
   get 'home/sign_out_profile'
 
-  mount StatusPage::Engine, at: '/' # GET /status
+  mount StatusPage::Engine, at: '/'  # GET /status
+  mount Resque::Server, at: 'resque' # GET /resque to see a resque overview
 end

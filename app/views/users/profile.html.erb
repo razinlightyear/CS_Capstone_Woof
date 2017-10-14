@@ -11,8 +11,11 @@
         </li>
       <% end %>
       <li class="nav-item">
-        <button type="button" class="btn btn-outline-primary nav-link new-group-btn" id="new_group_btn" data-toggle="tab" role="tab" href="#group_new">New Group</button>
+        <button type="button" class="nav-link new-group-btn btn btn-outline-primary" id="new_group_btn" data-toggle="tab" role="tab" href="#group_new">Create New Group</button>
       </li>
+      <!-- <li class="nav-item">
+        <button type="button" class="btn btn-outline-primary nav-link new-group-btn" id="new_group_btn" data-toggle="tab" role="tab" href="#group_new">New Group</button>
+      </li> -->
     </ul>
     <div class="tab-content" style="background-color: #fafbfc; border-style: solid; border-width: 1px; border-radius: 5px; border-color: #ddd;">
       <% @groups.each_with_index do |group,i| %>

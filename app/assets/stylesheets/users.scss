@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 #sign-in-form {
     border-radius: 25px;
     background-color: rgba(224,224,224, 0.7);
@@ -21,4 +20,12 @@
     margin-right: 30px;
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+.label-td {
+  width: 30%;
+}
+
+.field-td {
+  width: 70%;
 }
