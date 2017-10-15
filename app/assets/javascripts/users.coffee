@@ -17,6 +17,9 @@ $(document).on 'turbolinks:load', ->
     show_fields = $(this).parent('.pet-show-fields')
     show_fields.toggle()
     show_fields.siblings('.pet-form-fields').toggle()
+
+  $('#sidebarCollapse').on 'click', ->
+    $('#sidebar').toggleClass 'active'
     
   $('body').on 'click','.cancel-btn', (e)->
     form_fields = $(this).parent().parent('.pet-form-fields')
