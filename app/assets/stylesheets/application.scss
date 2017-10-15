@@ -51,6 +51,12 @@ body {
     background-size: 100%;
 }
 
+// This is for the left side menu
+#wrapper{
+    align-items: stretch;
+    width: 100%;
+}
+
 .content {
   flex: 1;
 }
@@ -61,4 +67,11 @@ body {
 
 .text-muted {
   margin: 0px;
+}
+
+#main-content{
+  width: 100%;
+  border-width: 3px;
+  border-color: black;
+  border-style: dotted;
 }

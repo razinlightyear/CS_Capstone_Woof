@@ -1,0 +1,49 @@
+
+    <nav id = 'sidebar' class = 'active'>
+        <!-- You have a different class for profile pic. You need not have
+        You can use CSS selectors  -->
+        <div id = 'profile'>
+            <a data-toggle = 'collapse' href = '#profile-menu' aria-expanded = 'false' >
+                <%= image_tag('woof_logo.png', alt: 'Ur Pic', size: '100x100', class: 'profile-pic rounded-circle') %>
+            </a>
+
+            <h3><%= "#{@user.first_name} #{@user.last_name}" %></h3>
+
+            <ul class = 'collapse' id = 'profile-menu' style= "list-style: none">
+                <li>
+                    <a class = 'nav-link' href = '#'>My Profile </a>
+                </li>
+                <li>
+                    <a class = 'nav-link' href = '#'>My Groups </a>
+                </li>
+
+                <li>
+                    <a class = 'nav-link' href = '#'>Logout</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <ul class = 'nav nav-tabs flex-column'>
+            <li class = 'p-4 nav-item'>
+                <a class = 'nav-link' href = '#'>Around Me</a>
+            </li>
+
+            <li class = 'p-4 nav-item'>
+                <a class = 'nav-link' href = '#'>Lost Dog/Found Dog</a>
+            </li>
+
+            <li class = 'p-4 nav-item'>
+                <a class = 'nav-link' href = '#'>Feeding Histories</a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav id = 'toggle-button'>
+        <div class = 'justify-content-end'>
+            <button type = 'button' id = 'sidebarCollapse' class = 'btn btn-info navbar-btn'>
+                <span class = 'navbar-toggler-icon'></span>
+            </button>
+        </div>
+    </nav>
+
