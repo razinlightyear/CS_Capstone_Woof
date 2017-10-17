@@ -35,14 +35,6 @@ class IosSessionsController < ApplicationController
         else
             head(:unauthorized)
         end
-
-        # Send test notification
-        #@apn = Houston::Client.development
-
-        #notification = Houston::Notification.new(device: "B5473A07907D62AF91CC4273019A572972DE43BAAB6F65F57B122EBE0A109136")
-        #notification.alert = 'What up, World!'
-
-        #@apn.push(notification)
     end
 
     def destroy

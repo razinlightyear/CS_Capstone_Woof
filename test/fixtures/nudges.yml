@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nudge_token: MyString
+  user: one
+  response: 1
+
+two:
+  nudge_token: MyString
+  user: two
+  response: 1
