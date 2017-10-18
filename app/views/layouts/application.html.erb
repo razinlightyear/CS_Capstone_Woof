@@ -20,19 +20,27 @@
 
   <body id = <%= @body_id %> >
     <% if user_signed_in? %>
-      <%= render 'users/user_navbar' %>
-      <%= render partial: "shared/flash_messages", flash: flash %>
+    
 
-      
+        <%= render 'users/user_navbar' %>
+        <%= render partial: "shared/flash_messages", flash: flash %>
 
-      <div class = 'wrapper d-flex'>
+      <div class = 'd-flex'>
         <%= render 'users/user_sidemenu3' %>
         <div id = 'main-content'>
+          <!-- The below button is the toggle button for the sidebar. Have to decide 
+                the correct location -->
+          <div class = 'toggle-button'>  
+            <button type = 'button' id = 'sidebarCollapse' class = 'btn btn-primary'>
+                <span class = 'navbar-toggler-icon'></span>
+            </button>
+          </div>
           <%= yield %>
         </div>
       </div>
 
       <%= render 'home/footer' %>
+    
       
     <% else %>
       <%= render 'home/navbar2' %>

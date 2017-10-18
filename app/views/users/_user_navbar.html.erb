@@ -6,14 +6,15 @@
             </a>
             <ul class = 'navbar-nav'>
                 <li class = 'nav-item dropdown ml-auto'>
-                    <a class = 'nav-link dropdown-toggle' id = 'userProfileMenu' data-toggle = 'dropdown' aria-haspopup = 'true' aria-expanded = 'false'>
-                        My Profile
-                    </a>
+                    
+                    <%= link_to 'My Profile', '#', class: 'nav-link dropdown-toggle', id: 'userProfileMenu', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' %>
+
                     <div class = 'dropdown-menu' aria-labelledby = 'userProfileMenu'>
                         <%= link_to 'Around Me', event_path(current_user) ,class: 'dropdown-item' %>
-                        <%= link_to 'My Account', profile_path ,class: 'dropdown-item' %>
+                        <%= link_to 'My Account', groups_pets_path ,class: 'dropdown-item' %>
                         <%= link_to 'Sign Out', home_sign_out_profile_path, class: "dropdown-item" %>
                     </div>
+                    
                 </li>
             </ul>
         </div>

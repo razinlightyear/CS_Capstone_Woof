@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :groups
   has_many :events, inverse_of: :user
   
+  validates :first_name, :last_name, presence: true, if: :active_user?
   #validates :password, length: { minimum: 6, message: "Password must be at least 6 characters" } # if devise wants something different, feel free to change
   validates :email, presence: { message: "Please enter an email" }, uniqueness: true # by confirming through the email, you know the email format is correct (no need for regex)
   validates :email, uniqueness: { message: "This email is already registered" }
@@ -18,4 +19,10 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: "id.nil?"
 
   scope :active, -> {where(active: true)}
+
+  # Not sure if this is going to work
+  def active_user?
+    active
+  end
+
 end

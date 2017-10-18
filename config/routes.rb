@@ -47,8 +47,24 @@ Rails.application.routes.draw do
 
   get '/login', controller: :home, action: :login # if you are not signed in or token expires or this is the main woof homepage
   post 'login', controller: :home, action: :create # when user enters credentials into the homepage and click 'Sign In', a post request sends all the credentials to this action
-  get 'profile', controller: :users, action: :profile # when user is authenticated, the profile page is loaded with this action
+  get 'groups_pets', controller: :users, action: :groups_pets # users access their groups and pets.
+
+  # ask users about this
+  #resources :users do
+  #  member do
+  #    get 'profile' => :profile
+  #    get 'profile' => :profile_edit
+  #  end
+  #end
+
+  # When you submit this, then all parameters get passed.
+  get 'profile', controller: :users, action: :profile
+  get 'profile/edit', controller: :users, action: :profile_edit
+  post 'profile/update', controller: :users, action: :profile_update
+
   root 'home#index' # create a homepage that doesn't belong to a model. # This is the real homepage
+  # controller of home - index rediret to the events page.
+
   get 'home/sign_out_profile'
 
   mount StatusPage::Engine, at: '/' # GET /status

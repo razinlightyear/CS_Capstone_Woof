@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   # before any of the below specified methods are exceuted, its going to do the above statement.
     # incase of user, before any of the four methods ar eexectued, it is going to run before_action.
     # look into rails log, when you make a request to Users option and then click on a particular user say, "Paarth", then the parameter pertaining to Paarth would
@@ -72,10 +73,37 @@ class UsersController < ApplicationController
     end
   end
 
-  def profile
+  def groups_pets
     @user = User.find(current_user)
     @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).eager_load(:users, pets: [:breed,:colors,:weight])
   end
+
+
+  # for purpose for invitee and editing the form
+  # GET /profile get the profile for user. 'Edit' button on the form goes to
+  # GET /profile/edit This page will have editable form elements and update button on this form will go to
+  # POST /profile/update wherein the user would be updated
+
+  # GET /profile
+  def profile
+    @user = User.find(current_user.id)
+  end
+
+  # GET /profile/edit
+  def profile_edit
+    @user = User.find(current_user)
+  end
+
+  # POST /profile/update
+  def profile_update
+    @new_credentials = params[:user]
+    @user = User.find(@new_credentials["user_id"])
+    @user.update(first_name: @new_credentials["first_name"], last_name: @new_credentials["last_name"], email: @new_credentials["email"])
+
+    redirect_to event_path(current_user)
+  end
+
+  # look at font awesome for the icon on the homepage
 
   private
     # Use callbacks to share common setup or constraints between actions.

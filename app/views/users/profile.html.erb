@@ -1,23 +1,39 @@
-<% weight_options = Weight.all %>
-<div class="card">
-  <div class="card-block">
-    
-    <!-- Create group tab buttons -->
-    <ul class="nav nav-tabs" role="tablist">
-      <% @groups.each_with_index do |group,i| %>
-        <li class="nav-item">
-          <a class="nav-link <%= 'active' if i==0 %>" data-toggle="tab" href="#group_<%=group.id%>" role="tab"><%= group.name %></a>
-        </li>
-      <% end %>
-      <li class="nav-item">
-        <button type="button" class="btn btn-outline-primary nav-link new-group-btn" id="new_group_btn" data-toggle="tab" role="tab" href="#group_new">New Group</button>
-      </li>
-    </ul>
-    <div class="tab-content" style="background-color: #fafbfc; border-style: solid; border-width: 1px; border-radius: 5px; border-color: #ddd;">
-      <% @groups.each_with_index do |group,i| %>
-        <%= render 'groups/tab_pane', group: group, i: i, weight_options: weight_options %>
-      <% end %>
-      <%= render 'groups/tab_pane_new', show: @groups.empty? %>
-    </div><!-- tab content -->
-  </div><!-- card block -->
-</div><!-- card -->
+<div class = 'container'>
+    <div class = 'row'>
+        <%= form_for(:user, url: profile_edit_path, method: 'get') do |f| %>
+            <div class = 'form-group row'>
+                <%= label_tag(:first_name, "First Name:  ") %>
+                <% if !@user.nil? %>
+                    <%= label_tag(:first_name, @user.first_name) %>
+                <% else %>
+                    <%= label_tag(:first_name, "") %>
+                <% end %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:last_name, "Last Name: ") %>
+                <% if !@user.nil? %>
+                    <%= label_tag(:last_name, @user.last_name) %>
+                <% else %>
+                    <%= label_tag(:last_name, "") %>
+                <% end %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:email, 'Email Address:') %>
+                <%= label_tag(:email, @user.email) %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:email, 'Password') %>
+                <%= f.password_field :password, :class => "form-control", autocomplete:"off" %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:email, 'Confirm Password') %>
+                <%= f.password_field :password_confirmation, :class => "form-control" %>
+            </div>
+
+            <div class = 'form-group row'>
+                <%= f.submit "Edit Profile",  :class => 'btn btn-success btn-block' %>
+            </div>
+
+        <% end %>
+    </div>
+</div>

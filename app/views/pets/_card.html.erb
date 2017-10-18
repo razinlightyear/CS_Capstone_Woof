@@ -7,6 +7,7 @@
       </a>
     </h5>
   </div>
+  
   <div id="collapse_group_<%=group.id%>_pet_<%=pet.id%>" class="collapse<%= j == 0 ? ' show' : '' %>" role="tabpanel" aria-labelledby="heading_group_<%=group.id%>_pet_<%=pet.id%>">
     <div class="card-block">
       <%= render 'pets/show_card', group: group, pet: pet %>
