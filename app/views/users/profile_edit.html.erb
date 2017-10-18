@@ -1,0 +1,42 @@
+<div class = 'container'>
+    <div class = 'row'>
+        <%= form_for(:user, url: profile_update_path, method: 'post') do |f| %>
+            <%= f.hidden_field :user_id, :value => @user.id %>
+            <div class = 'form-group row'>
+                <%= label_tag(:first_name) %>
+                <% if !@user.nil? %>
+                    <%= f.text_field :first_name , :class => "form-control" , autofocus: true, :value => @user.first_name %>
+                <% else %>
+                    <%= f.text_field :first_name , :class => "form-control" , autofocus: true %>
+                <% end %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:last_name) %>
+                <% if !@user.nil? %>
+                    <%= f.text_field :last_name, :class => "form-control" , autofocus: true, :value => @user.last_name %>
+                <% else %>
+                    <%= f.text_field :last_name, :class => "form-control" , autofocus: true %>
+                <% end %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:email, 'Email Address') %>
+                <%= f.email_field :email, :class => "form-control", :value => @user.email %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:email, 'Password') %>
+                <%= f.password_field :password, :class => "form-control", autocomplete:"off" %>
+            </div>
+            <div class = 'form-group row'>
+                <%= label_tag(:email, 'Confirm Password') %>
+                <%= f.password_field :password_confirmation, :class => "form-control" %>
+            </div>
+            
+
+            <div class = 'form-group row'>
+                
+                <%= f.submit "Update Profile",  :class => 'btn btn-success btn-block' %>
+            </div>
+
+        <% end %>
+    </div>
+</div>

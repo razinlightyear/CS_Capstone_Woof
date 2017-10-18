@@ -1,24 +1,23 @@
 
+
     <nav id = 'sidebar' class = 'active'>
         <!-- You have a different class for profile pic. You need not have
-        You can use CSS selectors  -->
+        You can use CSS selectors -->
         <div id = 'profile'>
-            <a data-toggle = 'collapse' href = '#profile-menu' aria-expanded = 'false' >
-                <%= image_tag('woof_logo.png', alt: 'Ur Pic', size: '100x100', class: 'profile-pic rounded-circle') %>
-            </a>
+            
+            <%= link_to image_tag('woof_logo.png', alt: 'Ur Pic', size: '100x100', class: 'profile-pic rounded-circle'), '#profile-menu', 'aria-expanded': 'false', 'data-toggle': 'collapse' %>
 
             <h3><%= "#{@user.first_name} #{@user.last_name}" %></h3>
 
             <ul class = 'collapse' id = 'profile-menu' style= "list-style: none">
                 <li>
-                    <a class = 'nav-link' href = '#'>My Profile </a>
+                    <%= link_to  'My Profile', profile_path, class: 'nav-link' %>
                 </li>
                 <li>
-                    <a class = 'nav-link' href = '#'>My Groups </a>
+                    <%= link_to 'My Pets and Groups', groups_pets_path, class: 'nav-link' %>
                 </li>
-
                 <li>
-                    <a class = 'nav-link' href = '#'>Logout</a>
+                    <%= link_to 'Logout', home_sign_out_profile_path, class: 'nav-link' %>
                 </li>
             </ul>
 
@@ -26,24 +25,15 @@
 
         <ul class = 'nav nav-tabs flex-column'>
             <li class = 'p-4 nav-item'>
-                <a class = 'nav-link' href = '#'>Around Me</a>
+                <%= link_to 'Around Me', event_path(current_user), class: 'nav-link' %>
             </li>
 
             <li class = 'p-4 nav-item'>
-                <a class = 'nav-link' href = '#'>Lost Dog/Found Dog</a>
+                <%= link_to 'Lost Dog/Found Dog', '#', class: 'nav-link' %>
             </li>
 
             <li class = 'p-4 nav-item'>
-                <a class = 'nav-link' href = '#'>Feeding Histories</a>
+                <%= link_to 'Feeding Histories', '#', class: 'nav-link' %>
             </li>
         </ul>
     </nav>
-
-    <nav id = 'toggle-button'>
-        <div class = 'justify-content-end'>
-            <button type = 'button' id = 'sidebarCollapse' class = 'btn btn-info navbar-btn'>
-                <span class = 'navbar-toggler-icon'></span>
-            </button>
-        </div>
-    </nav>
-
