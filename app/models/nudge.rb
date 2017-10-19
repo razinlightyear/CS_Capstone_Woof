@@ -1,6 +1,7 @@
 class Nudge < ApplicationRecord
 	# before_create :generate_token
   	belongs_to :user
+  	belongs_to :group
 
   	def generate_token
     	self.nudge_token = loop do
@@ -8,5 +9,5 @@ class Nudge < ApplicationRecord
       		break random_token unless Nudge.exists?(nudge_token: random_token)
     	end
   	end
-  	
+
 end

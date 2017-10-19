@@ -1,6 +1,6 @@
 class NudgesController < ApplicationController
   before_action :set_nudge, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:create, :update]
+  skip_before_action :authenticate_user!, only: [:create, :update, :group_nudge]
 
   # GET /nudges
   # GET /nudges.json
@@ -55,7 +55,6 @@ class NudgesController < ApplicationController
             notification.content_available = true
             notification.sound = 'sosumi.aiff'
             notification.custom_data = { nudge_id: @nudge.id, nudge_token: @nudge.nudge_token }
-
             @apn.push(notification)
           end
         end
@@ -71,11 +70,38 @@ class NudgesController < ApplicationController
   def update
     respond_to do |format|
       if Nudge.where(:nudge_token => params[:nudge_token], :user_id => params[:user_id]).first.update(:response => params[:response])
+        # Find asking user
+        asking_nudge = Nudge.where(:nudge_token => params[:nudge_token], :response => -1).first
+
+        # Send push notification
+        response = ''
+        if params[:response] == "1"
+          response = 'Yes, ' + Pet.find(asking_nudge.pet_id).name + ' is fed.'
+        elsif params[:response] == "2"
+          response = 'No, ' + Pet.find(asking_nudge.pet_id).name + " isn't fed."
+        elsif params[:response] == "3"
+          response = "I don't know if " + Pet.find(asking_nudge.pet_id).name + ' is fed.'
+        end
+
+        @apn = Houston::Client.development
+        device_token = User.find(asking_nudge.user_id).devices.first.device_token
+        notification = Houston::Notification.new(device: device_token)
+        notification.alert = User.find(params[:user_id]).first_name + ' responded: ' + response
+        notification.sound = 'sosumi.aiff'
+        notification.custom_data = { nudge_id: @nudge.id, nudge_token: @nudge.nudge_token, response: params[:response] }
+        @apn.push(notification)
+
         format.json { render :show, status: :ok, location: @nudge }
       else
         format.json { render json: @nudge.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def group_nudge
+    @group = Group.find(params[:group_id]).nudges.where(:created_at => Group.find(params[:group_id]).nudges.last.created_at)
+
+    render :responses, status: :created
   end
 
   # DELETE /nudges/1
