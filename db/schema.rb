@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017003526) do
+ActiveRecord::Schema.define(version: 20171019172607) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -103,9 +103,10 @@ ActiveRecord::Schema.define(version: 20171017003526) do
     t.integer  "response"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "pet_id"
     t.integer  "group_id"
+    t.integer  "pet_id"
     t.index ["group_id"], name: "index_nudges_on_group_id", using: :btree
+    t.index ["pet_id"], name: "index_nudges_on_pet_id", using: :btree
     t.index ["user_id"], name: "index_nudges_on_user_id", using: :btree
   end
 
@@ -163,6 +164,7 @@ ActiveRecord::Schema.define(version: 20171017003526) do
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
   add_foreign_key "nudges", "groups"
+  add_foreign_key "nudges", "pets"
   add_foreign_key "nudges", "users"
   add_foreign_key "pets", "breeds"
   add_foreign_key "pets", "groups"

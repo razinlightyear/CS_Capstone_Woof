@@ -2,24 +2,9 @@ class NudgesController < ApplicationController
   before_action :set_nudge, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:create, :update, :group_nudge]
 
-  # GET /nudges
-  # GET /nudges.json
-  def index
-    @nudges = Nudge.all
-  end
-
   # GET /nudges/1
   # GET /nudges/1.json
   def show
-  end
-
-  # GET /nudges/new
-  def new
-    @nudge = Nudge.new
-  end
-
-  # GET /nudges/1/edit
-  def edit
   end
 
   # POST /nudges
@@ -109,7 +94,6 @@ class NudgesController < ApplicationController
   def destroy
     @nudge.destroy
     respond_to do |format|
-      format.html { redirect_to nudges_url, notice: 'Nudge was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

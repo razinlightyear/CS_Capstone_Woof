@@ -2,6 +2,7 @@ class Nudge < ApplicationRecord
 	# before_create :generate_token
   	belongs_to :user
   	belongs_to :group
+  	belongs_to :pet
 
   	def generate_token
     	self.nudge_token = loop do
