@@ -6,7 +6,8 @@
 #sign-up-form {
     border-radius: 25px;
     background-color: rgba(224,224,224, 0.7);
-    margin-top: 100px;
+    margin-top: 40px;
+    margin-bottom: 40px;
     padding: 100px;
     position: relative;
 }
@@ -19,3 +20,9 @@
     color: white;
 }
 
+#custom-footer{
+    width: 100%;
+    height: 70px;
+    background-color: #e3f2fd;
+    bottom: 0;
+}

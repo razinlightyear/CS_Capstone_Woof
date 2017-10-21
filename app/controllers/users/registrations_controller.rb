@@ -37,6 +37,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       index = 0
       
       flash['signUpError'] = resource.errors.messages
+      
       redirect_to root_path
   end
 

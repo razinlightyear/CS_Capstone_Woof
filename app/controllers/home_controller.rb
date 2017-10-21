@@ -2,6 +2,9 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
+    if(user_signed_in?)
+      redirect_to event_path(current_user)
+    end
     @homepage = true
     if @user.nil?
       @user = User.new

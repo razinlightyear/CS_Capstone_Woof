@@ -51,14 +51,16 @@ body {
     background-size: 100%;
 }
 
-.content {
-  flex: 1;
-}
-
 .form-group {
   margin: 0px;
 }
 
 .text-muted {
   margin: 0px;
+}
+
+
+#main-content{
+  width: 100%;
+  border: 3px black dotted;
 }

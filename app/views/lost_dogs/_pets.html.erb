@@ -1,0 +1,4 @@
+<% if @pets_set.nil? %>
+    <% @pets_set = [] %>
+<% end %>
+<%= select_tag(:lost_dog_pet_id, options_for_select(@pets_set), class: 'form-control', name: "lost_dog[pet_id]") %>

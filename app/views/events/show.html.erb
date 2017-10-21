@@ -1,124 +1,52 @@
-<h1>Hi, <%= @user.first_name %></h1>
-<h5 id="latitude"></h5>
-<h5 id="longitude"></h5>
-<div id="map" class = "abs-center-x"></div>
+<div class = 'container' >
 
-<% @pet_name_id = Array.new %>
-<% @pets.each do |pet| %>
-  <% @pet_info = Array.new %>
-  <% @pet_info.push(pet.id) %>  
-  <% @pet_info.push(pet.name) %>
-  <% @pet_name_id.push(@pet_info) %>
-<% end %>
+    <!-- <div class = 'list-group'>
+        <a href = '#' class = 'list-group-item list-group-item-action flex-column align-items-start' >
+            <div class = 'd-flex w-100 justify-content-between'>
+                <h3 class = 'mb-1'>~Hidden field: event_id</h3>
+                <h3 class = 'mb-1'>Event: Lost Dog</h3>
+                <h5 class = 'mb-1'>User: username</h5>
+            </div>
+            <p class = 'mb-1'>Description: This is the description</p>
+            <h5 class = 'mb-1'>~View button is going to be here</h5>
+        </a>
+    </div> -->
 
-<script>
+    <% @events.each do |event| %>
+        <% if event.type == 'LostDog' %>
+        <% end %>
+    <% end %>
 
-  var map;
-  var event_window = null;
-  var infoWindow = null;
-  
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(e) {
-      // Set the latitude, longitude
-      $('#latitude').text("Latitude: " + e.coords.latitude);
-      $('#longitude').text("Longitude: " + e.coords.longitude);
-    });
-  } else {
-      $('#latitude').text("Load the last event location for the user");
-  }
-  /*function closeForm()
-  {
-    $("#lost_dog_event").hide();
-    $("#closeButton").hide();
-    document.getElementById("lost_dog_event").description.value = " ";
-  }*/
 
-  var mapOption = {
-                      center: {lat: 40.7608, lng: -111.8910},
-                      zoom: 8
-                  }
+    <div class = 'list-group'>
+        <% @events.each do |event| %>
+            <% if event.type == 'LostDog' %>
+                <%= render 'lost_dogs/create_lostMarker', event: event %>
+            <% elsif event.type == 'FoundDog' %>
+                <%= render 'found_dogs/create_foundMarker', event: event %>
+            <% end %>
+        <% end %>
+    </div>
 
-    function initMap() 
-    {
-      map = new google.maps.Map(document.getElementById('map'), mapOption);
+    <%= link_to 'Lost Dog Event Modal', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>  
 
-      for(var i = 0; i < gon.around_me_events.length; i++)
-      {
-        var latitude = gon.around_me_events[i].latitude;
-        var longitude = gon.around_me_events[i].longitude;
+    <%= link_to 'Found Dog Event Modal', found_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
 
-        var co_ordinates = {lat: parseFloat(latitude),
-                    lng: parseFloat(longitude)};
+</div>
 
-        var marker = new google.maps.Marker({
-          position: co_ordinates,
-          map: map,
-        });
+<div class="modal" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventLabel" aria-hidden="true">
 
-        var marker_description = "";
-        
-        marker_description+= "<p><b>Event Type:</b> "+gon.event_types[i]+"</p>";
-        marker_description+= "<p><b>Description:</b>"+gon.descriptions[i]+"</p>";
-
-        infoWindow = new google.maps.InfoWindow();
-
-        google.maps.event.addListener(marker, 'click', (function(marker, marker_description, infoWindow){
-          return function()
-          {
-            infoWindow.setContent(marker_description);
-            infoWindow.open(map, marker);
-          };
-
-        })(marker, marker_description, infoWindow));
-      }
-      activateClick();
-    }
-
-    function activateClick()
-    {
-       google.maps.event.addListener(map, 'click', function(event){
-
-        var latitude = event.latLng.lat();
-        var longitude = event.latLng.lng();
-
-        var event_coordinates = {lat: latitude, lng: longitude}
-
-        if(event_window != null)
-        {
-          event_window.close();
-        }
-
-        event_window = new google.maps.InfoWindow({
-          position: event_coordinates,
-        });
-
-        var event_form = "";
-
-        event_form =    '<% if !@pets.empty? %>' + 
-                          '<%= form_tag("/lost_dogs", method: "post", id: "lost_dog_event", remote: true) do %>' +
-                          '<%= hidden_field_tag(:user_id, @user.id) %>' +
-                          '<%= label_tag(:user_name, "User") %><br>' +
-                          '<%= text_field_tag(:user_name, @user.first_name + " " + @user.last_name , :readonly => true) %><br>' +
-                          '<%= hidden_field_tag(:pet_id, @pets[0].id ) %>'+
-                          '<%= label_tag(:pet_name, "Pet") %>'+
-                          '<%= text_field_tag(:pet_name, @pets[0].name , :readonly => true) %><br>'+
-                          '<%= label_tag(:latitude, "Latitude") %>' +
-                          '<%= text_field_tag (:latitude) %><br>' +
-                          '<%= label_tag(:longitude, "Longitude") %>' +
-                          '<%= text_field_tag (:longitude) %><br>' +
-                          '<%= label_tag(:description, "Description") %>' +
-                          '<%= text_field_tag (:description) %><br>' +
-                          '<%= submit_tag("Create Event") %>' +
-                          '<% end %>' + 
-                        '<% end %>';
-
-        event_window.setContent(event_form);
-        event_window.open(map);
-
-        document.getElementById("lost_dog_event").latitude.value = latitude;
-        document.getElementById("lost_dog_event").longitude.value = longitude;
-      });
-    }
-      
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGAMfpUVwJJYpahbklrZ0Q_RPU0NgpuP4&callback=initMap" async defer></script>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="eventLabel">Dog Event</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body event_content">
+        </div>
+        </div>
+    </div>
+    
+</div>

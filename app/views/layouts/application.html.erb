@@ -12,19 +12,44 @@
 
   <% if @homepage %>
     <% @body_id = 'home-page' %>
-    <% elsif @signin %>
+  <% elsif @signin %>
     <% @body_id = 'sign-in' %>
     <% else %>
     <% @body_id = '' %>
   <% end %>
 
   <body id = <%= @body_id %> >
-      <% if user_signed_in? %>
+    <% if user_signed_in? %>
+    
+
         <%= render 'users/user_navbar' %>
-        <% else %>
-        <%= render 'home/navbar2' %>
-      <% end %>
+        <%= render partial: "shared/flash_messages", flash: flash %>
+
+      <div class = 'd-flex'>
+        <%= render 'users/user_sidemenu3' %>
+        <div id = 'main-content'>
+          <!-- The below button is the toggle button for the sidebar. Have to decide 
+                the correct location -->
+          <div class = 'toggle-button'>  
+            <button type = 'button' id = 'sidebarCollapse' class = 'btn btn-primary'>
+                <span class = 'navbar-toggler-icon'></span>
+            </button>
+          </div>
+          <%= yield %>
+        </div>
+      </div>
+
+      <%= render 'home/footer' %>
+    
+      
+    <% else %>
+      <%= render 'home/navbar2' %>
       <%= render partial: "shared/flash_messages", flash: flash %>
       <%= yield %>
+      <%= render 'home/footer' %>
+    <% end %>
+
+    
+
   </body>
 </html>

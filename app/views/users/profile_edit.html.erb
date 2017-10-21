@@ -1,25 +1,26 @@
 <div class = 'container'>
     <div class = 'row'>
-        <%= form_for(:user, url: profile_edit_path, method: 'get') do |f| %>
+        <%= form_for(:user, url: profile_update_path, method: 'post') do |f| %>
+            <%= f.hidden_field :user_id, value: @user.id %>
             <div class = 'form-group row'>
-                <%= label_tag(:first_name, "First Name:  ") %>
+                <%= label_tag(:first_name) %>
                 <% if !@user.nil? %>
-                    <%= label_tag(:first_name, @user.first_name) %>
+                    <%= f.text_field :first_name , :class => "form-control" , autofocus: true, :value => @user.first_name %>
                 <% else %>
-                    <%= label_tag(:first_name, "") %>
+                    <%= f.text_field :first_name , :class => "form-control" , autofocus: true %>
                 <% end %>
             </div>
             <div class = 'form-group row'>
-                <%= label_tag(:last_name, "Last Name: ") %>
+                <%= label_tag(:last_name) %>
                 <% if !@user.nil? %>
-                    <%= label_tag(:last_name, @user.last_name) %>
+                    <%= f.text_field :last_name, :class => "form-control" , autofocus: true, :value => @user.last_name %>
                 <% else %>
-                    <%= label_tag(:last_name, "") %>
+                    <%= f.text_field :last_name, :class => "form-control" , autofocus: true %>
                 <% end %>
             </div>
             <div class = 'form-group row'>
-                <%= label_tag(:email, 'Email Address:') %>
-                <%= label_tag(:email, @user.email) %>
+                <%= label_tag(:email, 'Email Address') %>
+                <%= f.email_field :email, :class => "form-control", :value => @user.email %>
             </div>
             <div class = 'form-group row'>
                 <%= label_tag(:password, 'Password') %>
@@ -29,9 +30,11 @@
                 <%= label_tag(:password_confirmation, 'Confirm Password') %>
                 <%= f.password_field :password_confirmation, :class => "form-control" %>
             </div>
+            
 
             <div class = 'form-group row'>
-                <%= f.submit "Edit Profile",  :class => 'btn btn-success btn-block' %>
+                
+                <%= f.submit "Update Profile",  :class => 'btn btn-success btn-block' %>
             </div>
 
         <% end %>
