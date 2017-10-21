@@ -4,4 +4,16 @@ class GroupInvite < ApplicationRecord
   belongs_to :group
   
   validates :inviter, :invitee, :group, presence: true
+  
+  before_create :generate_invite_token
+  
+  private
+  
+  def generate_invite_token
+    if self.invite_token # && !confirmation_period_expired?
+      self.invite_token
+    else
+      self.invite_token = Devise.friendly_token
+    end
+  end
 end
