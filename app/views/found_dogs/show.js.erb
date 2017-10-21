@@ -1,0 +1,3 @@
+$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'found_dogs/show_found_dog_modal', :object => @found_dog) %>')
+$('#eventModal').modal('show')
+$('.modal-title').text('Found dog event')

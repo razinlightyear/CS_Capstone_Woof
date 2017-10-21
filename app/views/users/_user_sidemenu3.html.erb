@@ -1,4 +1,6 @@
-
+    <% if @user.nil? %>
+        <% @user  = current_user %>
+    <% end %>
 
     <nav id = 'sidebar' class = 'active'>
         <!-- You have a different class for profile pic. You need not have

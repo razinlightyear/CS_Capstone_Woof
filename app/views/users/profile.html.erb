@@ -22,11 +22,11 @@
                 <%= label_tag(:email, @user.email) %>
             </div>
             <div class = 'form-group row'>
-                <%= label_tag(:email, 'Password') %>
+                <%= label_tag(:password, 'Password') %>
                 <%= f.password_field :password, :class => "form-control", autocomplete:"off" %>
             </div>
             <div class = 'form-group row'>
-                <%= label_tag(:email, 'Confirm Password') %>
+                <%= label_tag(:password_confirmation, 'Confirm Password') %>
                 <%= f.password_field :password_confirmation, :class => "form-control" %>
             </div>
 

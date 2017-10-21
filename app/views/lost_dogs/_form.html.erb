@@ -1,0 +1,48 @@
+
+<div class = 'container'>
+    <%= form_for(lost_dog, url: path) do |f| %>
+        <%= f.hidden_field :user_id, value: @user.id %>
+        <div class = 'form-group'>
+                    
+        Owner: <h1><%= @user.first_name %>  <%= @user.last_name %></h1>
+
+        </div>
+        <div class = 'form-group'>
+            <%= label_tag(:group_id, 'Select a group:') %>
+            <% @group_list = [] %>
+            <% @group_list << ['', -1] %>
+            <% @user.groups.each do |group| %>
+                <% @group_list << [group.name, group.id] %>
+            <% end %>        
+            <%= select_tag(:group_id, options_for_select(@group_list), class: 'form-control', onchange: "get_pets_div(this.value)") %>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :pet_id, 'Select a pet:' %>
+            <div id = 'pets'>
+                <!-- changed here --> 
+                <%= render :partial => 'lost_dogs/pets', :object => @pets_set %> 
+            </div>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :description %>
+            <!-- Right now, this is latitude, longitude. Ideally, it should be 
+                    an address -->
+            <%= f.text_area :description, size: '5x5', class: 'form-control' %>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :latitude %>
+            <%= f.number_field :latitude, step: 1.0, class: 'form-control' %>
+
+            <%= f.label :longitude %>
+            <%= f.number_field :longitude, step: 1.0, class: 'form-control' %>
+        </div>
+
+        <div class = 'form-group  actions'>
+            <%= f.submit button_name, class: 'btn btn-success btn-block' %>
+        </div>
+
+    <% end %>
+</div>
