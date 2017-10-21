@@ -30,7 +30,6 @@ class IosSessionsController < ApplicationController
                 device.user_id = @user.id
                 device.save
             else
-                puts "********** UPDATE TOKEN **********"
                 device.update(:device_token => params[:device_token])
             end
 
