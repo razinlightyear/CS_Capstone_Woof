@@ -1,0 +1,3 @@
+$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'lost_dogs/form', locals: {lost_dog: @lost_dog, path: lost_dogs_create_path, button_name: "Submit the Lost Dog Event"} ) %>')
+$('#eventModal').modal('show')
+$('.modal-title').text("Create a lost dog event")

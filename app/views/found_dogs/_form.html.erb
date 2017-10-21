@@ -1,0 +1,35 @@
+<div class = 'container'>
+    <%= form_for(found_dog, url: path) do |f| %>
+        <%= f.hidden_field :user_id, value: @user.id %>
+        
+        <!-- Breed, weight, color need to be added -->
+        <!-- These are hard-coded values. We have to change this soon -->
+        <%= f.hidden_field :breed_id, value: 1 %>
+        <%= f.hidden_field :weight_id, value: 1 %>
+
+
+        <div class = 'form-group'>
+            Owner: <h1><%= @user.first_name %>  <%= @user.last_name %></h1>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :description %>
+            <!-- Right now, this is latitude, longitude. Ideally, it should be 
+                    an address -->
+            <%= f.text_area :description, size: '5x5', class: 'form-control' %>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :latitude %>
+            <%= f.number_field :latitude, step: 1.0, class: 'form-control' %>
+
+            <%= f.label :longitude %>
+            <%= f.number_field :longitude, step: 1.0, class: 'form-control' %>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.submit button_name, class: 'btn btn-success btn-block' %>
+        </div>
+
+    <% end %>
+</div>

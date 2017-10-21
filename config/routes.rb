@@ -36,8 +36,8 @@ Rails.application.routes.draw do
     resources :feeding_histories, only: :index
   end
   resources :events
-  resources :lost_dogs # reaplace :create_lost_dogs
-  resources :found_dogs
+ # resources :lost_dogs # reaplace :create_lost_dogs
+  # resources :found_dogs
   resources :feeding_histories
   resources :walking_partners
   resources :ios_sessions, only: [:create]
@@ -66,6 +66,30 @@ Rails.application.routes.draw do
   # controller of home - index rediret to the events page.
 
   get 'home/sign_out_profile'
+
+  controller :lost_dogs do
+    get 'lost_dogs/new' => :new
+    post 'lost_dogs/create' => :create
+    get 'lost_dogs/get_pets' => :get_pets
+    get 'lost_dogs/:id' => :show, as: :lost_dog
+    get 'lost_dogs/:id/edit' => :edit, as: :edit_lost_dog
+    put 'lost_dogs/:id' => :update
+    patch 'lost_dogs/:id' => :update
+    delete 'lost_dogs/:id' => :destroy
+  end
+  
+  controller :found_dogs do
+    get 'found_dogs/new' => :new
+    post 'found_dogs/create' => :create
+    get  'found_dogs/:id' => :show, as: :found_dog
+    get 'found_dogs/:id/edit' => :edit, as: :edit_found_dog
+    put 'found_dogs/:id' => :update
+    patch 'found_dogs/:id' => :update
+    delete 'found_dogs/:id' => :destroy
+  end
+
+  #get 'lost_dogs/new', controller: :lost_dogs, action: :new
+  #post 'lost_dogs/create', controller: :lost_dogs, action: :create
 
   mount StatusPage::Engine, at: '/' # GET /status
 end

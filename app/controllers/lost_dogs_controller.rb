@@ -1,12 +1,93 @@
 class LostDogsController < ApplicationController
+    before_action :set_lost_dog, only: [:show, :edit, :update, :destroy]
+    before_action :can_edit_delete, only: [:edit, :update, :destroy]
 
+    def show
+    end
+
+    # for creating new lost dog empty form
+    # have to check this functionality
+    def new
+        @lost_dog = LostDog.new
+        @user = current_user
+        # have to deal with the case when user doesn;t have any pets.
+    end
+
+    def edit
+        @user = current_user
+    end
+
+    def get_pets
+        @pets = Pet.where(group_id: params[:group_id])
+        @pets_set = []
+        @pets.each do |pet|
+            @pets_set << [pet.name, pet.id]
+        end
+
+        render :partial => 'pets', :object => @pets_set
+    end
+
+    # for creating lost dog when form is submitted
     def create
-        ld = LostDog.create!(description: params[:description], latitude: params[:latitude], longitude: params[:longitude], pet_id: params[:pet_id], user_id: params[:user_id], is_around_me: true)
-
+        @lost_dog = LostDog.new(lost_dog_params)
+        
         respond_to do |format|
-        format.js{ render 'events/lost_dog_event_creation', :locals => {:latitude => params[:latitude] , :longitude => params[:longitude], :description => params[:description]}}
+            if @lost_dog.save
+                format.html { redirect_to event_path(current_user), notice: 'Lost Dog has been created' }
+                # Andrew: Don't know about this
+                format.json { render :show, status: :created, location: @breed }
+            else
+                format.html { render :new }
+                format.json { render json: @lost_dog.errors, status: :unprocessable_entity }
+            end
+        end
+        
+        #respond_to do |format|
+        #format.js{ render 'events/lost_dog_event_creation', :locals => {:latitude => params[:latitude] , #:longitude => params[:longitude], :description => params[:description]}}
 
-        format.json{ render plain:  "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"}
+        #format.json{ render plain:  "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"}
+        #end
+    end
+
+    def update
+        respond_to do |format|
+            if @lost_dog.update(lost_dog_params)
+                format.html { redirect_to event_path(current_user), notice: 'Lost Dog event has been updated' }
+                # for doing the JSON reply
+                format.json { render :show, status: :ok }
+            else
+                format.html { render :edit }
+                format.json { render json: lost_dog.errors, status: :unprocessable_entity }     
+            end 
+        end
+    end
+
+    # DELETE /lost_dogs/1
+    # DELETE /lost_dogs/1.json
+    def destroy
+        @lost_dog.destroy
+        
+        respond_to do |format|
+            format.html { redirect_to event_path(current_user), notice: 'Lost Dog Event was successfully destroyed.' }
+            format.json { head :no_content }
+        end
+    end    
+
+    private
+
+    def lost_dog_params
+        params.require(:lost_dog).permit(:user_id, :pet_id, :description, :latitude, :longitude)
+    end
+
+    def set_lost_dog
+        @lost_dog = Event.find(params[:id])
+    end
+
+    def can_edit_delete
+        if @lost_dog.user.id != current_user.id
+            respond_to do |format|
+                format.json {render json: "Not authorized since you have not posted the event"}
+            end
         end
     end
 

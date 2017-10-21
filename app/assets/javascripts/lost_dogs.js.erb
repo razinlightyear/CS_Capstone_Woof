@@ -1,0 +1,17 @@
+function get_pets_div(group_id)
+{
+    //console.log('I am in here!');
+    //console.log('Group id is:' + group_id);
+
+    jQuery.ajax({
+        // changed here
+        url: '/lost_dogs/get_pets',
+        type: 'GET',
+        data: {'group_id': group_id},
+        dataType: 'html',
+        success: function(data){
+            //console.log(data);
+            jQuery('#pets').html(data);
+        }
+    });
+}
