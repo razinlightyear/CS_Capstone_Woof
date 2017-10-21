@@ -33,7 +33,7 @@ class NudgesController < ApplicationController
           if @nudge_member.save
             # Send push notification
             @apn = Houston::Client.development
-            device_token = User.find(@nudge_member.user_id).devices.first.device_token
+            device_token = User.find(@nudge_member.user_id).device.device_token
             notification = Houston::Notification.new(device: device_token)
             notification.alert = User.find(@nudge.user_id).first_name + ': Has ' + Pet.find(@nudge.pet_id).name + ' been fed?'
             notification.category = 'fed.category'
@@ -69,7 +69,7 @@ class NudgesController < ApplicationController
         end
 
         @apn = Houston::Client.development
-        device_token = User.find(asking_nudge.user_id).devices.first.device_token
+        device_token = User.find(asking_nudge.user_id).device.device_token
         notification = Houston::Notification.new(device: device_token)
         notification.alert = User.find(params[:user_id]).first_name + ' responded: ' + response
         notification.sound = 'sosumi.aiff'

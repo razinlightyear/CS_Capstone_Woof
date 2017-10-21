@@ -23,12 +23,15 @@ class IosSessionsController < ApplicationController
             #render json: @user.as_json(only: [:email, :authentication_token]), status: :created
 
             # Store the Apple device token
-            device = Device.where(user_id: @user.id, device_token: params[:device_token]).first
+            device = Device.where(user_id: @user.id).first
             if device.nil?
                 device = Device.new
                 device.device_token = params[:device_token]
                 device.user_id = @user.id
                 device.save
+            else
+                puts "********** UPDATE TOKEN **********"
+                device.update(:device_token => params[:device_token])
             end
 
             render :create, status: :created
