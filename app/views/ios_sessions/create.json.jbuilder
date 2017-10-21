@@ -7,6 +7,17 @@ json.user do
                     :id, 
                     :name
                 )
+                json.users do
+                    json.array! group.users do |group_user|
+                        next if group_user.id == @user.id
+                        json.call(
+                            group_user,
+                            :id,
+                            :first_name,
+                            :last_name
+                        )
+                    end
+                end
                 json.pets do
                     json.array! group.pets do |pet| 
                         json.call(

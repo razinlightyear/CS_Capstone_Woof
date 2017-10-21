@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :nudges
   devise_for :users, :controllers => {
     :registrations => "users/registrations",
     :sessions => "users/sessions"
@@ -50,6 +51,8 @@ Rails.application.routes.draw do
   get 'profile', controller: :users, action: :profile # when user is authenticated, the profile page is loaded with this action
   root 'home#index' # create a homepage that doesn't belong to a model. # This is the real homepage
   get 'home/sign_out_profile'
+
+  get '/group_nudge', controller: :nudges, action: :group_nudge 
 
   mount StatusPage::Engine, at: '/' # GET /status
 end

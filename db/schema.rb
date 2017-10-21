@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004010816) do
+ActiveRecord::Schema.define(version: 20171019172607) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -97,6 +97,19 @@ ActiveRecord::Schema.define(version: 20171004010816) do
     t.index ["lost_dog_id"], name: "index_lost_dog_delegates_on_lost_dog_id", using: :btree
   end
 
+  create_table "nudges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nudge_token"
+    t.integer  "user_id"
+    t.integer  "response"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "group_id"
+    t.integer  "pet_id"
+    t.index ["group_id"], name: "index_nudges_on_group_id", using: :btree
+    t.index ["pet_id"], name: "index_nudges_on_pet_id", using: :btree
+    t.index ["user_id"], name: "index_nudges_on_user_id", using: :btree
+  end
+
   create_table "pets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "group_id"
@@ -150,6 +163,9 @@ ActiveRecord::Schema.define(version: 20171004010816) do
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
+  add_foreign_key "nudges", "groups"
+  add_foreign_key "nudges", "pets"
+  add_foreign_key "nudges", "users"
   add_foreign_key "pets", "breeds"
   add_foreign_key "pets", "groups"
   add_foreign_key "pets", "weights"

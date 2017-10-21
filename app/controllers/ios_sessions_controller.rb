@@ -23,26 +23,20 @@ class IosSessionsController < ApplicationController
             #render json: @user.as_json(only: [:email, :authentication_token]), status: :created
 
             # Store the Apple device token
-            device = Device.where(user_id: @user.id, device_token: params[:device_token]).first
+            device = Device.where(user_id: @user.id).first
             if device.nil?
                 device = Device.new
                 device.device_token = params[:device_token]
                 device.user_id = @user.id
                 device.save
+            else
+                device.update(:device_token => params[:device_token])
             end
 
             render :create, status: :created
         else
             head(:unauthorized)
         end
-
-        # Send test notification
-        #@apn = Houston::Client.development
-
-        #notification = Houston::Notification.new(device: "B5473A07907D62AF91CC4273019A572972DE43BAAB6F65F57B122EBE0A109136")
-        #notification.alert = 'What up, World!'
-
-        #@apn.push(notification)
     end
 
     def destroy

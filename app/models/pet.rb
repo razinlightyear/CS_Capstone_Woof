@@ -4,6 +4,7 @@ class Pet < ApplicationRecord
   belongs_to :weight
   has_and_belongs_to_many :colors
   has_many :events
+  has_many :nudges
   
   validates :group, presence: { message: "This pet must be belong to a group" }
   validates :colors, presence: { message: "Please select the color(s) of the pet" }
