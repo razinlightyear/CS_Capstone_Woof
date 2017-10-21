@@ -124,6 +124,7 @@ function bindSelect2Elements(){
     allowClear: true,
     theme: 'bootstrap',
     width: "resolve",
+    tags: true,
     ajax: {
       url: '/users/find',
       data: function(params) {

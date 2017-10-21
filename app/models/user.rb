@@ -10,16 +10,17 @@ class User < ApplicationRecord
   has_and_belongs_to_many :groups
   has_many :events, inverse_of: :user
   has_one :device
-  has_many :sent_group_invites, class_name: "GroupInvite", foreign_key: "inviter_id", inverse_of: :inviter_id
-  has_many :received_group_invites, class_name: "GroupInvite", foreign_key: "invitee_id", inverse_of: :invitee_id
+  has_many :sent_group_invites, class_name: "GroupInvite", foreign_key: "inviter_id", inverse_of: :inviter
+  has_many :received_group_invites, class_name: "GroupInvite", foreign_key: "invitee_id", inverse_of: :invitee
   
   validates :first_name, :last_name, presence: true, if: :active_user?
   #validates :password, length: { minimum: 6, message: "Password must be at least 6 characters" } # if devise wants something different, feel free to change
+  
   validates :email, presence: { message: "Please enter an email" }, uniqueness: true # by confirming through the email, you know the email format is correct (no need for regex)
   validates :email, uniqueness: { message: "This email is already registered" }
 
-  validates :password, presence: true, confirmation: true, length: { minimum: 6 }, unless: "password.nil?"
-  validates :password_confirmation, presence: true, if: "id.nil?"
+  validates :password, presence: true, confirmation: true, length: { minimum: 6, message: "Password must be at least 6 characters" }, unless: "password.nil?"
+  validates :password_confirmation, presence: true, if: "id.nil? && active"
 
   scope :active, -> {where(active: true)}
 
@@ -43,8 +44,25 @@ class User < ApplicationRecord
                                                                         .joins(:groups)
                                                                         .where('groups.id' => group_id))
                                                     }
-                                                    
+  # User search by email that are not in the given group
+  scope :user_not_in_group, -> (email, group_id) {
+                                                      where(email: email)
+                                                     .where.not(id: User.select(:id)
+                                                                        .joins(:groups)
+                                                                        .where('groups.id' => group_id))
+                                                    }
+  
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+  
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
+  end
+  
+  # Override the devise validation for passwords
+  def password_required?
+    return false if self.new_record? && !self.active
+    !self.persisted? || !self.password.nil? || !self.password_confirmation.nil?
   end
 end
