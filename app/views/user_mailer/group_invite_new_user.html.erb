@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello from Woof app</h1>
+    <h5>woof WooF WOOF</h5>
+    <p>
+      You have been invited to join the group: <%= @group_invite.group.name %> by <%= @group_invite.inviter.full_name %><br>
+    </p>
+    <p>
+      To sign up/join this group, just follow this link: <strong><%= @group_invite.invite_token %></strong>.
+    </p>
+    <p><%= link_to 'Join group', users_group_invites_accept_url(invite_token: @group_invite.invite_token) %></p>
+    <p><%= link_to 'decline invite', users_group_invites_decline_url(invite_token: @group_invite.invite_token) %></p>
+    <p>Thanks and have a great day!</p>
+  </body>
+</html>

@@ -78,12 +78,15 @@ ActiveRecord::Schema.define(version: 20171012130012) do
 
   create_table "group_invites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "group_id"
-    t.integer  "inviter_id",                 null: false
-    t.integer  "invitee_id",                 null: false
-    t.boolean  "accepted",   default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "inviter_id",   null: false
+    t.integer  "invitee_id",   null: false
+    t.datetime "accepted_at"
+    t.datetime "declined_at"
+    t.string   "invite_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["group_id"], name: "index_group_invites_on_group_id", using: :btree
+    t.index ["invite_token"], name: "index_group_invites_on_invite_token", unique: true, using: :btree
     t.index ["invitee_id"], name: "fk_rails_3db2c34e19", using: :btree
     t.index ["inviter_id"], name: "fk_rails_5fc70f3db0", using: :btree
   end

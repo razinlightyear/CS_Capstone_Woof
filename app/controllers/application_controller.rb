@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
 
+  def not_found(message="Not Found")
+    raise ActionController::RoutingError.new(message)
+  end
+  
   protected
 
   def configure_permitted_parameters
