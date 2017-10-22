@@ -33,14 +33,14 @@ class GroupInvitesController < ApplicationController
           current_user.groups << @group_invite.group
           current_user.save!
           UserMailer.group_invite(@group_invite).deliver_later
-          format.html { redirect_to profile_path, notice: 'Invite was successfully created.' }
+          format.html { redirect_to groups_pets, notice: 'Invite was successfully created.' }
         else
           if @group_invite.errors.any?
             error_messages = ["Please fix the following errors with the invite:"]
             error_messages << @group_invite.errors.messages.values
             flash[:error] = error_messages.join('<br/>')
           end
-          format.html { redirect_to profile_path }
+          format.html { redirect_to groups_pets }
         end
       end
     elsif !User.active.contains_not_in_group(group_invite_params[:invitee_id], group_invite_params[:group_id]).empty? # The user is private. They entered an email that they know
@@ -52,14 +52,14 @@ class GroupInvitesController < ApplicationController
           current_user.groups << @group_invite.group
           current_user.save!
           UserMailer.group_invite(@group_invite).deliver_later
-          format.html { redirect_to profile_path, notice: 'Invite was successfully created.' }
+          format.html { redirect_to groups_pets, notice: 'Invite was successfully created.' }
         else
           if @group_invite.errors.any?
             error_messages = ["Please fix the following errors with the invite:"]
             error_messages << @group_invite.errors.messages.values
             flash[:error] = error_messages.join('<br/>')
           end
-          format.html { redirect_to profile_path }
+          format.html { redirect_to groups_pets }
         end
       end
     else # The user doesn't exist. We need to send them an invite to join Woof. Woof Woof
@@ -86,14 +86,14 @@ class GroupInvitesController < ApplicationController
             @group_invite = GroupInvite.create!(attributes)
             @user.skip_confirmation_notification! # Devise will try to send a registration email
             UserMailer.group_invite_new_user(@group_invite).deliver_later
-            format.html { redirect_to profile_path, notice: 'Invite was successfully created.' }
+            format.html { redirect_to groups_pets, notice: 'Invite was successfully created.' }
           rescue ActiveRecord::Rollback
             if @group_invite.errors.any?
               error_messages = ["Please fix the following errors with the invite:"]
               error_messages << @group_invite.errors.messages.values
               flash[:error] = error_messages.join('<br/>')
             end
-            format.html { redirect_to profile_path }
+            format.html { redirect_to groups_pets }
             raise ActiveRecord::Rollback
           end
         end
@@ -109,7 +109,7 @@ class GroupInvitesController < ApplicationController
                            .eager_load(:group, :invitee, :inviter).first
       unless @invite
         flash[:error] = "Invitation has closed"
-        format.html { redirect_to profile_path }
+        format.html { redirect_to groups_pets }
         return
       end
       not_found("This link was created for another user") if current_user && current_user != @invite.invitee
@@ -118,13 +118,13 @@ class GroupInvitesController < ApplicationController
       user_save = @invite.save
       group_save = @invite.group.save
       if user_save && group_save
-        format.html { redirect_to profile_path, notice: "You have succesfully joined group: #{@invite.group.name}" }
+        format.html { redirect_to groups_pets, notice: "You have succesfully joined group: #{@invite.group.name}" }
       else
         error_messages = ["The following errors prevented you from joining the group: #{@invite.group.name}"]
         error_messages << @invite.errors.messages.values if @invite.errors.any?
         error_messages << @invite.errors.messages.values if @invite.group.errors.any?
         flash[:error] = error_messages.join('<br/>')
-        format.html { redirect_to profile_path }
+        format.html { redirect_to groups_pets }
       end
     end
   end
@@ -162,7 +162,7 @@ class GroupInvitesController < ApplicationController
                    .where('groups_users.user_id' => @user.id)
                    .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
     respond_to do |format|
-      format.html { redirect_to profile_path, notice: 'Invite cancelled.' }
+      format.html { redirect_to groups_pets, notice: 'Invite cancelled.' }
       format.json { head :no_content }
     end
   end
