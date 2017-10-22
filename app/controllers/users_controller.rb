@@ -74,7 +74,7 @@ class UsersController < ApplicationController
   end
 
   def groups_pets
-    @user = User.find(current_user)
+    @user = current_user
     @groups = Group.joins(:groups_users)
                    .where('groups_users.user_id' => @user.id)
                    .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
