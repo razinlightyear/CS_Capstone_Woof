@@ -423,15 +423,76 @@ andy.password = "1234"
 andy.save
 =end
 
-diego = User.create!(first_name: "Diego", last_name: "Pardo", email: "me@diegopardo.com", password: "hello1234", password_confirmation: "hello1234")
+attributes = {
+         first_name: "Diego",
+         last_name: "Pardo",
+         email: "me@diegopardo.com",
+         password: "hello1234",
+         password_confirmation: "hello1234",
+         confirmation_token: Devise.friendly_token,
+         confirmed_at: Time.now.utc,
+         confirmation_sent_at: Time.now.utc
+        }
+diego = User.new attributes
+diego.skip_confirmation_notification!
+diego.save!
 
-alejandra = User.create!(first_name: "Alejandra", last_name: "Pardo", email: "maria@diegopardo.com", password: "hello1234", password_confirmation: "hello1234")
+attributes = {
+         first_name: "Alejandra",
+         last_name: "Pardo",
+         email: "maria@diegopardo.com",
+         password: "hello1234",
+         password_confirmation: "hello1234",
+         confirmation_token: Devise.friendly_token,
+         confirmed_at: Time.now.utc,
+         confirmation_sent_at: Time.now.utc
+        }
+alejandra = User.new attributes
+alejandra.skip_confirmation_notification!
+alejandra.save!
 
-andy = User.create!(first_name: "Andy", last_name: "Cho", email: "andy@cho.com", password: "hello1234", password_confirmation: "hello1234")
+attributes = {
+         first_name: "Andy",
+         last_name: "Cho",
+         email: "andy@cho.com",
+         password: "hello1234",
+         password_confirmation: "hello1234",
+         confirmation_token: Devise.friendly_token,
+         confirmed_at: Time.now.utc,
+         confirmation_sent_at: Time.now.utc
+        }
+andy = User.new attributes
+andy.skip_confirmation_notification!
+andy.save!
 
-paarth = User.create!(first_name: "Paarth", last_name: "Lakhani", email: "paarth@utah.com", password: "hello1234", password_confirmation: "hello1234")
+attributes = {
+         first_name: "Paarth",
+         last_name: "Lakhani",
+         email: "paarth@utah.com",
+         password: "hello1234",
+         password_confirmation: "hello1234",
+         confirmation_token: Devise.friendly_token,
+         confirmed_at: Time.now.utc,
+         confirmation_sent_at: Time.now.utc
+        }
+paarth = User.new attributes
+paarth.skip_confirmation_notification!
+paarth.save!
 
-andrew = User.create!(first_name: "Andrew", last_name: "Emrazian", email: "andrew@utah.com", password: "hello1234", password_confirmation: "hello1234")
+attributes = {
+         first_name: "Andrew",
+         last_name: "Emrazian",
+         email: "andrew@utah.com",
+         password: "hello1234",
+         password_confirmation: "hello1234",
+         confirmation_token: Devise.friendly_token,
+         confirmed_at: Time.now.utc,
+         confirmation_sent_at: Time.now.utc
+        }
+andrew = User.new attributes
+andrew.skip_confirmation_notification!
+andrew.save!
+
 
 # Create some groups
 pardos = Group.new
