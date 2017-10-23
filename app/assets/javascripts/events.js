@@ -32,6 +32,11 @@ function initMap() {
     zoom: 10
   });
 
+  /*map.addListener('click', function(e){
+    console.log("Latitude is: " + e.latLng.lat());
+    console.log("Longitude is: " + e.latLng.lng());
+  });*/
+
   let markers;
 
   /// Make an AJAX call to events_map action in events_controller
@@ -55,17 +60,35 @@ function initMap() {
 
 function draw_marker(data)
 {
+
   var marker = new google.maps.Marker({
       position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
       map: map
   });
 
+  var contentString = "";
 
-  let contentString = " <div class = 'd-flex w-100 justify-content-between'>"+
-            "<h3 class = 'mb-1'>Event:"+ data.event_type +"</h3>"+
-            "<h5 class = 'mb-1'>User: "+data.first_name + data.last_name+"</h5>"+
-        "</div>"+
-        "<p class = 'mb-1'>Description: "+data.description+"</p>";
+  if(data.event_type != 'FoundDog')
+    contentString = " <div class = 'event_window'>"+
+              "<h5>" + data.pet_name + "</h5>" +
+              "<h5>"+ data.event_type +"</h5>"+
+              "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
+              "<p>Description: " + data.description + "</p>";
+  else
+    contentString = " <div class = 'event_window'>"+
+              "<h5>"+ data.event_type +"</h5>"+
+              "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
+              "<p>Description: " + data.description + "</p>";
+
+  var link = '';
+
+  if(data.event_type == 'LostDog' )
+    link = "<a href='/lost_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Event</a>";
+  else if(data.event_type == 'FoundDog')
+    link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
+
+  contentString = contentString + link;
+
 
   var infoWindow = new google.maps.InfoWindow({
     content: contentString
@@ -74,6 +97,4 @@ function draw_marker(data)
   marker.addListener('click',function(){
     infoWindow.open(map, marker);
   });
-
-
 }
