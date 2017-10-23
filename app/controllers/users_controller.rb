@@ -74,10 +74,13 @@ class UsersController < ApplicationController
   end
 
   def groups_pets
-    @user = User.find(current_user)
-    @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).eager_load(:users, pets: [:breed,:colors,:weight])
+    @user = current_user
+    @groups = Group.joins(:groups_users)
+                   .where('groups_users.user_id' => @user.id)
+                   .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
+                   .where('users.active' => true)
+                   #.where('group_invites.accepted_at' => nil, 'group_invites.declined_at' => nil, 'users.active' => true)
   end
-
 
   # for purpose for invitee and editing the form
   # GET /profile get the profile for user. 'Edit' button on the form goes to
@@ -86,16 +89,17 @@ class UsersController < ApplicationController
 
   # GET /profile
   def profile
-    @user = User.find(current_user.id)
+    @user = current_user
   end
 
   # GET /profile/edit
   def profile_edit
-    @user = User.find(current_user)
+    @user = current_user
   end
 
   # POST /profile/update
   def profile_update
+    # This should be always current_user, correct?
     @new_credentials = params[:user]
     @user = User.find(@new_credentials["user_id"])
     @user.update(first_name: @new_credentials["first_name"], last_name: @new_credentials["last_name"], email: @new_credentials["email"])
@@ -105,6 +109,17 @@ class UsersController < ApplicationController
 
   # look at font awesome for the icon on the homepage
 
+  # GET /users/find.json?name='diego'
+  def find
+    respond_to do |format|
+      if params[:name] && params[:group_id]
+        @users = User.contains_not_in_group(params[:name],params[:group_id])
+      else
+        @users = User.all.limit 100
+      end
+      format.json { render :find }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     # callbacks for models and controllers. in models, use them for validation. you can do rich validation on them: when was it created, after it is updated.
