@@ -1,5 +1,6 @@
 class GroupInvitesController < ApplicationController
   before_action :set_group_invite, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:accept, :accept_new]
   
   # GET /groups
   # GET /groups.json
@@ -119,6 +120,7 @@ class GroupInvitesController < ApplicationController
         redirect_to groups_pets_path
         return
       end
+      sign_in @invite.invitee
       @invite.accepted_at = Time.now.utc
       @invite.group.users << @invite.invitee
       invite_save = @invite.save
