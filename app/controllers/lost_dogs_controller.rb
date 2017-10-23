@@ -30,6 +30,7 @@ class LostDogsController < ApplicationController
     # for creating lost dog when form is submitted
     def create
         @lost_dog = LostDog.new(lost_dog_params)
+        @lost_dog.is_around_me = true;
         
         respond_to do |format|
             if @lost_dog.save

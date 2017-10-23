@@ -1,4 +1,4 @@
-<div class = 'list-group'>
+
     <a href = '#' class = 'list-group-item list-group-item-action flex-column align-items-start' >
         <div class = 'd-flex w-100 justify-content-between'>
             <h3 class = 'mb-1'>Event: <%= event.type %></h3>
@@ -8,6 +8,4 @@
         <p class = 'mb-1'>Description: <%= event.description %></p>
         
         <%= link_to 'View event', lost_dog_path(event.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
-
     </a>
-</div>

@@ -1,32 +1,7 @@
-<div class = 'container' >
-
-    <!-- <div class = 'list-group'>
-        <a href = '#' class = 'list-group-item list-group-item-action flex-column align-items-start' >
-            <div class = 'd-flex w-100 justify-content-between'>
-                <h3 class = 'mb-1'>~Hidden field: event_id</h3>
-                <h3 class = 'mb-1'>Event: Lost Dog</h3>
-                <h5 class = 'mb-1'>User: username</h5>
-            </div>
-            <p class = 'mb-1'>Description: This is the description</p>
-            <h5 class = 'mb-1'>~View button is going to be here</h5>
-        </a>
-    </div> -->
-
-    <% @events.each do |event| %>
-        <% if event.type == 'LostDog' %>
-        <% end %>
-    <% end %>
-
-
-    <div class = 'list-group'>
-        <% @events.each do |event| %>
-            <% if event.type == 'LostDog' %>
-                <%= render 'lost_dogs/create_lostMarker', event: event %>
-            <% elsif event.type == 'FoundDog' %>
-                <%= render 'found_dogs/create_foundMarker', event: event %>
-            <% end %>
-        <% end %>
-    </div>
+<div class = 'container'>
+    
+    <h4>Around Me map</h4>
+    <div id = 'map'></div>
 
     <%= link_to 'Lost Dog Event Modal', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>  
 
@@ -48,5 +23,5 @@
         </div>
         </div>
     </div>
-    
+
 </div>

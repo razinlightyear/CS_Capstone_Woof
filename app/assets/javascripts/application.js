@@ -18,6 +18,8 @@
 //= require_tree .
 //= require underscore
 //= require select2
+
+
 $(document).on('turbolinks:load', function() {
   //$('[data-toggle="popover"]').popover();
   

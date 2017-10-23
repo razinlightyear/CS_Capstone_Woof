@@ -18,6 +18,7 @@ class FoundDogsController < ApplicationController
     
     def create
         @found_dog = FoundDog.new(found_dog_params)
+        @found_dog.is_around_me = true;
         
         respond_to do |format|
             if @found_dog.save

@@ -39,7 +39,7 @@ class PetsController < ApplicationController
         end
         format.html { render :new }
         format.js   { render 'pets/create', status: :unprocessable_entity }
-        format.json { render json: @pet.errors, status: :unprocessable_entity } 
+        format.json { render json: @pet.errors, status: :unprocessable_entity }
       end
     end
   end
