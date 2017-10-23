@@ -55,13 +55,14 @@
         <% group.users.each_with_index do |user,j| %>
           <%= render 'users/card', group: group, user: user, j: j %>
         <% end %>
-        <% if !group.group_invites.empty? %>
+        <% group_invites = GroupInvite.where(accepted_at: nil, declined_at: nil) %>
+        <% if !group_invites.empty? %>
           <div class="card">
             <div class="card-header">
               <strong>Pending user invitations</strong>
             </div>
             <div class="card-block" id="group_<%=group.id%>_invites">
-              <%= render 'groups/invites', invites: group.group_invites %>
+              <%= render 'groups/invites', invites: group_invites %>
             </div>
           </div>
         <% end %>

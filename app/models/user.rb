@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :rememberable, :timeoutable, :confirmable
 
   has_many :owns_groups, class_name: "Group", foreign_key: "owner_id", inverse_of: :owner # as an owner you can also have many groups
-  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :groups, -> { distinct }
   has_many :events, inverse_of: :user
   has_one :device
   has_many :sent_group_invites, class_name: "GroupInvite", foreign_key: "inviter_id", inverse_of: :inviter
