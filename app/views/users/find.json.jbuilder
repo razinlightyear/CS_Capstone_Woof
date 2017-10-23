@@ -3,5 +3,5 @@ json.array! @users do |user|
   first = user.first_name
   last = user.last_name
   username = user.email.split('@')[0]
-  json.name "#{first}, #{last}, #{username}"
+  json.name "(#{username}) #{first} #{last}"
 end

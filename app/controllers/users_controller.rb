@@ -78,7 +78,8 @@ class UsersController < ApplicationController
     @groups = Group.joins(:groups_users)
                    .where('groups_users.user_id' => @user.id)
                    .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
-                   .where('group_invites.accepted_at' => nil, 'group_invites.declined_at' => nil)
+                   .where('users.active' => true)
+                   #.where('group_invites.accepted_at' => nil, 'group_invites.declined_at' => nil, 'users.active' => true)
   end
 
   # for purpose for invitee and editing the form

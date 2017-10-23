@@ -32,7 +32,7 @@ class GroupsController < ApplicationController
       if @group.save
         current_user.groups << @group
         current_user.save!
-        format.html { redirect_to groups_pets, notice: 'Group was successfully created.' }
+        format.html { redirect_to groups_pets_path, notice: 'Group was successfully created.' }
         format.js { render 'groups/create', status: :created }
         format.json { render :show, status: :created, location: @group }
       else
