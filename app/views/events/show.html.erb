@@ -1,12 +1,10 @@
 <div class = 'container'>
-    
-    <h4>Around Me map</h4>
-    <div id = 'map'></div>
 
-    <%= link_to 'Lost Dog Event Modal', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>  
+    <%= link_to 'Lost Dog Event Modal', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
 
     <%= link_to 'Found Dog Event Modal', found_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
 
+    <div id = 'map'></div>
 </div>
 
 <div class="modal" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventLabel" aria-hidden="true">
@@ -25,3 +23,6 @@
     </div>
 
 </div>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGAMfpUVwJJYpahbklrZ0Q_RPU0NgpuP4&callback=initMap">
+</script>
