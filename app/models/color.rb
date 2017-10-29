@@ -5,4 +5,11 @@ class Color < ApplicationRecord
   validates :name, presence: { message: "Please enter a color name" }
     
   scope :contains, -> (name) {where("name LIKE ?", "%#{name}%")}
+  
+  def color_badge
+    html = <<-html_str
+    <span class="badge badge-default badge-#{self.name}" style="margin: 3px">#{self.name}</span>
+    html_str
+    html
+  end
 end

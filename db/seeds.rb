@@ -429,7 +429,6 @@ attributes = {
          email: "me@diegopardo.com",
          password: "hello1234",
          password_confirmation: "hello1234",
-         confirmation_token: Devise.friendly_token,
          confirmed_at: Time.now.utc,
          confirmation_sent_at: Time.now.utc
         }
@@ -443,7 +442,6 @@ attributes = {
          email: "maria@diegopardo.com",
          password: "hello1234",
          password_confirmation: "hello1234",
-         confirmation_token: Devise.friendly_token,
          confirmed_at: Time.now.utc,
          confirmation_sent_at: Time.now.utc
         }
@@ -457,7 +455,6 @@ attributes = {
          email: "andy@cho.com",
          password: "hello1234",
          password_confirmation: "hello1234",
-         confirmation_token: Devise.friendly_token,
          confirmed_at: Time.now.utc,
          confirmation_sent_at: Time.now.utc
         }
@@ -471,7 +468,6 @@ attributes = {
          email: "paarth@utah.com",
          password: "hello1234",
          password_confirmation: "hello1234",
-         confirmation_token: Devise.friendly_token,
          confirmed_at: Time.now.utc,
          confirmation_sent_at: Time.now.utc
         }
@@ -485,7 +481,6 @@ attributes = {
          email: "andrew@utah.com",
          password: "hello1234",
          password_confirmation: "hello1234",
-         confirmation_token: Devise.friendly_token,
          confirmed_at: Time.now.utc,
          confirmation_sent_at: Time.now.utc
         }
