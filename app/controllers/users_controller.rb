@@ -94,7 +94,6 @@ class UsersController < ApplicationController
 
   # GET /profile/edit
   def profile_edit
-    puts "current_user #{current_user}"
     @user = current_user
   end
 
