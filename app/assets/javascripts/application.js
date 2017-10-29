@@ -93,7 +93,7 @@ function bindSelect2Elements(){
           results: _.map(data, function(el) {
             return {
               id: el.id,
-              name: el.name
+              name: el.badge
             };
           })
         };

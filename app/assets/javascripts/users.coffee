@@ -20,6 +20,8 @@ $(document).on 'turbolinks:load', ->
 
   $('#sidebarCollapse').on 'click', ->
     $('#sidebar').toggleClass 'active'
+    $('#sidemenu_show_icon').toggle()
+    $('#sidemenu_collapse_icon').toggle()
     
   $('body').on 'click','.cancel-btn', (e)->
     form_fields = $(this).parent().parent('.pet-form-fields')

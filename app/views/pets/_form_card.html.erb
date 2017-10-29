@@ -65,7 +65,7 @@
             </td>
             <td class="field-td">
               <div class="form-group <%= has_error?( pet, :colors ) ? "has-danger" : "" %>">
-                <%= f.collection_select :color_ids, pet.colors, :id, :name, {include_hidden: false, include_blank: false}, {class: "form-control multi colors-selector select2-multiple has-danger", style: "width: 100%;", multiple: true} %>
+                <%= f.collection_select :color_ids, pet.colors, :id, :color_badge, {include_hidden: false, include_blank: false}, {class: "form-control multi colors-selector select2-multiple has-danger", style: "width: 100%;", multiple: true} %>
                 <%= form_feedback(pet, :colors).html_safe %>
               </div>
             </td>

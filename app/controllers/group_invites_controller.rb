@@ -1,6 +1,6 @@
 class GroupInvitesController < ApplicationController
   before_action :set_group_invite, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:accept, :accept_new]
+  skip_before_action :authenticate_user!, only: [:accept, :accept_new, :decline]
   
   # GET /groups
   # GET /groups.json
@@ -71,13 +71,14 @@ class GroupInvitesController < ApplicationController
         email: group_invite_params[:invitee_id],
         active: false,
         confirmation_token: @invite_token,
-        confirmation_sent_at: Time.now.utc
+        confirmation_sent_at: Time.now.utc,
+        skip_invitation: true
       }
-      @user = User.new(new_user_attributes)
       respond_to do |format|
-        @user.transaction do
+        #@user.transaction do
+        User.transaction do
           begin
-            @user.save!
+            @user = User.invite!(new_user_attributes, current_user)
             attributes = {
               inviter: current_user,
               invitee: @user,
@@ -88,7 +89,8 @@ class GroupInvitesController < ApplicationController
             @user.skip_confirmation_notification! # Devise will try to send a registration email
             UserMailer.group_invite_new_user(@group_invite).deliver_later
             format.html { redirect_to groups_pets_path, notice: 'Invite was successfully created.' }
-          rescue ActiveRecord::Rollback
+            # By default, rails will simply rollback a transaction if there is a Rollback exception. We want to add a message and rollback
+          rescue ActiveRecord::RecordInvalid
             if @group_invite.errors.any?
               error_messages = ["Please fix the following errors with the invite:"]
               error_messages << @group_invite.errors.messages.values
@@ -141,9 +143,38 @@ class GroupInvitesController < ApplicationController
   
   # GET /group_invites/accept?invite_token=UI345UH98G55S
   def decline
-    raise NotImplementedError
+    respond_to do |format|
+      not_found("Bad Link") and return unless params[:invite_token]
+      @invite = GroupInvite.where(invite_token: params[:invite_token], accepted_at: nil, declined_at: nil)
+                           .eager_load(:group, :invitee, :inviter).first
+      unless @invite
+        puts "Invitation has closed"
+        flash[:error] = "Invitation has closed"
+        redirect_to root_path
+        return
+      end
+      if current_user && current_user != @invite.invitee
+        puts "This link was created for another user"
+        flash[:error] = "This link was created for another user"
+        redirect_to groups_pets_path
+        return
+      end
+      @invite.declined_at = Time.now.utc
+      invite_save = @invite.save
+      if invite_save
+        Rails.logger.debug "Invited declined"
+        format.html { redirect_to root_path, notice: "Group invitation declined" }
+      else
+        Rails.logger.debug "Group invite couldn't be declined"
+        error_messages = ["Group invite couldn't be declined"]
+        error_messages << @invite.errors.messages.values if @invite.errors.any?
+        flash[:error] = error_messages.join('<br/>')
+        format.html { redirect_to root_path }
+      end
+    end
   end
   
+  # New users will have a different endpoint
   # GET /group_invites/accept_new?invite_token=UI345UH98G55S
   def accept_new
     respond_to do |format|
@@ -162,22 +193,28 @@ class GroupInvitesController < ApplicationController
         redirect_to groups_pets_path
         return
       end
-      bypass_sign_in @invite.invitee
-      #current_user = @invite.invitee
-      @invite.accepted_at = Time.now.utc
-      @invite.group.users << @invite.invitee
-      invite_save = @invite.save
-      group_save = @invite.group.save
-      if invite_save && group_save
-        puts "new user succesfully joined group"
-        format.html { redirect_to profile_edit_path, notice: "You have succesfully joined group: #{@invite.group.name}. Please complete your profile." }
-      else
-        puts "The following errors prevented you from joining the group"
-        error_messages = ["The following errors prevented you from joining the group: #{@invite.group.name}"]
-        error_messages << @invite.errors.messages.values if @invite.errors.any?
-        error_messages << @invite.errors.messages.values if @invite.group.errors.any?
-        flash[:error] = error_messages.join('<br/>')
-        format.html { redirect_to root_path }
+      User.transaction do
+        begin
+          @invite.group.users << @invite.invitee
+          @invite.group.save!
+          @invite.accepted_at = Time.now.utc
+          @invite.save!
+          @invite.invitee.confirmed_at = Time.now.utc
+          @invite.invitee.accept_invitation!
+          sign_in @invite.invitee
+          @invite.invitee.update!(active: true)
+          Rails.logger.debug "new user succesfully joined group"
+          format.html { redirect_to profile_edit_path, notice: "You have succesfully joined group: #{@invite.group.name}. Please complete your profile." }
+        rescue ActiveRecord::RecordInvalid
+          error_messages = ["The following errors prevented you from joining the group: #{@invite.group.name}"]
+          error_messages << @invite.invitee.errors.messages.values if @invite.invitee.errors.any?
+          error_messages << @invite.errors.messages.values if @invite.errors.any?
+          error_messages << @invite.group.errors.messages.values if @invite.group.errors.any?
+          flash[:error] = error_messages.join('<br/>')
+          Rails.logger.debug error_messages.join('\n')
+          format.html { redirect_to root_path }
+          raise ActiveRecord::Rollback
+        end
       end
     end
   end
