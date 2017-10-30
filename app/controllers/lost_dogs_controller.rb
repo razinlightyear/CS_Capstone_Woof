@@ -29,7 +29,6 @@ class LostDogsController < ApplicationController
 
     # for creating lost dog when form is submitted
     def create
-        byebug
         @lost_dog = LostDog.new(lost_dog_params)
         @lost_dog.is_around_me = true;
         
@@ -57,18 +56,7 @@ class LostDogsController < ApplicationController
         @event = Event.find_by(id: @lost_dog['event_id'])
         #@event.update(address: @lost_dog['address'])
         @event.update(latitude: @lost_dog['latitude'].to_f, longitude: @lost_dog['longitude'].to_f, address: @lost_dog['address']);
-        
-        
         byebug
-
-        #@event.update(latitude: @lost_dog['latitude'], longitude: @lost_dog['longitude'], address: @lost_dog['address']);
-        #@event.update(address: @lost_dog['address'])
-        
-        # at this point, update: latitude, longitude, and address by doing this -- 
-        # @lost_dog["latitude"]
-        # @lost_dog["longitude"]
-        # @lost_dog["address"]
-        # To add the lat/long or the english address to the lost dog object
     end
 
     def update

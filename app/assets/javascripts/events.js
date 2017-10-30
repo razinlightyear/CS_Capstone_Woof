@@ -25,37 +25,55 @@ function initMap() {
   // 40.874, -112.13
   // 40.846, -112.08
 
-  var myLatLng = {lat: 40.75, lng: -111.84}
+  //var myLatLng = {lat: 40.75, lng: -111.84}
+  var myLatLng;
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    zoom: 10
-  });
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(position){
+      myLatLng = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-  map.addListener('click', function(e){
-    console.log("Latitude is: " + e.latLng.lat());
-    console.log("Longitude is: " + e.latLng.lng());
-    //draw_dummy(e.latLng);
-  });
+      //console.log("Location is: ");
+      //console.log(myLatLng);
 
-  let markers;
-
-  /// Make an AJAX call to events_map action in events_controller
-  jQuery.ajax({
-    url: '/events_map',
-    dataType: 'json',
-    type: 'GET',
-    success: (data) => {
-      markers = data;
-      markers.events.map((marker) => {
-        draw_marker(marker);
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        zoom: 10,
+        title: "Your Location"
       });
-    },
-    error: function(data){
-      console.log("Error is: " + data.error);
-      console.log("Status is: " + data.status);
-    }
-  });
+
+      map.addListener('click', function(e){
+        console.log("Latitude is: " + e.latLng.lat());
+        console.log("Longitude is: " + e.latLng.lng());
+        //draw_dummy(e.latLng);
+      });
+
+      let markers;
+
+      /// Make an AJAX call to events_map action in events_controller
+      jQuery.ajax({
+        url: '/events_map',
+        dataType: 'json',
+        type: 'GET',
+        success: (data) => {
+          markers = data;
+          markers.events.map((marker) => {
+            draw_marker(marker);
+          });
+        },
+        error: function(data){
+          console.log("Error is: " + data.error);
+          console.log("Status is: " + data.status);
+        }
+      });
+
+    });
+  }
+  else{
+    // Handle the error
+  }
 }
 
 
