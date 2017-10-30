@@ -12,6 +12,7 @@ json.events do
            json.event_type event.type
            json.latitude event.latitude
            json.longitude event.longitude
+           json.address event.address
            json.description event.description
            json.user_id event.user.id
            json.first_name event.user.first_name
@@ -21,6 +22,7 @@ json.events do
            json.event_type event.type
            json.latitude event.latitude
            json.longitude event.longitude
+           json.address event.address
            json.description event.description
            json.user_id event.user.id
            json.first_name event.user.first_name

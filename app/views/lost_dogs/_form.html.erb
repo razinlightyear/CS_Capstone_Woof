@@ -1,6 +1,6 @@
 
 <div class = 'container'>
-    <%= form_for(lost_dog, url: path) do |f| %>
+    <%= form_for(lost_dog, url: path, remote: true) do |f| %>
         <%= f.hidden_field :user_id, value: @user.id %>
         <div class = 'form-group'>
                     
@@ -18,7 +18,7 @@
         </div>
 
         <div class = 'form-group'>
-            <%= f.label :pet_id, 'Select a pet:' %>
+            <%= f.label :pet_id, 'Select a pet: ' %>
             <div id = 'pets'>
                 <!-- changed here --> 
                 <%= render :partial => 'lost_dogs/pets', :object => @pets_set %> 
@@ -30,6 +30,11 @@
             <!-- Right now, this is latitude, longitude. Ideally, it should be 
                     an address -->
             <%= f.text_area :description, size: '5x5', class: 'form-control' %>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :address %>
+            <%= f.text_area :address, size: '1x1', class: 'form-control' %>
         </div>
 
         <div class = 'form-group'>

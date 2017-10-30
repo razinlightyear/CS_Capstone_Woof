@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     get 'lost_dogs/new' => :new
     post 'lost_dogs/create' => :create
     get 'lost_dogs/get_pets' => :get_pets
+    post 'lost_dogs/update_lost_address' => :update_lost_address
     get 'lost_dogs/:id' => :show, as: :lost_dog
     get 'lost_dogs/:id/edit' => :edit, as: :edit_lost_dog
     put 'lost_dogs/:id' => :update

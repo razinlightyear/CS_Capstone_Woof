@@ -19,7 +19,7 @@ initMap = ->
 
 var map;
 function initMap() {
-
+  
   // 40.75, -111.84
   // 40.716, -111.93
   // 40.874, -112.13
@@ -32,10 +32,11 @@ function initMap() {
     zoom: 10
   });
 
-  /*map.addListener('click', function(e){
+  map.addListener('click', function(e){
     console.log("Latitude is: " + e.latLng.lat());
     console.log("Longitude is: " + e.latLng.lng());
-  });*/
+    //draw_dummy(e.latLng);
+  });
 
   let markers;
 
@@ -58,6 +59,19 @@ function initMap() {
 }
 
 
+
+function draw_dummy(latLong)
+{
+  console.log('Hello Everyone. I am in the dummy data');
+
+  var marker = new google.maps.Marker({
+      position: latLong
+  });
+
+  marker.setMap(map);
+
+}
+
 function draw_marker(data)
 {
 
@@ -69,16 +83,20 @@ function draw_marker(data)
   var contentString = "";
 
   if(data.event_type != 'FoundDog')
+  {
     contentString = " <div class = 'event_window'>"+
               "<h5>" + data.pet_name + "</h5>" +
               "<h5>"+ data.event_type +"</h5>"+
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
-              "<p>Description: " + data.description + "</p>";
+              "<p>Description: " + data.description + "<br>"+
+              "Address: " + data.address + "</p>";
+  }
   else
     contentString = " <div class = 'event_window'>"+
               "<h5>"+ data.event_type +"</h5>"+
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
-              "<p>Description: " + data.description + "</p>";
+              "<p>Description: " + data.description + "<br>" + 
+              "Address: " + data.address + "</p>";
 
   var link = '';
 
@@ -88,7 +106,6 @@ function draw_marker(data)
     link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
 
   contentString = contentString + link;
-
 
   var infoWindow = new google.maps.InfoWindow({
     content: contentString
