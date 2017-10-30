@@ -9,7 +9,6 @@ json.user do
                 )
                 json.users do
                     json.array! group.users do |group_user|
-                        next if group_user.id == @user.id
                         json.call(
                             group_user,
                             :id,
