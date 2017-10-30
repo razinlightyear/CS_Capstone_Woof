@@ -2,24 +2,11 @@
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
-/*
-
-parameters = 
-  center:
-    lat: 40.7608
-    lng: -111.8910
-  zoom: 8
-map = undefined
-
-initMap = ->
-  map = new (google.maps.Map)(document.getElementById('map-canvas'), parameters)
-  return
-
-*/
-
 var map;
 function initMap() {
   
+  console.log("I am in the init Map function");
+
   // 40.75, -111.84
   // 40.716, -111.93
   // 40.874, -112.13
@@ -35,9 +22,6 @@ function initMap() {
         lng: position.coords.longitude
       };
 
-      //console.log("Location is: ");
-      //console.log(myLatLng);
-
       map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 10,
@@ -47,48 +31,41 @@ function initMap() {
       map.addListener('click', function(e){
         console.log("Latitude is: " + e.latLng.lat());
         console.log("Longitude is: " + e.latLng.lng());
-        //draw_dummy(e.latLng);
       });
 
-      let markers;
-
-      /// Make an AJAX call to events_map action in events_controller
-      jQuery.ajax({
-        url: '/events_map',
-        dataType: 'json',
-        type: 'GET',
-        success: (data) => {
-          markers = data;
-          markers.events.map((marker) => {
-            draw_marker(marker);
-          });
-        },
-        error: function(data){
-          console.log("Error is: " + data.error);
-          console.log("Status is: " + data.status);
-        }
-      });
+      get_all_events();
 
     });
   }
   else{
-    // Handle the error
+    // Handle the error of not able to get the user location
   }
 }
 
 
-
-function draw_dummy(latLong)
+function get_all_events()
 {
-  console.log('Hello Everyone. I am in the dummy data');
 
-  var marker = new google.maps.Marker({
-      position: latLong
+  console.log("I am in the get all events function");
+
+  /// Make an AJAX call to events_map action in events_controller
+  jQuery.ajax({
+    url: '/events_map',
+    dataType: 'json',
+    type: 'GET',
+    success: (data) => {
+      data.events.map((marker) => {
+        draw_marker(marker);
+      });
+    },
+    error: function(data){
+      console.log("Error is: " + data.error);
+      console.log("Status is: " + data.status);
+    }
   });
 
-  marker.setMap(map);
-
 }
+
 
 function draw_marker(data)
 {
@@ -133,3 +110,5 @@ function draw_marker(data)
     infoWindow.open(map, marker);
   });
 }
+
+

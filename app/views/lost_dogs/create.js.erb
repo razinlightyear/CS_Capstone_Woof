@@ -1,30 +1,43 @@
 $('#eventModal').modal('hide')
 
-data = {
-    first_name: "<%= @lost_dog.user.first_name %>",
-    last_name: "<%= @lost_dog.user.last_name %>",
-    event_type: "LostDog",
-    description: "<%= @lost_dog.description %>",
-    pet_name: "<%= @lost_dog.pet.name %>",
-    event_id: "<%= @lost_dog.id %>"
-};
-
-var latitude  = parseFloat("<%= @lost_dog.latitude %>")
-var longitude = parseFloat("<%= @lost_dog.longitude %>")
-
 // Find out the address for this latitude and longitude.
 var geocoder;
 geocoder = new google.maps.Geocoder();
+
 var address_event;
+var latitude;
+var longitude;
 
-geocoder.geocode({"location": {"lat": latitude, "lng": longitude}}, function(results){
-    address_event = results[0].formatted_address;
-    //console.log(results[0].formatted_address);
-    update_address(address_event);
-});
+if("<%= @lost_dog.address %>" == "")
+{
+    console.log("The address is blank");
+    latitude  = parseFloat("<%= @lost_dog.latitude %>")
+    longitude = parseFloat("<%= @lost_dog.longitude %>")
 
 
-function update_address(address_event)
+    geocoder.geocode({"location": {"lat": latitude, "lng": longitude}}, function(results){
+        address_event = results[0].formatted_address;
+        //console.log(results[0].formatted_address);
+        update_address(latitude, longitude, address_event);
+    });
+}
+else
+{
+    console.log("Address is not blank");
+    address_event = "<%= @lost_dog.address %>";
+    //console.log(address_event);
+
+    geocoder.geocode({"address": address_event}, function(results){
+        //console.log(results[0].geometry.location.lat());
+        //console.log(results[0].geometry.location.lng());
+        latitude = results[0].geometry.location.lat();
+        longitude = results[0].geometry.location.lng();
+        update_address(latitude, longitude, address_event);
+    });
+
+}
+
+function update_address(latitude, longitude, address_event)
 {
     // For below object, where's the event id
     lost_dog_created = {
@@ -33,97 +46,24 @@ function update_address(address_event)
             pet_id: "<%= @lost_dog.pet_id %>",
             description: "<%= @lost_dog.description %>",
             address: ""+address_event,
-            latitude: "<%= @lost_dog.latitude %>",
-            longitude: "<%= @lost_dog.longitude %>",
+            latitude: ""+latitude,
+            longitude: ""+longitude,
             event_id: "<%= @lost_dog.id %>"
         }
     }
 
-    //draw_dummy({lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)});
-    //draw_marker(data);
-
-    /*var marker = new google.maps.Marker({
-        position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)}
-    });
-
-    marker.setMap(map);*/
-
-    // Find the address or lat/lng of the lost_dog object
+    // Update the address or lat/lng of the lost_dog object
     jQuery.ajax({
         url: '/lost_dogs/update_lost_address',
         data: lost_dog_created,
         dataType: 'json',
         method: 'POST',
         success: (data)=>{
+            get_all_events();
         },
         error: function(data){
             console.log("Error is: " + data.error);
             console.log("Status is: " + data.status);
         }
     });
-
-
-    /// Make an AJAX call to events_map action in events_controller to get all the events
-    jQuery.ajax({
-    url: '/events_map',
-    dataType: 'json',
-    type: 'GET',
-    success: (data) => {
-        data.events.map((marker) => {
-        draw_marker(marker);
-        });
-    },
-    error: function(data){
-        console.log("Error is: " + data.error);
-        console.log("Status is: " + data.status);
-    }
-    });
 }
-
-
-function draw_marker(data)
-{
-  //console.log('draw_marker(): create.js');
-
-  var marker = new google.maps.Marker({
-      position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
-      map: map
-  });
-
-  var contentString = "";
-
-  if(data.event_type != 'FoundDog')
-  {
-    contentString = " <div class = 'event_window'>"+
-              "<h5>" + data.pet_name + "</h5>" +
-              "<h5>"+ data.event_type +"</h5>"+
-              "<p>Description: " + data.description + "<br>" + 
-              "Address: " + data.address + "</p>";
-  }
-  else
-    contentString = " <div class = 'event_window'>"+
-              "<h5>"+ data.event_type +"</h5>"+
-              "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
-              "<p>Description: " + data.description + "<br>" + 
-              "Address: " + data.address + "</p>";
-
-  var link = '';
-
-  if(data.event_type == 'LostDog' )
-    link = "<a href='/lost_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Event</a>";
-  else if(data.event_type == 'FoundDog')
-    link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
-
-  contentString = contentString + link;
-
-  var infoWindow = new google.maps.InfoWindow({
-    content: contentString
-  });
-
-  marker.addListener('click',function(){
-    infoWindow.open(map, marker);
-  });
-}
-
-
-
