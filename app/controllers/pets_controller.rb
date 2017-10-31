@@ -49,7 +49,7 @@ class PetsController < ApplicationController
   def update
     respond_to do |format|
       if @pet.update(pet_params)
-        format.html { redirect_to @pet, notice: 'Pet was successfully updated.' }
+        format.html { redirect_to groups_pets_path, notice: 'Image successfully upload.' }
         format.js   { render 'pets/update' }
         format.json { render :show, status: :ok, location: @pet }
       else
@@ -84,6 +84,6 @@ class PetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pet_params
-      params.require(:pet).permit(:name, :group_id, :breed_id, :weight_id, :chip_number, color_ids: [])
+      params.require(:pet).permit(:name, :group_id, :breed_id, :weight_id, :chip_number, :image, :image_cache, color_ids: [])
     end
 end

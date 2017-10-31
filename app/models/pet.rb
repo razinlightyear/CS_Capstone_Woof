@@ -1,4 +1,6 @@
 class Pet < ApplicationRecord
+  mount_uploader :image, ImageUploader
+  
   belongs_to :group
   belongs_to :breed
   belongs_to :weight

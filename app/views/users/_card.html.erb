@@ -1,7 +1,11 @@
 <div class="card">
   <div class="card-header" role="tab" id="heading_group_<%=group.id%>_user_<%=user.id%>">
     <h5 class="mb-0">
-      <img class="rounded-circle" src="//placehold.it/50x50" alt="Card image">
+      <% unless user.image.thumb.url.nil? %>
+        <%= image_tag user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+      <% else %>
+        <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+      <% end %>
       <a class="collapsed" data-toggle="collapse" data-parent="#user_accordion_group_<%=group.id%>" href="#collapse_group_<%=group.id%>_user_<%=user.id%>" aria-expanded="false" aria-controls="collapse_group_<%=group.id%>_user_<%=user.id%>">
         <%=user.first_name%>
       </a>
