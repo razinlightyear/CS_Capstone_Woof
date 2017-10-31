@@ -42,4 +42,6 @@ bower.json
 .DS_Store
 
 dump.rdb
+
+/public/uploads/
 # End of https://www.gitignore.io/api/rails

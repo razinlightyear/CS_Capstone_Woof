@@ -15,9 +15,10 @@
 //= require turbolinks
 //= require tether
 //= require bootstrap-sprockets
-//= require_tree .
 //= require underscore
 //= require select2
+//= require bootstrap-filestyle.min
+//= require_tree .
 
 
 $(document).on('turbolinks:load', function() {
@@ -32,6 +33,12 @@ $(document).on('turbolinks:load', function() {
   });
   $('#profile_pic').on("click",function(e){
     e.preventDefault();
+  });  
+  $(":file").filestyle({
+    input: false,
+    badge: true,
+    btnClass: "btn-outline-primary",
+    text: "Choose Profile Picture"
   });
 });
 
@@ -166,4 +173,8 @@ function highlightSelect2Error(card, select2ClassType){
 
   selectInput.find('.selection').addClass('form-control');
   selectInput.find('.selection').css('padding','0px');
+}
+
+function submitImage(event){
+  event.closest('form').submit();
 }

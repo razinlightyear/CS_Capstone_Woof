@@ -101,10 +101,16 @@ class UsersController < ApplicationController
   def profile_update
     # This should be always current_user, correct?
     @new_credentials = params[:user]
-    @user = User.find(@new_credentials["user_id"])
-    @user.update(first_name: @new_credentials["first_name"], last_name: @new_credentials["last_name"], email: @new_credentials["email"])
-
-    redirect_to event_path(current_user)
+    #@user = User.find(@new_credentials["user_id"])
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to profile_path
+    else
+      error_messages = ["Couldn't update your profile for the following reasons"]
+      error_messages << @user.errors.messages.values
+      flash[:error] = error_messages.join('<br/>')
+      render :profile_edit
+    end
   end
 
   # look at font awesome for the icon on the homepage
@@ -130,6 +136,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :active)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :active, :image, :image_cache)
     end
 end

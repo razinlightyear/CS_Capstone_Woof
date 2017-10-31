@@ -85,3 +85,7 @@ gem 'sanitize_email', '~> 1.2', '>= 1.2.2'
 
 # Active Job uses this for background jobs (emailing)
 gem 'resque', '~> 1.27', '>= 1.27.4'
+
+# Image support
+gem 'carrierwave', '~> 1.2', '>= 1.2.1'
+gem 'mini_magick', '~> 4.8'  # Tool to resize images
