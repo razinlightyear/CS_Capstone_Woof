@@ -16,6 +16,8 @@ function initMap() {
   var myLatLng;
 
   if(navigator.geolocation){
+
+
     navigator.geolocation.getCurrentPosition(function(position){
       myLatLng = {
         lat: position.coords.latitude,
@@ -24,8 +26,7 @@ function initMap() {
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        zoom: 10,
-        title: "Your Location"
+        zoom: 10
       });
 
       map.addListener('click', function(e){
@@ -38,6 +39,7 @@ function initMap() {
     });
   }
   else{
+    console.log("There is an error");
     // Handle the error of not able to get the user location
   }
 }

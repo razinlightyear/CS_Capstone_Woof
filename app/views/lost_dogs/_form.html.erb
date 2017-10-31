@@ -1,4 +1,3 @@
-
 <div class = 'container'>
     <%= form_for(lost_dog, url: path, remote: true) do |f| %>
         <%= f.hidden_field :user_id, value: @user.id %>
@@ -21,9 +20,17 @@
             <%= f.label :pet_id, 'Select a pet: ' %>
             <div id = 'pets'>
                 <!-- changed here --> 
-                <%= render :partial => 'lost_dogs/pets', :object => @pets_set %> 
+                <%= render :partial => 'lost_dogs/pets', :object => @pets_set %>
             </div>
         </div>
+
+        <% if !lost_dog.pet_id.nil? %>
+            <%= javascript_tag do %>
+                window.group_id = "<%= j lost_dog.pet.group_id.to_s %>";
+                window.pet_id = "<%= j lost_dog.pet_id.to_s %>";
+                prefill_dropdowns();
+            <% end %>
+        <% end %>
 
         <div class = 'form-group'>
             <%= f.label :description %>

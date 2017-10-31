@@ -5,7 +5,7 @@
 #json.events @events
 
 json.events do
-   
+
    json.array! @events.where(:is_around_me => 1) do |event|
        if event.pet_id.nil?
            json.event_id event.id
