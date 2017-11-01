@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20171030022847) do
     t.decimal  "latitude",     precision: 15, scale: 12
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
+    t.string   "address"
     t.index ["pet_id"], name: "index_events_on_pet_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end

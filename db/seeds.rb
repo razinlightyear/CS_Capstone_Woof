@@ -430,7 +430,8 @@ attributes = {
          password: "hello1234",
          password_confirmation: "hello1234",
          confirmed_at: Time.now.utc,
-         confirmation_sent_at: Time.now.utc
+         confirmation_sent_at: Time.now.utc,
+         image: File.open(File.join(Rails.root,'app/assets/images/seeds/diego.jpg'))
         }
 diego = User.new attributes
 diego.skip_confirmation_notification!
@@ -443,7 +444,8 @@ attributes = {
          password: "hello1234",
          password_confirmation: "hello1234",
          confirmed_at: Time.now.utc,
-         confirmation_sent_at: Time.now.utc
+         confirmation_sent_at: Time.now.utc,
+         image: File.open(File.join(Rails.root,'app/assets/images/seeds/alejandra.jpg'))
         }
 alejandra = User.new attributes
 alejandra.skip_confirmation_notification!
@@ -456,7 +458,8 @@ attributes = {
          password: "hello1234",
          password_confirmation: "hello1234",
          confirmed_at: Time.now.utc,
-         confirmation_sent_at: Time.now.utc
+         confirmation_sent_at: Time.now.utc,
+         image: File.open(File.join(Rails.root,'app/assets/images/seeds/andy.jpg'))
         }
 andy = User.new attributes
 andy.skip_confirmation_notification!
@@ -469,7 +472,8 @@ attributes = {
          password: "hello1234",
          password_confirmation: "hello1234",
          confirmed_at: Time.now.utc,
-         confirmation_sent_at: Time.now.utc
+         confirmation_sent_at: Time.now.utc,
+         image: File.open(File.join(Rails.root,'app/assets/images/seeds/paarth.jpg'))
         }
 paarth = User.new attributes
 paarth.skip_confirmation_notification!
@@ -482,7 +486,8 @@ attributes = {
          password: "hello1234",
          password_confirmation: "hello1234",
          confirmed_at: Time.now.utc,
-         confirmation_sent_at: Time.now.utc
+         confirmation_sent_at: Time.now.utc,
+         image: File.open(File.join(Rails.root,'app/assets/images/seeds/andrew.jpg'))
         }
 andrew = User.new attributes
 andrew.skip_confirmation_notification!
@@ -507,6 +512,7 @@ coco.group = pardos
 coco.breed = Breed.where(name: "Miniature Schnauzer").first
 coco.weight = Weight.where(start_weight: 0, end_weight: 10).first
 coco.colors = Color.where(name: "white")
+coco.image = File.open(File.join(Rails.root,'app/assets/images/seeds/coco.png'))
 coco.save!
 
 luna = Pet.new
@@ -525,6 +531,7 @@ sadie.group = monkeys
 sadie.breed = Breed.where(name: "Pit Bull").first
 sadie.weight = Weight.where(start_weight: 61, end_weight: 70).first
 sadie.colors = Color.where(name: ["black","white"]) # She's black and white
+sadie.image = File.open(File.join(Rails.root,'app/assets/images/seeds/sadie.jpg'))
 sadie.save!
 
 @users = User.all

@@ -1,0 +1,29 @@
+<%= form_tag({controller: "events", action: "filter_events"}, method: "post", "data-remote": true) do %>
+    <div class = "form-check">
+        <label class= "form-check-label">
+            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "option1" value = "LostDog">
+            Lost Dog
+        </label>
+    </div>
+
+    <div class = "form-check">
+        <label class= "form-check-label">
+            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "option2" value = "FoundDog">
+            Found Dog
+        </label>
+    </div>
+
+    <div class = "form-check">
+        <label class= "form-check-label">
+            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "option3" value = "All">
+            All Events
+        </label>
+    </div>
+
+    <%= submit_tag("Filter the events", class: "btn btn-primary") %>
+
+<% end %>
+
+<%= link_to 'Lost Dog Event Modal', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+
+<%= link_to 'Found Dog Event Modal', found_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>

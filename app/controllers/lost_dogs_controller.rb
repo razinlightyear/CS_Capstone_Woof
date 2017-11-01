@@ -31,9 +31,10 @@ class LostDogsController < ApplicationController
     def create
         @lost_dog = LostDog.new(lost_dog_params)
         @lost_dog.is_around_me = true;
-        
+
         respond_to do |format|
             if @lost_dog.save
+                format.js
                 format.html { redirect_to event_path(current_user), notice: 'Lost Dog has been created' }
                 # Andrew: Don't know about this
                 format.json { render :show, status: :created, location: @breed }
@@ -48,6 +49,13 @@ class LostDogsController < ApplicationController
 
         #format.json{ render plain:  "You created a lost dog for pet_id: #{params[:pet_id]} by user_id #{params[:user_id]}"}
         #end
+    end
+
+    def update_lost_address
+        @lost_dog = params[:lost_dog]
+        @event = Event.find_by(id: @lost_dog['event_id'])
+        #@event.update(address: @lost_dog['address'])
+        @event.update(latitude: @lost_dog['latitude'].to_f, longitude: @lost_dog['longitude'].to_f, address: @lost_dog['address']);
     end
 
     def update
@@ -77,7 +85,8 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.require(:lost_dog).permit(:user_id, :pet_id, :description, :latitude, :longitude)
+        # adding address field to the params list
+        params.require(:lost_dog).permit(:user_id, :pet_id, :description, :latitude, :longitude, :address)
     end
 
     def set_lost_dog

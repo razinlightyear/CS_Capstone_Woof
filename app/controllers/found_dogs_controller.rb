@@ -22,12 +22,21 @@ class FoundDogsController < ApplicationController
         
         respond_to do |format|
             if @found_dog.save
+                format.js
                 format.html { redirect_to event_path(current_user), notice: 'Found Dog has been created' }
             else
                 format.html { render :new }
                 format.json { render json: @found_dog.errors, status: :unprocessable_entity }          
             end
         end
+    end
+
+    def update_lost_address
+        # update the address here.
+        @found_dog = params[:found_dog]
+        @event = Event.find_by(id: @found_dog['event_id'])
+        #@event.update(address: @lost_dog['address'])
+        @event.update(latitude: @found_dog['latitude'].to_f, longitude: @found_dog['longitude'].to_f, address: @found_dog['address']);
     end
 
     def update
@@ -56,7 +65,7 @@ class FoundDogsController < ApplicationController
     private
 
     def found_dog_params
-        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id)
+        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id, :address)
     end
 
     def set_found_dog
