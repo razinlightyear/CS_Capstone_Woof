@@ -537,22 +537,74 @@ sadie.save!
 @users = User.all
 @pets = Pet.all
 
+''' 
+CodeMonkeys = Diego, Andy, Paarth, Andrew
+Sadie
+
+Pardos = Diego Alejandra
+Coco Luna
+
+user 0 Diego 
+CodeMonkeys / Sadie(2)
+Pardos / Coco(0) Luna(1)
+
+user 1 Alejandra
+Pardos/ Coco(0) Luna(1)
+
+user 2 Andy
+CodeMonkeys / Sadie(2)
+
+user 3 Paarth
+CodeMonkeys / Sadie(2)
+
+user 4 Andrew
+CodeMonkeys / Sadie(2)
+
+Pet 0 Coco
+Pet 1 Luna
+Pet 2 Sadie
+
+'''
+
+
 # seeds according to new models
-ld1 = LostDog.new(description: "My name is: Diego. I have lost my puppy", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: true, pet: @pets[0])
+ld1 = LostDog.new(description: "I have lost my puppy. Coco is white in color and she's small. Take care of her", latitude: 40.726 , longitude:  -111.842, user: @users[0], is_around_me: true, pet: @pets[0], address: "1700 Redondo Ave S, Salt Lake City, UT 84108") # Done
 ld1.save!
 
-ld2 = LostDog.new(description: "My puppy was lost in a park. Call me at: 123-123-1234. My name is Andy", latitude: 40.5513, longitude: -112.20, user: @users[2], is_around_me: true, pet: @pets[1])
+ld2 = LostDog.new(description: "My puppy was lost in a park. Call me at: 123-123-1234", latitude: 40.757, longitude: -111.877, user: @users[2], is_around_me: true, pet: @pets[2], address: "541 Denver St E Salt Lake City, UT 84111")
 ld2.save!
 
-fd1 = FoundDog.new(description: "I found your puppy Diego. My name is Alejandra", latitude: 40.463,longitude: -111.632, user: @users[1], breed_id: 1, weight_id: 1, is_around_me: true)
+ld3 = LostDog.new(description: "My dog just jumped from the car window. She is big, black, and tall", latitude: 40.771, longitude: -111.844, user: @users[4], is_around_me: true, pet: @pets[2], address: "72 Central Campus Dr, Salt Lake City, UT 84112") # Done
+ld3.save!
+
+ld4 = LostDog.new(description: "I had gone to the grocery store and my pet escaped", latitude: 40.726, longitude: -111.856541, user: @users[2], is_around_me: true, pet: @pets[2], address: "2057 S 1200 E, Salt Lake City, UT 84105") #Done
+ld4.save!
+
+ld5 = LostDog.new(description: "I had gone for jogging and my dog got angry on me and hence, it ran away from me", latitude: 40.762, longitude:  -111.846, user: @users[0], is_around_me: true, pet: @pets[1], address: "Marriott Library, South Campus Drive, Salt Lake City, UT") #Done
+ld5.save!
+
+fd1 = FoundDog.new(description: "I have a dog. She's small and white in color. She was in a park shivering and there's a red badge around her neck.", latitude: 40.768,longitude:  -111.859, user: @users[3], breed_id: 1, weight_id: 1, is_around_me: true, address: "25 S 1100 E Apt No 7, Salt Lake City UT. 84102.") #Done
 fd1.save!
 
-fd2 = FoundDog.new(description: "I found your puppy Andy. Your puppy was crying", latitude: 40.463,longitude: -111.632, user: @users[1], breed_id: 1, weight_id: 1, is_around_me: true)
+fd2 = FoundDog.new(description: "A dog has been found just near my house bonet. Your pet is safe with me. Call me at 
+(291)231-2393", latitude: 40.763710,longitude: -111.867, user: @users[1], breed_id: 1, weight_id: 1, is_around_me: true, 
+address: "261 S 800 E Apt No 1, Salt Lake City, UT. 84102") # Done
 fd2.save!
 
-f = FeedingHistory.create!(amount: 2.5, food_item: "Puppy Chow", user: @users[0], is_around_me: false, pet: @pets[0])
+fd3 = FoundDog.new(description: "A hungry pet was found near the pool starving for food", latitude: 40.681, longitude:  -111.883, user: @users[4], breed_id: 1, weight_id: 1, is_around_me: true, address: "4150 300 E, Murray, UT 84107")
+fd3.save! #Done
 
-wp = WalkingPartner.create!(description: "I am looking for a company. Does anyone want to join", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: true, pet: @pets[0])
+fd4 = FoundDog.new(description: "A Chihuahua with a red sweater was found. Contact me at -(918) 324- 0391", latitude: 40.780, longitude: -111.894, user: @users[2], breed_id: 1, weight_id: 1, is_around_me: true, address: "Salt Lake City International Airport (SLC), North Terminal Drive, Salt Lake City, UT")
+fd4.save!
+
+fd5 = FoundDog.new(description: "I am currently looking at a dog that seems to be owned by a person. I have attached a pic with this email. Please contact me if anything is required", latitude: 40.799, longitude: -111.927, user: @users[2], breed_id: 1, weight_id: 1, is_around_me: true, address: "")
+fd5.save!
+
+
+
+#f = FeedingHistory.create!(amount: 2.5, food_item: "Puppy Chow", user: @users[0], is_around_me: false, pet: @pets[0])
+
+#wp = WalkingPartner.create!(description: "I am looking for a company. Does anyone want to join", latitude: 40.5513, longitude: -112.20, user: @users[0], is_around_me: true, pet: @pets[0])
 
 # # Create an event
 # ld = LostDog.create(description: "If you see her call 801-564-1354")
