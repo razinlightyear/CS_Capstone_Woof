@@ -22,7 +22,8 @@ json.user do
                         json.call(
                             pet,
                             :name,
-                            :id
+                            :id,
+                            :image
                         )
                     end
                 end
