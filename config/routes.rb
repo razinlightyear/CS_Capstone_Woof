@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     :sessions => "users/sessions"
   }
   get '/users/find', controller: :users, action: :find
+  get 'update_password', controller: :users, action: :update_password
+  patch 'update_password', controller: :users, action: :update_password
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
   #     Prefix Verb   URI Pattern                       Controller#Action
