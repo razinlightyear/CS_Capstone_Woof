@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :update_password]
   skip_before_action :authenticate_user!, only: :profile_edit
   # before any of the below specified methods are exceuted, its going to do the above statement.
     # incase of user, before any of the four methods ar eexectued, it is going to run before_action.
@@ -126,16 +126,37 @@ class UsersController < ApplicationController
       format.json { render :find }
     end
   end
+  
+  # GET /update_password
+  # PATCH /update_password
+  def update_password
+    if request.patch?
+      if @user.update_with_password(user_params)  # Only :password and :password_confirmation are sent to this action
+        # Sign in the user by passing validation in case their password changed
+        bypass_sign_in(@user)
+        flash[:notice] = "Password successfully changed."
+        redirect_to root_path
+      else
+        if @user.errors.any?
+          error_messages = ["Password could be updated:"]
+          error_messages << @user.errors.messages.values
+          flash[:error] = error_messages.join('<br/>')
+        end
+        render "update_password"
+      end
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     # callbacks for models and controllers. in models, use them for validation. you can do rich validation on them: when was it created, after it is updated.
     # it makes sure that the user exists in the database.
     def set_user
-      @user = User.find(current_user)
+      @user = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :active, :image, :image_cache)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :active, :image, :image_cache, :current_password)
     end
 end

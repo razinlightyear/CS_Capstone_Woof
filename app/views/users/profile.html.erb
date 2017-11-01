@@ -1,46 +1,84 @@
-<div class = 'container'>
-    <div class='row'>
-      <% unless @user.image.url.nil? %>
-        <%= image_tag @user.image.url, class: "rounded-circle", width: 100, height: 100 %>
-      <% else %>
-        <%= image_tag 'user_placeholder', class: "rounded-circle", width: 100, height: 100 %>
-      <% end %>
+<div class='container' id='user_profile_view'>
+  <div class='row'>
+    <div class='col'>
+        <%= link_to 'Change Password', update_password_path, :class => 'btn btn-outline-primary float-right' %>
     </div>
-    <div class = 'row'>
-        <%= form_for(:user, url: profile_edit_path, method: 'get') do |f| %>
-            <div class = 'form-group row'>
-                <%= label_tag(:first_name, "First Name:  ") %>
-                <% if !@user.nil? %>
-                    <%= label_tag(:first_name, @user.first_name) %>
-                <% else %>
-                    <%= label_tag(:first_name, "") %>
-                <% end %>
-            </div>
-            <div class = 'form-group row'>
-                <%= label_tag(:last_name, "Last Name: ") %>
-                <% if !@user.nil? %>
-                    <%= label_tag(:last_name, @user.last_name) %>
-                <% else %>
-                    <%= label_tag(:last_name, "") %>
-                <% end %>
-            </div>
-            <div class = 'form-group row'>
-                <%= label_tag(:email, 'Email Address:') %>
-                <%= label_tag(:email, @user.email) %>
-            </div>
-            <div class = 'form-group row'>
-                <%= label_tag(:password, 'Password') %>
-                <%= f.password_field :password, :class => "form-control", autocomplete:"off" %>
-            </div>
-            <div class = 'form-group row'>
-                <%= label_tag(:password_confirmation, 'Confirm Password') %>
-                <%= f.password_field :password_confirmation, :class => "form-control" %>
-            </div>
+  </div>
+  <div class='row'>
+    <div class='col-lg-6'><!-- left side -->
 
-            <div class = 'form-group row'>
-                <%= link_to 'Edit Profile', profile_edit_path, :class => 'btn btn-success btn-block' %>
-            </div>
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Email</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= @user.email %>
+        </div>
+      </div>
 
-        <% end %>
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>First Name</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= @user.first_name %>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Last Name</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= @user.last_name %>
+        </div>
+      </div>  
+    </div><!-- end left side -->
+    
+    
+    <div class='col-lg-6'><!-- right side -->
+      
+      <div class='row'>
+        <div class='col-lg-6'>
+          <% unless @user.image.thumb.url.nil? %>
+            <%= image_tag @user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+          <% else %>
+            <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+          <% end %>
+        </div>
+        <div class='col-lg-6'>
+          <% unless @user.image.thumb.url.nil? %>
+            <%= @user.image.file.identifier %>
+          <% end %>
+        </div>
+      </div>
+      
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Private Profile</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <% if @user.private %>
+            <%= fa_icon 'check 2x' %>
+          <% else %>
+            <%= fa_icon 'times 2x' %>
+          <% end %>
+        </div>
+      </div>
+      
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Badges here?</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          badges
+        </div>
+      </div>
+    </div><!-- end right side -->
+  </div>
+  <div class='row'>
+    <div class='col'>
+        <%= link_to 'Edit Profile', profile_edit_path, :class => 'btn btn-primary float-right' %>
     </div>
+  </div>
 </div>
