@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :authenticate_user!, only: :profile_edit
   # before any of the below specified methods are exceuted, its going to do the above statement.
     # incase of user, before any of the four methods ar eexectued, it is going to run before_action.
     # look into rails log, when you make a request to Users option and then click on a particular user say, "Paarth", then the parameter pertaining to Paarth would
@@ -74,10 +74,13 @@ class UsersController < ApplicationController
   end
 
   def groups_pets
-    @user = User.find(current_user)
-    @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).eager_load(:users, pets: [:breed,:colors,:weight])
+    @user = current_user
+    @groups = Group.joins(:groups_users)
+                   .where('groups_users.user_id' => @user.id)
+                   .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
+                   .where('users.active' => true)
+                   #.where('group_invites.accepted_at' => nil, 'group_invites.declined_at' => nil, 'users.active' => true)
   end
-
 
   # for purpose for invitee and editing the form
   # GET /profile get the profile for user. 'Edit' button on the form goes to
@@ -86,25 +89,43 @@ class UsersController < ApplicationController
 
   # GET /profile
   def profile
-    @user = User.find(current_user.id)
+    @user = current_user
   end
 
   # GET /profile/edit
   def profile_edit
-    @user = User.find(current_user)
+    @user = current_user
   end
 
   # POST /profile/update
   def profile_update
+    # This should be always current_user, correct?
     @new_credentials = params[:user]
-    @user = User.find(@new_credentials["user_id"])
-    @user.update(first_name: @new_credentials["first_name"], last_name: @new_credentials["last_name"], email: @new_credentials["email"])
-
-    redirect_to event_path(current_user)
+    #@user = User.find(@new_credentials["user_id"])
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to profile_path
+    else
+      error_messages = ["Couldn't update your profile for the following reasons"]
+      error_messages << @user.errors.messages.values
+      flash[:error] = error_messages.join('<br/>')
+      render :profile_edit
+    end
   end
 
   # look at font awesome for the icon on the homepage
 
+  # GET /users/find.json?name='diego'
+  def find
+    respond_to do |format|
+      if params[:name] && params[:group_id]
+        @users = User.contains_not_in_group(params[:name],params[:group_id])
+      else
+        @users = User.all.limit 100
+      end
+      format.json { render :find }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     # callbacks for models and controllers. in models, use them for validation. you can do rich validation on them: when was it created, after it is updated.
@@ -115,6 +136,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :active, :image, :image_cache)
     end
 end

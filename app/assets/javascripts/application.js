@@ -15,9 +15,10 @@
 //= require turbolinks
 //= require tether
 //= require bootstrap-sprockets
-//= require_tree .
 //= require underscore
 //= require select2
+//= require bootstrap-filestyle.min
+//= require_tree .
 
 
 $(document).on('turbolinks:load', function() {
@@ -32,6 +33,12 @@ $(document).on('turbolinks:load', function() {
   });
   $('#profile_pic').on("click",function(e){
     e.preventDefault();
+  });  
+  $(":file").filestyle({
+    input: false,
+    badge: true,
+    btnClass: "btn-outline-primary",
+    text: "Choose Profile Picture"
   });
 });
 
@@ -93,7 +100,7 @@ function bindSelect2Elements(){
           results: _.map(data, function(el) {
             return {
               id: el.id,
-              name: el.name
+              name: el.badge
             };
           })
         };
@@ -117,6 +124,46 @@ function bindSelect2Elements(){
     allowClear: true,
     theme: 'bootstrap',
     width: "resolve"
+  });
+  
+  $('.group-invitee-selector').select2({
+    placeholder: 'Search for a user to invite',
+    allowClear: true,
+    theme: 'bootstrap',
+    width: "resolve",
+    tags: true,
+    ajax: {
+      url: '/users/find',
+      data: function(params) {
+        return {
+          name: params.term,
+          group_id: $(this).data('group-id')
+        };
+      },
+      dataType: 'json',
+      delay: 500,
+      processResults: function(data, params) {
+        return {
+          results: _.map(data, function(el) {
+            return {
+              id: el.id,
+              name: el.name
+            };
+          })
+        };
+      },
+      cache: true
+    },
+    escapeMarkup: function(markup) {
+      return markup;
+    },
+    minimumInputLength: 2,
+    templateResult: function(item) {
+      return item.name;
+    },
+    templateSelection: function(item) {
+      return item.name || item.text;
+    }
   });
 }
 

@@ -7,7 +7,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag "icon.png" %>
     <%= favicon_link_tag "icon.png", :rel => 'icon', :type => 'image/png' %>
-    <%= include_gon %>
   </head>
 
   <% if @homepage %>
@@ -30,10 +29,12 @@
         <div id = 'main-content'>
           <!-- The below button is the toggle button for the sidebar. Have to decide 
                 the correct location -->
-          <div class = 'toggle-button'>  
-            <button type = 'button' id = 'sidebarCollapse' class = 'btn btn-primary'>
-                <span class = 'navbar-toggler-icon'></span>
-            </button>
+          <div class = 'toggle-button'>
+            <!-- Could use the icon arrow-left and change the icon with jquery -->
+            <%= button_tag type: 'button', id: 'sidebarCollapse', class: 'btn', style: 'background-color: transparent;' do %>
+              <%= fa_icon 'bars 2x', id: 'sidemenu_show_icon', style: "display: none;" %>
+              <%= fa_icon 'arrow-left 2x', id: 'sidemenu_collapse_icon' %>
+            <% end %>
           </div>
           <%= yield %>
         </div>

@@ -14,19 +14,19 @@ class NudgesController < ApplicationController
     @nudge = Nudge.new
     @nudge.user_id = params[:user_id]
     @nudge.pet_id = params[:pet_id]
-    @nudge.group_id = params[:group_id]
+    @nudge.group_id = Pet.find(params[:pet_id]).group.id
     @nudge.response = -1
     @nudge.nudge_token = @nudge.generate_token
 
     respond_to do |format|
       if @nudge.save
         # Create Nudge for group memebers
-        Group.find(params[:group_id]).users.each do |user|
-          next if user.id == @nudge.user_id
+        Group.find(@nudge.group_id).users.each do |user|
+          next if user.id == @nudge.user_id || user.device.nil?
           @nudge_member = Nudge.new
           @nudge_member.user_id = user.id
           @nudge_member.pet_id = params[:pet_id]
-          @nudge_member.group_id = params[:group_id]
+          @nudge_member.group_id = Pet.find(params[:pet_id]).group.id
           @nudge_member.response = 0
           @nudge_member.nudge_token = @nudge.nudge_token
 

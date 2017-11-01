@@ -32,9 +32,7 @@ class GroupsController < ApplicationController
       if @group.save
         current_user.groups << @group
         current_user.save!
-        @user = User.find(current_user)
-        @groups = Group.joins(:groups_users).where('groups_users.user_id' => @user.id).eager_load(:users, pets: [:breed,:colors,:weight])
-        format.html { redirect_to profile_path, notice: 'Group was successfully created.' }
+        format.html { redirect_to groups_pets_path, notice: 'Group was successfully created.' }
         format.js { render 'groups/create', status: :created }
         format.json { render :show, status: :created, location: @group }
       else

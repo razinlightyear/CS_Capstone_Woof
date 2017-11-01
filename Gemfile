@@ -72,12 +72,20 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# Added by readme
-gem 'gon'
-
 # Autentication gem
 gem 'simple_token_authentication', '~> 1.15', '>= 1.15.1'
 gem 'devise', '~> 4.3'
+gem 'devise_invitable', '~> 1.7', '>= 1.7.2'
 
 # iOS Notifications
 gem 'houston', '~> 2.2', '>= 2.2.4'
+
+# Only send email to the user's email address in production environment
+gem 'sanitize_email', '~> 1.2', '>= 1.2.2'
+
+# Active Job uses this for background jobs (emailing)
+gem 'resque', '~> 1.27', '>= 1.27.4'
+
+# Image support
+gem 'carrierwave', '~> 1.2', '>= 1.2.1'
+gem 'mini_magick', '~> 4.8'  # Tool to resize images

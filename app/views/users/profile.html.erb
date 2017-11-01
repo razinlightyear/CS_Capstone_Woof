@@ -1,4 +1,11 @@
 <div class = 'container'>
+    <div class='row'>
+      <% unless @user.image.url.nil? %>
+        <%= image_tag @user.image.url, class: "rounded-circle", width: 100, height: 100 %>
+      <% else %>
+        <%= image_tag 'user_placeholder', class: "rounded-circle", width: 100, height: 100 %>
+      <% end %>
+    </div>
     <div class = 'row'>
         <%= form_for(:user, url: profile_edit_path, method: 'get') do |f| %>
             <div class = 'form-group row'>
@@ -31,7 +38,7 @@
             </div>
 
             <div class = 'form-group row'>
-                <%= f.submit "Edit Profile",  :class => 'btn btn-success btn-block' %>
+                <%= link_to 'Edit Profile', profile_edit_path, :class => 'btn btn-success btn-block' %>
             </div>
 
         <% end %>
