@@ -135,6 +135,7 @@ function draw_marker(data)
 
   if(data.event_type != 'FoundDog')
   {
+
     contentString = " <div class = 'event_window'>"+
               "<h5>" + data.pet_name + "</h5>" +
               "<h5>"+ data.event_type +"</h5>"+
@@ -144,7 +145,7 @@ function draw_marker(data)
     
     marker.setLabel("LostDog");
   }
-  else if(data.event_type == 'LostDog')
+  else if(data.event_type == 'FoundDog')
   {
     contentString = " <div class = 'event_window'>"+
               "<h5>"+ data.event_type +"</h5>"+
