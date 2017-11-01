@@ -22,12 +22,19 @@
     margin-bottom: 30px;
 }
 
+.nav-tabs > li > a{
+    color: black;
+    font-weight: 900px;
+}
+
 #sidebar{
     margin-left: -250px;
-    background-color: #F4F4F4;
+    background-color:#A8A8A8;
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
+    color: white;
+    border-top: 2px black;
 }
 
 #sidebar.active{
@@ -35,7 +42,8 @@
 }
 
 .nav-tabs > li > a:hover{
-    background-color: #C0C0C0;
+    /*background-color: #C0C0C0;*/
+    background-color: #808080;
     color: #FFFAFA;
 }
 
