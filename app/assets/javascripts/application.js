@@ -174,7 +174,3 @@ function highlightSelect2Error(card, select2ClassType){
   selectInput.find('.selection').addClass('form-control');
   selectInput.find('.selection').css('padding','0px');
 }
-
-function submitImage(event){
-  event.closest('form').submit();
-}
