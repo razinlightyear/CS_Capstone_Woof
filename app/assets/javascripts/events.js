@@ -4,6 +4,7 @@
 
 var map;
 var allMarkers = [];
+var icons = {};
 
 function initMap() {
   
@@ -16,6 +17,18 @@ function initMap() {
 
   //var myLatLng = {lat: 40.75, lng: -111.84}
   var myLatLng;
+
+  icons = {
+    LostDog:{
+      icon: '/assets/lost-dog.png' 
+    },
+    FoundDog:{
+      icon: '/assets/found-dog.png'
+    },
+    WalkingPartner:{
+      icon: '/assets/walking-the-dog.png'
+    }
+  };
 
   if(navigator.geolocation){
 
@@ -87,7 +100,6 @@ function get_all_events(filter_array)
 
       if(typeof filter_array!='undefined')
       {
-
         //console.log("Marker is: ");
         //console.log(marker);
       }
@@ -109,11 +121,15 @@ function get_all_events(filter_array)
 
 function draw_marker(data)
 {
-
-  var marker = new google.maps.Marker({
-      position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
-      map: map
-  });
+  var marker;
+  if(data.event_type!='WalkingPartner')
+  {  
+    marker = new google.maps.Marker({
+        position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
+        map: map,
+        icon: icons[data.event_type].icon
+    });
+  
 
   var contentString = "";
 
@@ -128,7 +144,7 @@ function draw_marker(data)
     
     marker.setLabel("LostDog");
   }
-  else
+  else if(data.event_type == 'LostDog')
   {
     contentString = " <div class = 'event_window'>"+
               "<h5>"+ data.event_type +"</h5>"+
@@ -157,6 +173,7 @@ function draw_marker(data)
   });
 
   allMarkers.push(marker);
+  }
 
 }
 
