@@ -19,6 +19,15 @@ class EventsController < ApplicationController
     render :show
   end
 
+  def filter_events
+    @filter_events = params[:filter_events]
+
+    respond_to do |format|
+      format.js {render :filter_events}
+    end
+
+  end
+
   private
   
   # Use callbacks to share common setup or constraints between actions.

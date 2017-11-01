@@ -37,7 +37,9 @@ Rails.application.routes.draw do
     resources :feeding_histories, only: :index
   end
   resources :events
+
   get '/events_map', controller: :events, action: :events_map
+  post '/events/filter_events', controller: :events, action: :filter_events
  # resources :lost_dogs # reaplace :create_lost_dogs
   # resources :found_dogs
   resources :feeding_histories

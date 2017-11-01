@@ -3,6 +3,8 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 var map;
+var allMarkers = [];
+
 function initMap() {
   
   console.log("I am in the init Map function");
@@ -44,8 +46,33 @@ function initMap() {
   }
 }
 
+function remove_markers(filter_array)
+{
 
-function get_all_events()
+  allMarkers.map(function(marker){
+  // console.log("Marker label is: " + marker.getLabel());
+
+    if(filter_array.includes("All"))
+    {
+      marker.setMap(map);
+    }
+    else
+    {
+      if(filter_array.includes(marker.getLabel()))
+      {
+        // console.log("Hello Everyone");
+        marker.setMap(map);
+      }
+      else
+      {
+        marker.setMap(null);
+      }
+    }
+
+  });
+}
+
+function get_all_events(filter_array)
 {
 
   console.log("I am in the get all events function");
@@ -56,9 +83,20 @@ function get_all_events()
     dataType: 'json',
     type: 'GET',
     success: (data) => {
-      data.events.map((marker) => {
-        draw_marker(marker);
-      });
+      //console.log("filter_array is: " + filter_array);
+
+      if(typeof filter_array!='undefined')
+      {
+
+        //console.log("Marker is: ");
+        //console.log(marker);
+      }
+      else
+      {
+        data.events.map((marker) => {
+          draw_marker(marker);
+        });
+      }
     },
     error: function(data){
       console.log("Error is: " + data.error);
@@ -87,13 +125,19 @@ function draw_marker(data)
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
               "<p>Description: " + data.description + "<br>"+
               "Address: " + data.address + "</p>";
+    
+    marker.setLabel("LostDog");
   }
   else
+  {
     contentString = " <div class = 'event_window'>"+
               "<h5>"+ data.event_type +"</h5>"+
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
               "<p>Description: " + data.description + "<br>" + 
               "Address: " + data.address + "</p>";
+    
+    marker.setLabel("FoundDog");
+  }
 
   var link = '';
 
@@ -111,6 +155,9 @@ function draw_marker(data)
   marker.addListener('click',function(){
     infoWindow.open(map, marker);
   });
+
+  allMarkers.push(marker);
+
 }
 
 
