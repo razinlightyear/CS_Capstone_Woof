@@ -4,6 +4,8 @@
 
 var map;
 var allMarkers = [];
+var markerObjectsId = [];
+
 var icons = {};
 
 function initMap() {
@@ -41,7 +43,8 @@ function initMap() {
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        zoom: 15
+        //zoom: 15
+        zoom: 13
       });
 
       map.addListener('click', function(e){
@@ -110,9 +113,22 @@ function get_all_events(filter_array)
       else
       {
         data.events.map((marker) => {
-          draw_marker(marker);
+
+          if(markerObjectsId.includes(marker.event_id))
+          {
+            // console.log("This marker is in the list");
+          }
+          else
+          {
+            // console.log("This marker is not in the list");
+            markerObjectsId.push(marker.event_id);
+            draw_marker(marker);
+          }
+
+
         });
       }
+
     },
     error: function(data){
       console.log("Error is: " + data.error);
@@ -125,15 +141,17 @@ function get_all_events(filter_array)
 
 function draw_marker(data)
 {
+  //console.log("I am drawing the marker");
+
   var marker;
   if(data.event_type!='WalkingPartner')
   {  
     marker = new google.maps.Marker({
         position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
         map: map,
+        animation: google.maps.Animation.DROP,
         icon: icons[data.event_type].icon
     });
-  
 
   var contentString = "";
 
@@ -177,8 +195,11 @@ function draw_marker(data)
     infoWindow.open(map, marker);
   });
 
+
   allMarkers.push(marker);
-  }
+  //console.log(allMarkers);
+
+}
 
 }
 
