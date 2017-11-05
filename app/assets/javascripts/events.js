@@ -197,7 +197,6 @@ function draw_marker(data)
 
 
   allMarkers.push(marker);
-  //console.log(allMarkers);
 
 }
 
