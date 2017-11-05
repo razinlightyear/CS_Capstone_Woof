@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_one :device
   has_many :sent_group_invites, class_name: "GroupInvite", foreign_key: "inviter_id", inverse_of: :inviter
   has_many :received_group_invites, class_name: "GroupInvite", foreign_key: "invitee_id", inverse_of: :invitee
+  has_many :messages
+  has_many :subscriptions
+  has_many :chats, through: :subscriptions
   
   validates :first_name, presence: { message: "Please enter a first name" }, if: :name_required?
   validates :last_name, presence: { message: "Please enter a last name" }, if: :name_required?  
