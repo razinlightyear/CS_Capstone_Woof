@@ -1,3 +1,3 @@
 var eventTypes = <%= raw @filter_events %>;
-remove_markers(eventTypes);
-console.log(eventTypes);
+var current_user_id = <%= raw @current_user_id %>;
+remove_markers(eventTypes, current_user_id);

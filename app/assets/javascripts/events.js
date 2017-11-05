@@ -66,26 +66,45 @@ function initMap() {
 
 }
 
-function remove_markers(filter_array)
+function remove_markers(filter_array, current_user_id)
 {
 
   allMarkers.map(function(marker){
   // console.log("Marker label is: " + marker.getLabel());
 
-    if(filter_array.includes("All"))
+    if(filter_array.includes("Personal"))
     {
-      marker.setMap(map);
-    }
-    else
-    {
-      if(filter_array.includes(marker.getLabel()))
+
+      if(marker.user_id === current_user_id)
       {
-        // console.log("Hello Everyone");
         marker.setMap(map);
       }
       else
       {
         marker.setMap(null);
+      }
+
+      // Filter the events that are created by the user.
+      //console.log("Marker is: ");
+      //console.log(marker);
+    }
+    else
+    {
+      if(filter_array.includes("All"))
+      {
+        marker.setMap(map);
+      }
+      else
+      {
+        if(filter_array.includes(marker.getLabel()))
+        {
+          // console.log("Hello Everyone");
+          marker.setMap(map);
+        }
+        else
+        {
+          marker.setMap(null);
+        }
       }
     }
 
@@ -95,7 +114,7 @@ function remove_markers(filter_array)
 function get_all_events(filter_array)
 {
 
-  console.log("I am in the get all events function");
+ // console.log("I am in the get all events function");
 
   /// Make an AJAX call to events_map action in events_controller
   jQuery.ajax({
@@ -142,6 +161,8 @@ function get_all_events(filter_array)
 function draw_marker(data)
 {
   //console.log("I am drawing the marker");
+  //console.log("Marker is: ");
+  //console.log(data);
 
   var marker;
   if(data.event_type!='WalkingPartner')
@@ -150,8 +171,11 @@ function draw_marker(data)
         position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
         map: map,
         animation: google.maps.Animation.DROP,
-        icon: icons[data.event_type].icon
+        icon: icons[data.event_type].icon,
+        user_id: data.user_id
     });
+
+    //console.log(marker);
 
   var contentString = "";
 
