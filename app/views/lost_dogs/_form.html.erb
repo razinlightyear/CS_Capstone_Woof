@@ -23,7 +23,6 @@
                 <%= render :partial => 'lost_dogs/pets', :object => @pets_set %>
             </div>
         </div>
-
         <% if !lost_dog.pet_id.nil? %>
             <%= javascript_tag do %>
                 window.group_id = "<%= j lost_dog.pet.group_id.to_s %>";
