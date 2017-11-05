@@ -66,6 +66,14 @@ function initMap() {
 
 }
 
+function disable_filters()
+{
+  //console.log("Let's toggle the other filters.");
+  $('#filter_lost').prop('disabled', function(i, v){ return !v});
+  $('#filter_found').prop('disabled', function(i, v){ return !v});
+  $('#filter_all').prop('disabled', function(i, v){ return !v});
+}
+
 function remove_markers(filter_array, current_user_id)
 {
 
