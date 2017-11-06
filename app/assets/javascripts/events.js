@@ -9,8 +9,10 @@ var markerObjectsId = [];
 var icons = {};
 
 function initMap() {
-  
-  console.log("I am in the init Map function");
+
+  // Below is done because when updating the events, it doesn't display anything onto the map  
+  allMarkers = [];
+  markerObjectsId = [];
 
   // 40.75, -111.84
   // 40.716, -111.93
@@ -122,7 +124,7 @@ function remove_markers(filter_array, current_user_id)
 function get_all_events(filter_array)
 {
 
- // console.log("I am in the get all events function");
+ //console.log("I am in the get all events function");
 
   /// Make an AJAX call to events_map action in events_controller
   jQuery.ajax({
@@ -143,11 +145,12 @@ function get_all_events(filter_array)
 
           if(markerObjectsId.includes(marker.event_id))
           {
-            // console.log("This marker is in the list");
+            //console.log("This marker is in the list");
+            // draw_marker(marker);
           }
           else
           {
-            // console.log("This marker is not in the list");
+            //console.log("This marker is not in the list");
             markerObjectsId.push(marker.event_id);
             draw_marker(marker);
           }
