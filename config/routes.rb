@@ -103,6 +103,12 @@ Rails.application.routes.draw do
     delete 'found_dogs/:id' => :destroy
   end
 
+  controller :post_events do
+    get 'post_events/new' => :new
+    post 'post_events/create' => :create
+    get  'post_events/:id' => :show, as: :post_event
+  end
+
   #get 'lost_dogs/new', controller: :lost_dogs, action: :new
   #post 'lost_dogs/create', controller: :lost_dogs, action: :create
 
