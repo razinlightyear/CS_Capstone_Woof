@@ -33,12 +33,6 @@ $(document).on('turbolinks:load', function() {
   });
   $('#profile_pic').on("click",function(e){
     e.preventDefault();
-  });  
-  $(":file").filestyle({
-    input: false,
-    badge: true,
-    btnClass: "btn-outline-primary",
-    text: "Choose Profile Picture"
   });
 });
 
