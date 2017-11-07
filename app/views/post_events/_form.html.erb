@@ -1,4 +1,3 @@
-<% byebug %>
 <div class = 'container'>
     <%= form_for(post_event, url: path, remote: true) do |f| %>
         <%= f.hidden_field :user_id, value: @user.id %>
@@ -31,7 +30,6 @@
         <% @private = "unchecked" %>
         <% @public = "checked" %>
 
-        <% byebug %>
         
         <% if !post_event.private.nil? %>
             <% if post_event.private %>
@@ -40,7 +38,6 @@
             <% end %>
         <% end %>
 
-        <% byebug %>
 
         <!-- public/private event -->
         <!-- date/time the event would take place -->

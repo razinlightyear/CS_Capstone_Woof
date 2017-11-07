@@ -74,6 +74,7 @@ function disable_filters()
   $('#filter_lost').prop('disabled', function(i, v){ return !v});
   $('#filter_found').prop('disabled', function(i, v){ return !v});
   $('#filter_all').prop('disabled', function(i, v){ return !v});
+  $('#filter_post_event').prop('disabled', function(i, v){ return !v});
 }
 
 function remove_markers(filter_array, current_user_id)
@@ -214,7 +215,7 @@ function draw_marker(data)
   }
   else if(data.event_type == 'PostEvent')
   {
-    
+
     contentString = " <div class = 'event_window'>"+
               "<h5>"+ data.event_type +"</h5>"+
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
