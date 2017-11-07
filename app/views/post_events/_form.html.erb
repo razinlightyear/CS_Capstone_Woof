@@ -1,3 +1,4 @@
+<% byebug %>
 <div class = 'container'>
     <%= form_for(post_event, url: path, remote: true) do |f| %>
         <%= f.hidden_field :user_id, value: @user.id %>
@@ -27,19 +28,33 @@
             <%= f.number_field :longitude, step: 0.001, class: 'form-control' %>
         </div>
 
+        <% @private = "unchecked" %>
+        <% @public = "checked" %>
+
+        <% byebug %>
+        
+        <% if !post_event.private.nil? %>
+            <% if post_event.private %>
+                <% @private = "checked" %>
+                <% @public = "unchecked" %>
+            <% end %>
+        <% end %>
+
+        <% byebug %>
+
         <!-- public/private event -->
         <!-- date/time the event would take place -->
         <div class = 'form-group'>
-            <%= f.label :private, "Is the event public or private? " %>
-            <%= f.radio_button :privacy, "Private" %>
-            <%= f.label :private_tag, "Private" %>
-            <%= f.radio_button :privacy, "Public" %>
-            <%= f.label :public_tag, "Public" %>
+            <%= f.label :form_label, "Is the event public or private? " %>
+            <%= f.radio_button :private, 1, checked: @private %> <!-- 1 is true and it is private -->
+            <%= f.label :private_label, "Private" %>
+            <%= f.radio_button :private, 0, checked: @public %> <!-- 0 is false and it is public -->
+            <%= f.label :public_label, "Public" %>
         </div>
 
         <div class = 'form-group'>
             <%= f.label :date_time, "Is the event public or private? " %>
-            <%= f.date_select :date_time %>
+            <%= f.datetime_select :date_time, start_year: 2016, end_year: 2040 %>
         </div>
 
         <div class = 'form-group  actions'>

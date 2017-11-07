@@ -29,7 +29,7 @@ function initMap() {
     FoundDog:{
       icon: '/assets/found-dog.png'
     },
-    WalkingPartner:{
+    PostEvent:{
       icon: '/assets/walking-the-dog.png'
     }
   };
@@ -190,7 +190,7 @@ function draw_marker(data)
 
   var contentString = "";
 
-  if(data.event_type != 'FoundDog')
+  if(data.event_type == 'LostDog')
   {
 
     contentString = " <div class = 'event_window'>"+
@@ -212,6 +212,17 @@ function draw_marker(data)
     
     marker.setLabel("FoundDog");
   }
+  else if(data.event_type == 'PostEvent')
+  {
+    
+    contentString = " <div class = 'event_window'>"+
+              "<h5>"+ data.event_type +"</h5>"+
+              "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
+              "<p>Description: " + data.description + "<br>" + 
+              "Address: " + data.address + "</p>";
+
+    marker.setLabel('PostEvent');
+  }
 
   var link = '';
 
@@ -219,6 +230,8 @@ function draw_marker(data)
     link = "<a href='/lost_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Event</a>";
   else if(data.event_type == 'FoundDog')
     link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
+  else if(data.event_type == 'PostEvent')   // This needs to be given more thought.
+    link = "<a href='/post_events/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";  
 
   contentString = contentString + link;
 
