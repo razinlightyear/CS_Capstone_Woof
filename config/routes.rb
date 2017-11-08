@@ -78,7 +78,13 @@ Rails.application.routes.draw do
 
   get 'home/sign_out_profile'
 
+  # Serve websocket cable requests in-process
+  mount ActionCable.server => '/cable'
   get '/group_nudge', controller: :nudges, action: :group_nudge 
+  resources :users do 
+    resources :chats, only: [:index, :show, :create]
+  end
+  resources :messages, only:[:create]
 
   controller :lost_dogs do
     get 'lost_dogs/new' => :new
