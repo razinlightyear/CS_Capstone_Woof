@@ -28,6 +28,7 @@ function prefill_dropdowns()
     console.log(document.getElementById("group_id").length);
     console.log(document.getElementById("group_id")[group_id]);
     console.log(document.getElementById("group_id")[group_id].selected);*/
-    document.getElementById("group_id")[group_id].selected = true;
+    $('#group_id').val(group_id).attr('selected', true);
+    //document.getElementById("group_id")[group_id].selected = true;
     get_pets_div(group_id, pet_id);
 }
