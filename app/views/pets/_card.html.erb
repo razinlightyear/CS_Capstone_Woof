@@ -2,9 +2,9 @@
   <div class="card-header" role="tab" id="heading_group_<%=group.id%>_pet_<%=pet.id%>">
     <h5 class="mb-0">
       <% unless pet.image.thumb.url.nil? %>
-        <%= image_tag pet.image.thumb.url, class: "rounded-circle", alt: 'Card image' %><!-- Thumb is alraedy 50x50 -->
+        <%= image_tag pet.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: pet.id} %><!-- Thumb is alraedy 50x50 -->
       <% else %>
-        <%= image_tag 'pet_placeholder', class: "rounded-circle", width: 50, height: 50, alt: 'Card image' %>
+        <%= image_tag 'pet_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: pet.id} %>
       <% end %>
       <a id="qwer<%=group.id%>" class="collapsed" data-toggle="collapse" data-parent="#pet_accordion_group_<%=group.id%>" href="#collapse_group_<%=group.id%>_pet_<%=pet.id%>" aria-expanded="false" aria-controls="collapse_group_<%=group.id%>_pet_<%=pet.id%>">
       <%=pet.name%>

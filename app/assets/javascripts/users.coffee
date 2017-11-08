@@ -38,4 +38,10 @@ $(document).on 'turbolinks:load', ->
       $('#group_'+group_id+'_invite_card').hide()
       $(this).html('Invite Person')
   
+  $('#user_image_file_input').filestyle
+    input: false
+    badge: true
+    btnClass: "btn-outline-primary"
+    text: "Choose Profile Picture"
+  
   bindSelect2Elements() # application.js
