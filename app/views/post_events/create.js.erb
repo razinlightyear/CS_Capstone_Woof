@@ -8,12 +8,11 @@ var address_event;
 var latitude;
 var longitude;
 
-if("<%= @lost_dog.address %>" == "")
+if("<%= @post_event.address %>" == "")
 {
     console.log("The address is blank");
-    latitude  = parseFloat("<%= @lost_dog.latitude %>")
-    longitude = parseFloat("<%= @lost_dog.longitude %>")
-
+    latitude  = parseFloat("<%= @post_event.latitude %>")
+    longitude = parseFloat("<%= @post_event.longitude %>")
 
     geocoder.geocode({"location": {"lat": latitude, "lng": longitude}}, function(results){
         address_event = results[0].formatted_address;
@@ -24,7 +23,7 @@ if("<%= @lost_dog.address %>" == "")
 else
 {
     console.log("Address is not blank");
-    address_event = "<%= @lost_dog.address %>";
+    address_event = "<%= @post_event.address %>";
     //console.log(address_event);
 
     geocoder.geocode({"address": address_event}, function(results){
@@ -39,22 +38,21 @@ else
 function update_address(latitude, longitude, address_event)
 {
     // For below object, where's the event id
-    lost_dog_created = {
-        lost_dog: {
-            user_id: "<%= @lost_dog.user_id %>",
-            pet_id: "<%= @lost_dog.pet_id %>",
-            description: "<%= @lost_dog.description %>",
+    post_event_created = {
+        post_event: {
+            user_id: "<%= @post_event.user_id %>",
+            description: "<%= @post_event.description %>",
             address: ""+address_event,
             latitude: ""+latitude,
             longitude: ""+longitude,
-            event_id: "<%= @lost_dog.id %>"
+            event_id: "<%= @post_event.id %>"
         }
     }
 
     // Update the address or lat/lng of the lost_dog object
     jQuery.ajax({
-        url: '/lost_dogs/update_lost_address',
-        data: lost_dog_created,
+        url: '/post_events/update_lost_address',
+        data: post_event_created,
         dataType: 'json',
         method: 'POST',
         success: (data)=>{

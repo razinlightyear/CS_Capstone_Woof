@@ -1,36 +1,11 @@
 <div class = 'container'>
-    <%= form_for(lost_dog, url: path, remote: true) do |f| %>
+    <%= form_for(post_event, url: path, remote: true) do |f| %>
         <%= f.hidden_field :user_id, value: @user.id %>
         <div class = 'form-group'>
                     
         Owner: <h1><%= @user.first_name %>  <%= @user.last_name %></h1>
 
         </div>
-        <div class = 'form-group'>
-            <%= label_tag(:group_id, 'Select a group:') %>
-            <% @group_list = [] %>
-            <% @group_list << ['', -1] %>
-            <% @user.groups.each do |group| %>
-                <% @group_list << [group.name, group.id] %>
-            <% end %>        
-            <%= select_tag(:group_id, options_for_select(@group_list), class: 'form-control', onchange: "get_pets_div(this.value)") %>
-        </div>
-
-        <div class = 'form-group'>
-            <%= f.label :pet_id, 'Select a pet: ' %>
-            <div id = 'pets'>
-                <!-- changed here --> 
-                <%= render :partial => 'lost_dogs/pets', :object => @pets_set %>
-            </div>
-        </div>
-        
-        <% if !lost_dog.pet_id.nil? %>
-            <%= javascript_tag do %>
-                window.group_id = "<%= j lost_dog.pet.group_id.to_s %>";
-                window.pet_id = "<%= j lost_dog.pet_id.to_s %>";
-                prefill_dropdowns();
-            <% end %>
-        <% end %>
 
         <div class = 'form-group'>
             <%= f.label :description %>
@@ -50,6 +25,33 @@
 
             <%= f.label :longitude %>
             <%= f.number_field :longitude, step: 0.001, class: 'form-control' %>
+        </div>
+
+        <% @private = "unchecked" %>
+        <% @public = "checked" %>
+
+        
+        <% if !post_event.private.nil? %>
+            <% if post_event.private %>
+                <% @private = "checked" %>
+                <% @public = "unchecked" %>
+            <% end %>
+        <% end %>
+
+
+        <!-- public/private event -->
+        <!-- date/time the event would take place -->
+        <div class = 'form-group'>
+            <%= f.label :form_label, "Is the event public or private? " %>
+            <%= f.radio_button :private, 1, checked: @private %> <!-- 1 is true and it is private -->
+            <%= f.label :private_label, "Private" %>
+            <%= f.radio_button :private, 0, checked: @public %> <!-- 0 is false and it is public -->
+            <%= f.label :public_label, "Public" %>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :date_time, "Is the event public or private? " %>
+            <%= f.datetime_select :date_time, start_year: 2016, end_year: 2040 %>
         </div>
 
         <div class = 'form-group  actions'>

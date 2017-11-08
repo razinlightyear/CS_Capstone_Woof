@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103161238) do
+ActiveRecord::Schema.define(version: 20171106034726) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -155,6 +155,14 @@ ActiveRecord::Schema.define(version: 20171103161238) do
     t.index ["breed_id"], name: "index_pets_on_breed_id", using: :btree
     t.index ["group_id"], name: "index_pets_on_group_id", using: :btree
     t.index ["weight_id"], name: "index_pets_on_weight_id", using: :btree
+  end
+
+  create_table "post_event_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "description",   limit: 65535
+    t.datetime "date_time"
+    t.boolean  "private"
+    t.integer  "post_event_id"
+    t.index ["post_event_id"], name: "index_post_event_delegates_on_post_event_id", using: :btree
   end
 
   create_table "subscriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
