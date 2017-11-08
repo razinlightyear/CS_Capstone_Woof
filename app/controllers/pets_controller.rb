@@ -76,6 +76,20 @@ class PetsController < ApplicationController
     end
   end
 
+  # GET /pets/1/image_modal.json
+  def image_modal
+    @pet = Pet.where(id: params[:id]).first
+    if @pet
+      respond_to do |format|
+        format.js   { render 'pets/image_modal' }
+      end
+    else
+      respond_to do |format|
+        format.js   { render 'pets/image_modal', status: :unprocessable_entity }
+      end
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pet
