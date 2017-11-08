@@ -1,5 +1,5 @@
 <div>
-  <h5>Chat with <%= @other_user.first_name %></h5>
+  <h5>Chat with <%= @other_user.first_name %> <%= @other_user.last_name %></h5>
   <% if @chat.messages.any? %>
     <div id="messages">
       <%= render partial: 'messages/message', collection: @chat.messages.order(id: :asc)%>
