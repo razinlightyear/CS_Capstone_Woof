@@ -21,6 +21,7 @@ class EventsController < ApplicationController
 
   def filter_events
     @filter_events = params[:filter_events]
+    @current_user_id = current_user.id
 
     respond_to do |format|
       format.js {render :filter_events}

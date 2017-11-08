@@ -1,0 +1,4 @@
+$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'post_events/form', locals: {post_event: @post_event, path: post_event_path(@post_event.id), button_name: "Update the Around Me Event"} ) %>')
+
+$('#eventModal').modal('show')
+$('.modal-title').text('Editing the around me event')

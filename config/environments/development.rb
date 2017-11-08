@@ -64,4 +64,6 @@ Rails.application.configure do
    :authentication       => "plain",
   :enable_starttls_auto => true
   }
+  config.action_cable.allowed_request_origins = ['ws://155.99.236.190:3000']
+  config.action_cable.url = "ws://localhost:3000/cable"
 end
