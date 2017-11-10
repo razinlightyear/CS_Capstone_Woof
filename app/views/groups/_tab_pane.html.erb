@@ -55,7 +55,7 @@
         <% group.users.each_with_index do |user,j| %>
           <%= render 'users/card', group: group, user: user, j: j %>
         <% end %>
-        <% group_invites = GroupInvite.where(accepted_at: nil, declined_at: nil) %>
+        <% group_invites = GroupInvite.where(accepted_at: nil, declined_at: nil, group: group) %>
         <% if !group_invites.empty? %>
           <div class="card">
             <div class="card-header">
