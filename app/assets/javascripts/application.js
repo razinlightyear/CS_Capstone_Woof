@@ -19,7 +19,6 @@
 //= require select2
 //= require bootstrap-filestyle.min
 //= require_tree .
-//= require_tree ./channels
 
 
 $(document).on('turbolinks:load', function() {

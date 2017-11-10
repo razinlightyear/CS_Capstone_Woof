@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171106034726) do
+ActiveRecord::Schema.define(version: 20171030022847) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "chats", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "identifier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -119,16 +113,6 @@ ActiveRecord::Schema.define(version: 20171106034726) do
     t.index ["lost_dog_id"], name: "index_lost_dog_delegates_on_lost_dog_id", using: :btree
   end
 
-  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "content"
-    t.integer  "user_id"
-    t.integer  "chat_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
-    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
-  end
-
   create_table "nudges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nudge_token"
     t.integer  "user_id"
@@ -155,23 +139,6 @@ ActiveRecord::Schema.define(version: 20171106034726) do
     t.index ["breed_id"], name: "index_pets_on_breed_id", using: :btree
     t.index ["group_id"], name: "index_pets_on_group_id", using: :btree
     t.index ["weight_id"], name: "index_pets_on_weight_id", using: :btree
-  end
-
-  create_table "post_event_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "description",   limit: 65535
-    t.datetime "date_time"
-    t.boolean  "private"
-    t.integer  "post_event_id"
-    t.index ["post_event_id"], name: "index_post_event_delegates_on_post_event_id", using: :btree
-  end
-
-  create_table "subscriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "chat_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chat_id"], name: "index_subscriptions_on_chat_id", using: :btree
-    t.index ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -233,14 +200,10 @@ ActiveRecord::Schema.define(version: 20171106034726) do
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
-  add_foreign_key "messages", "chats"
-  add_foreign_key "messages", "users"
   add_foreign_key "nudges", "groups"
   add_foreign_key "nudges", "pets"
   add_foreign_key "nudges", "users"
   add_foreign_key "pets", "breeds"
   add_foreign_key "pets", "groups"
   add_foreign_key "pets", "weights"
-  add_foreign_key "subscriptions", "chats"
-  add_foreign_key "subscriptions", "users"
 end

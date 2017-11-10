@@ -78,13 +78,7 @@ Rails.application.routes.draw do
 
   get 'home/sign_out_profile'
 
-  # Serve websocket cable requests in-process
-  mount ActionCable.server => '/cable'
   get '/group_nudge', controller: :nudges, action: :group_nudge 
-  resources :users do 
-    resources :chats, only: [:index, :show, :create]
-  end
-  resources :messages, only:[:create]
 
   controller :lost_dogs do
     get 'lost_dogs/new' => :new
@@ -107,17 +101,6 @@ Rails.application.routes.draw do
     put 'found_dogs/:id' => :update
     patch 'found_dogs/:id' => :update
     delete 'found_dogs/:id' => :destroy
-  end
-
-  controller :post_events do
-    get 'post_events/new' => :new
-    post 'post_events/create' => :create
-    post 'post_events/update_lost_address' => :update_lost_address
-    get  'post_events/:id' => :show, as: :post_event
-    get 'post_events/:id/edit' => :edit, as: :edit_post_event
-    put 'post_events/:id' => :update
-    patch 'post_events/:id' => :update
-    delete 'post_events/:id' => :destroy
   end
 
   #get 'lost_dogs/new', controller: :lost_dogs, action: :new

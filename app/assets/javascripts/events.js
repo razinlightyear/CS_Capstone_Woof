@@ -4,15 +4,11 @@
 
 var map;
 var allMarkers = [];
-var markerObjectsId = [];
-
 var icons = {};
 
 function initMap() {
-
-  // Below is done because when updating the events, it doesn't display anything onto the map  
-  allMarkers = [];
-  markerObjectsId = [];
+  
+  console.log("I am in the init Map function");
 
   // 40.75, -111.84
   // 40.716, -111.93
@@ -29,7 +25,7 @@ function initMap() {
     FoundDog:{
       icon: '/assets/found-dog.png'
     },
-    PostEvent:{
+    WalkingPartner:{
       icon: '/assets/walking-the-dog.png'
     }
   };
@@ -45,8 +41,7 @@ function initMap() {
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        //zoom: 15
-        zoom: 13
+        zoom: 15
       });
 
       map.addListener('click', function(e){
@@ -68,54 +63,26 @@ function initMap() {
 
 }
 
-function disable_filters()
-{
-  //console.log("Let's toggle the other filters.");
-  $('#filter_lost').prop('disabled', function(i, v){ return !v});
-  $('#filter_found').prop('disabled', function(i, v){ return !v});
-  $('#filter_all').prop('disabled', function(i, v){ return !v});
-  $('#filter_post_event').prop('disabled', function(i, v){ return !v});
-}
-
-function remove_markers(filter_array, current_user_id)
+function remove_markers(filter_array)
 {
 
   allMarkers.map(function(marker){
   // console.log("Marker label is: " + marker.getLabel());
 
-    if(filter_array.includes("Personal"))
+    if(filter_array.includes("All"))
     {
-
-      if(marker.user_id === current_user_id)
+      marker.setMap(map);
+    }
+    else
+    {
+      if(filter_array.includes(marker.getLabel()))
       {
+        // console.log("Hello Everyone");
         marker.setMap(map);
       }
       else
       {
         marker.setMap(null);
-      }
-
-      // Filter the events that are created by the user.
-      //console.log("Marker is: ");
-      //console.log(marker);
-    }
-    else
-    {
-      if(filter_array.includes("All"))
-      {
-        marker.setMap(map);
-      }
-      else
-      {
-        if(filter_array.includes(marker.getLabel()))
-        {
-          // console.log("Hello Everyone");
-          marker.setMap(map);
-        }
-        else
-        {
-          marker.setMap(null);
-        }
       }
     }
 
@@ -125,7 +92,7 @@ function remove_markers(filter_array, current_user_id)
 function get_all_events(filter_array)
 {
 
- //console.log("I am in the get all events function");
+  console.log("I am in the get all events function");
 
   /// Make an AJAX call to events_map action in events_controller
   jQuery.ajax({
@@ -143,23 +110,9 @@ function get_all_events(filter_array)
       else
       {
         data.events.map((marker) => {
-
-          if(markerObjectsId.includes(marker.event_id))
-          {
-            //console.log("This marker is in the list");
-            // draw_marker(marker);
-          }
-          else
-          {
-            //console.log("This marker is not in the list");
-            markerObjectsId.push(marker.event_id);
-            draw_marker(marker);
-          }
-
-
+          draw_marker(marker);
         });
       }
-
     },
     error: function(data){
       console.log("Error is: " + data.error);
@@ -172,26 +125,19 @@ function get_all_events(filter_array)
 
 function draw_marker(data)
 {
-  //console.log("I am drawing the marker");
-  //console.log("Marker is: ");
-  //console.log(data);
-
   var marker;
   if(data.event_type!='WalkingPartner')
   {  
     marker = new google.maps.Marker({
         position: {lat: parseFloat(data.latitude), lng: parseFloat(data.longitude)},
         map: map,
-        animation: google.maps.Animation.DROP,
-        icon: icons[data.event_type].icon,
-        user_id: data.user_id
+        icon: icons[data.event_type].icon
     });
-
-    //console.log(marker);
+  
 
   var contentString = "";
 
-  if(data.event_type == 'LostDog')
+  if(data.event_type != 'FoundDog')
   {
 
     contentString = " <div class = 'event_window'>"+
@@ -213,17 +159,6 @@ function draw_marker(data)
     
     marker.setLabel("FoundDog");
   }
-  else if(data.event_type == 'PostEvent')
-  {
-
-    contentString = " <div class = 'event_window'>"+
-              "<h5>"+ data.event_type +"</h5>"+
-              "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
-              "<p>Description: " + data.description + "<br>" + 
-              "Address: " + data.address + "</p>";
-
-    marker.setLabel('PostEvent');
-  }
 
   var link = '';
 
@@ -231,8 +166,6 @@ function draw_marker(data)
     link = "<a href='/lost_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Event</a>";
   else if(data.event_type == 'FoundDog')
     link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
-  else if(data.event_type == 'PostEvent')   // This needs to be given more thought.
-    link = "<a href='/post_events/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";  
 
   contentString = contentString + link;
 
@@ -244,10 +177,8 @@ function draw_marker(data)
     infoWindow.open(map, marker);
   });
 
-
   allMarkers.push(marker);
-
-}
+  }
 
 }
 
