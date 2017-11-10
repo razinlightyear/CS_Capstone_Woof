@@ -48,7 +48,7 @@
           <% end %>
         </div>
         <div class='col-lg-6'>
-          <%= f.file_field :image, id: 'user_image_file_input', accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+          <%= f.file_field :image, class: "filestyle", data: {input: false, badge: true, btnClass: "btn-outline-primary", text: "Choose Profile Picture"}, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
           <%= f.hidden_field :image_cache %><!-- used to keep the file in case a validation fails -->
         </div>
       </div>

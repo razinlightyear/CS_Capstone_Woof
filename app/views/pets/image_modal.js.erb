@@ -1,8 +1,0 @@
-modal_body = $('#image_modal_body');
-modal_body.html('<%= j render(:partial => 'pets/image_form', :locals => { pet: @pet }) %>');
-
-$(":file").filestyle({
-  btnClass: "btn-outline-primary",
-  text: "Choose Picture",
-  buttonBefore: true
-});

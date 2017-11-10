@@ -2,14 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', ->
-  $('.thumb-image-modal').click (e) ->
+  #$('.pet-image-form').on 'change', '.pet-image-field', (e) ->
+  $('.pet-image-form').on 'change', '.pet-image-field', (e) ->
     pet_id = this.dataset.petId
-    $.ajax
-      url: '/pets/'+pet_id+'/image_modal'
-      timeout: 500
-      type: 'get'
-      dataType: 'script'
-      error: (jqXHR, textStatus, errorThrown) ->
-        alert errorThrown
-      success: (data, textStatus, jqXHR) ->
-        # Replace the modal body with form of the image. This is done in the image_modal.js.erb
+    $('#pet_'+pet_id+'_image_form').submit()

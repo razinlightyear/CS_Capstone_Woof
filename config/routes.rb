@@ -34,9 +34,6 @@ Rails.application.routes.draw do
   end
   resources :pets do
     resources :feeding_histories, only: :index
-    member do
-      get 'image_modal'
-    end
   end
   resources :groups do
     # group_feeding_histories GET    /groups/:group_id/feeding_histories(.:format) feeding_histories#index

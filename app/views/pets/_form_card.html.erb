@@ -80,4 +80,10 @@
       <%= link_to 'Remove Pet', pet, remote: true, method: :delete, data: { confirm: 'Remove pet?' }, class: "btn btn-danger btn-sm float-right" %>
     <% end %>
   <% end %>
+  <% unless pet.new_record? %>
+        <%= form_for pet, html: {multipart: true, style: 'margin: 5px 0px;', class: 'pet-image-form', id: "pet_#{pet.id}_image_form"} do |file_form| %>
+          <%= file_form.file_field :image, class: "filestyle pet-image-field", data: {input: false, badge: true, btnClass: "btn-outline-primary btn-sm", text: "Change Picture", pet_id: pet.id}, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+          <%= file_form.hidden_field :image_cache %><!-- used to keep the file in case a validation fails -->
+        <% end %>
+  <% end %>
 </div>
