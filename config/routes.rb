@@ -123,6 +123,8 @@ Rails.application.routes.draw do
     delete 'post_events/:id' => :destroy
   end
 
+  resources :feedbacks, only: [:create]
+
   #get 'lost_dogs/new', controller: :lost_dogs, action: :new
   #post 'lost_dogs/create', controller: :lost_dogs, action: :create
 

@@ -1,0 +1,7 @@
+// Show a flash message
+$('#flash_messages_div').html('<%= j render(:partial => "shared/flash_messages", :locals => {flash: flash}) %>');
+<% flash.delete('notice') %> // We already rendered this message in the previous line. It will show it again if we don't delete it
+
+// replace #feedback_modal_body with a new form
+$('#feedback_modal_body').html('<%= j render(:partial => 'feedbacks/form', :locals => {feedback: Feedback.new}) %>');
+$('#feedbackModal').modal('hide')

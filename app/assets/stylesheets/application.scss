@@ -59,8 +59,20 @@ body {
   margin: 0px;
 }
 
-
 #main-content{
   width: 100%;
   border-left: 2px solid black;
+}
+
+.container-top-navbar {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#feedback_btn {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-50%, -50%);
 }
