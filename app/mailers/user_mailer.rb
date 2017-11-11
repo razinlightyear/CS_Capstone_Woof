@@ -13,4 +13,10 @@ class UserMailer < ApplicationMailer
     attachments.inline["woof_logo.png"] = File.read("#{Rails.root}/app/assets/images/woof_logo.png")
     mail(to: email_with_name, subject: "#{@group_invite.inviter.email} has invited you to join Woof")
   end
+  
+  def feedback(feedback)
+    @feedback = feedback
+    email_with_name = %("Woof Admin" <#{ENV['EMAIL_USERNAME']}>)
+    mail(to: email_with_name, subject: "Anonymous user feedback")
+  end
 end
