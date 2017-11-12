@@ -122,6 +122,26 @@ function remove_markers(filter_array, current_user_id)
   });
 }
 
+function remove_event_for_update(event_id)
+{
+  event_id = parseInt(event_id);
+  var index = markerObjectsId.indexOf(event_id);
+  markerObjectsId.splice(index, 1);
+
+  for(var i = 0; i < allMarkers.length; i++)
+  {
+    if(allMarkers[i].event_id == event_id)
+    {
+      allMarkers[i].setMap(null);
+      allMarkers.splice(i, 1);
+      break;
+    }
+  }
+
+
+  get_all_events();
+}
+
 function get_all_events(filter_array)
 {
 
@@ -184,7 +204,8 @@ function draw_marker(data)
         map: map,
         animation: google.maps.Animation.DROP,
         icon: icons[data.event_type].icon,
-        user_id: data.user_id
+        user_id: data.user_id,
+        event_id: data.event_id
     });
 
     //console.log(marker);
