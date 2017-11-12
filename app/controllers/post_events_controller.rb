@@ -38,16 +38,30 @@ class PostEventsController < ApplicationController
     end
 
     def update
+
         respond_to do |format|
-            if @post_event.update(post_event_params)
-                format.html { redirect_to event_path(current_user), notice: 'Post an event has been updated' }
-                # for doing the JSON reply
-                format.json { render :show, status: :ok }
+            if @post_event.address != params[:post_event][:address]
+                if @post_event.update(post_event_params)
+                    format.js
+                    # for doing the JSON reply
+                    format.json { render :show, status: :ok }
+                else
+                    format.html { render :edit }
+                    format.json { render json: @post_event.errors, status: :unprocessable_entity }     
+                end
             else
-                format.html { render :edit }
-                format.json { render json: lost_dog.errors, status: :unprocessable_entity }     
-            end 
+                if @post_event.update(post_event_params)
+                    format.html { redirect_to event_path(current_user), notice: 'Around Me event has been updated' }
+                    # for doing the JSON reply
+                    format.json { render :show, status: :ok }
+                else
+                    format.html { render :edit }
+                    format.json { render json: @post_event.errors, status: :unprocessable_entity }     
+                end
+            end
         end
+
+
     end
 
     # DELETE /lost_dogs/1
