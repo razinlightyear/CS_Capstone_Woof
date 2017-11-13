@@ -1,4 +1,6 @@
 
-$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'found_dogs/form', locals: {found_dog: @found_dog, path: found_dogs_create_path, button_name: "Submit the Found Dog Event"} ) %>')
+$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'found_dogs/form', locals: {found_dog: @found_dog, path: found_dogs_create_path, weight_options: Weight.all, button_name: "Submit the Found Dog Event"} ) %>')
 $('#eventModal').modal('show')
 $('.modal-title').text('Create a found dog event')
+
+bindSelect2Elements(); // application.js
