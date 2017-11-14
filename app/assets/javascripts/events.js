@@ -49,10 +49,10 @@ function initMap() {
         zoom: 13
       });
 
-      map.addListener('click', function(e){
+      /*map.addListener('click', function(e){
         console.log("Latitude is: " + e.latLng.lat());
         console.log("Longitude is: " + e.latLng.lng());
-      });
+      });*/
 
       get_all_events();
 
@@ -68,13 +68,34 @@ function initMap() {
 
 }
 
-function disable_filters()
+
+function gather_filters(current_user_id)
 {
-  //console.log("Let's toggle the other filters.");
+  var filter_selected = $("input[class = 'form-check-input filter_map']:checked");
+  
+  filter_array = []
+
+  filter_selected.each(function(i, filter){
+
+    if(!filter.disabled)
+      filter_array.push(filter.value);
+    
+  });
+
+  remove_markers(filter_array, current_user_id);
+
+}
+
+function disable_filters(current_user_id)
+{
+
   $('#filter_lost').prop('disabled', function(i, v){ return !v});
   $('#filter_found').prop('disabled', function(i, v){ return !v});
   $('#filter_all').prop('disabled', function(i, v){ return !v});
   $('#filter_post_event').prop('disabled', function(i, v){ return !v});
+
+  gather_filters(current_user_id);
+
 }
 
 function remove_markers(filter_array, current_user_id)

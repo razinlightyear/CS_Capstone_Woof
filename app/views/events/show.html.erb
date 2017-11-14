@@ -4,7 +4,7 @@
             <div id = 'map'></div>
         </div>
         <div class = 'col-sm-2'>
-            <%= render 'events/around_side_menu' %>
+            <%= render partial: 'events/around_side_menu', locals: {current_user: @current_user_id}  %>
         </div>
     </div>
 
