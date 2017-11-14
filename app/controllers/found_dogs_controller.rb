@@ -53,7 +53,8 @@ class FoundDogsController < ApplicationController
                 end
             else
                 if @found_dog.update(found_dog_params)
-                    format.html { redirect_to event_path(current_user), notice: 'Found Dog event has been updated' }
+                    format.js
+                    # format.html { redirect_to event_path(current_user), notice: 'Found Dog event has been updated' }
                     # for doing the JSON reply
                     format.json { render :show, status: :ok }
                 else

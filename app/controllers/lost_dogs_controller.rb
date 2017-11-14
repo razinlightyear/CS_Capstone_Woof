@@ -68,11 +68,12 @@ class LostDogsController < ApplicationController
                     format.json { render :show, status: :ok }
                 else
                     format.html { render :edit }
-                    format.json { render json: lost_dog.errors, status: :unprocessable_entity }     
+                    format.json { render json: lost_dog.errors, status: :unprocessable_entity }
                 end
             else
                 if @lost_dog.update(lost_dog_params)
-                    format.html { redirect_to event_path(current_user), notice: 'Lost Dog event has been updated' }
+                    #format.html { redirect_to event_path(current_user), notice: 'Lost Dog event has been updated' }
+                    format.js
                     # for doing the JSON reply
                     format.json { render :show, status: :ok }
                 else

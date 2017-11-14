@@ -51,7 +51,8 @@ class PostEventsController < ApplicationController
                 end
             else
                 if @post_event.update(post_event_params)
-                    format.html { redirect_to event_path(current_user), notice: 'Around Me event has been updated' }
+                    format.js
+                    #format.html { redirect_to event_path(current_user), notice: 'Around Me event has been updated' }
                     # for doing the JSON reply
                     format.json { render :show, status: :ok }
                 else
