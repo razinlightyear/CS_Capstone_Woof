@@ -10,7 +10,7 @@ var longitude;
 
 if("<%= @lost_dog.address %>" == "")
 {
-    console.log("The address is blank");
+    
     latitude  = parseFloat("<%= @lost_dog.latitude %>")
     longitude = parseFloat("<%= @lost_dog.longitude %>")
 
@@ -23,7 +23,7 @@ if("<%= @lost_dog.address %>" == "")
 }
 else
 {
-    console.log("Address is not blank");
+    
     address_event = "<%= @lost_dog.address %>";
     //console.log(address_event);
 

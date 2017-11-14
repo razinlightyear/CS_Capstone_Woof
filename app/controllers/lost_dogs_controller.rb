@@ -92,7 +92,8 @@ class LostDogsController < ApplicationController
         @lost_dog.destroy
         
         respond_to do |format|
-            format.html { redirect_to event_path(current_user), notice: 'Lost Dog Event was successfully destroyed.' }
+            format.js
+            #format.html { redirect_to event_path(current_user), notice: 'Lost Dog Event was successfully destroyed.' }
             format.json { head :no_content }
         end
     end  

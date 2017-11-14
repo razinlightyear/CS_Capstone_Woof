@@ -5,7 +5,7 @@
     <% if @lost_dog.user.id == current_user.id %>
         <%= link_to 'Edit event', edit_lost_dog_path(@lost_dog.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
 
-        <%= link_to 'Delete event', @lost_dog, method: :delete, class: 'btn btn-primary',data: { confirm: 'Are you sure? '} %>
+        <%= link_to 'Delete event', @lost_dog, method: :delete, class: 'btn btn-primary',data: { remote: true, confirm: 'Are you sure? '} %>
     <% end %>
 
 </div>

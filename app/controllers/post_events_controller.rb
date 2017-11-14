@@ -71,7 +71,8 @@ class PostEventsController < ApplicationController
         @post_event.destroy
         
         respond_to do |format|
-            format.html { redirect_to event_path(current_user), notice: 'Post an Event was successfully destroyed.' }
+            #format.html { redirect_to event_path(current_user), notice: 'Post an Event was successfully destroyed.' }
+            format.js
             format.json { head :no_content }
         end
     end

@@ -10,7 +10,6 @@ var longitude;
 
 if("<%= @post_event.address %>" == "")
 {
-    console.log("The address is blank");
     latitude  = parseFloat("<%= @post_event.latitude %>")
     longitude = parseFloat("<%= @post_event.longitude %>")
 
@@ -22,7 +21,6 @@ if("<%= @post_event.address %>" == "")
 }
 else
 {
-    console.log("Address is not blank");
     address_event = "<%= @post_event.address %>";
     //console.log(address_event);
 
