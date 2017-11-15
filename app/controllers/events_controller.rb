@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :update, :destroy]
+  before_action :set_event, only: [:edit, :update, :destroy, :chat]
   #before_action :get_all_events, only: [:show], if: :format_json
   #before_action :get_all_events, only: [:events_map]
   before_action :get_all_events, only: [:show, :events_map]
@@ -30,6 +30,12 @@ class EventsController < ApplicationController
       format.js {render :filter_events}
     end
 
+  end
+
+  # Get the chat for event 1
+  # GET /events/1/chat
+  def chat
+    @chat = Chat.joins(:event).where('events.chat_id' => @event.id).eager_load(messages: :user).first
   end
 
   private

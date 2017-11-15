@@ -41,8 +41,15 @@ Rails.application.routes.draw do
   resources :groups do
     # group_feeding_histories GET    /groups/:group_id/feeding_histories(.:format) feeding_histories#index
     resources :feeding_histories, only: :index
+    member do
+      get 'chat'
+    end
   end
-  resources :events
+  resources :events do
+    member do
+      get 'chat'
+    end
+  end
 
   get '/events_map', controller: :events, action: :events_map
   post '/events/filter_events', controller: :events, action: :filter_events
