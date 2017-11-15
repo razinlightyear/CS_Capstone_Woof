@@ -173,7 +173,8 @@ function get_all_events(filter_array)
     url: '/events_map',
     dataType: 'json',
     type: 'GET',
-    success: (data) => {
+
+    success: function(data){
       //console.log("filter_array is: " + filter_array);
 
       if(typeof filter_array!='undefined')
@@ -183,7 +184,7 @@ function get_all_events(filter_array)
       }
       else
       {
-        data.events.map((marker) => {
+        data.events.map(function(marker){
 
           if(markerObjectsId.includes(marker.event_id))
           {
