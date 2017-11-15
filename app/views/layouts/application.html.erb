@@ -23,8 +23,9 @@
     
 
         <%= render 'users/user_navbar' %>
-        <%= render partial: "shared/flash_messages", flash: flash %>
-
+        <div id='flash_messages_div'>
+          <%= render partial: "shared/flash_messages", flash: flash %>
+        </div>
       <div class = 'd-flex'>
         <%= render 'users/user_sidemenu3' %>
         <div id = 'main-content'>
@@ -46,7 +47,9 @@
       
     <% else %>
       <%= render 'home/navbar2' %>
-      <%= render partial: "shared/flash_messages", flash: flash %>
+      <div id='flash_messages_div'>
+        <%= render partial: "shared/flash_messages", flash: flash %>
+      </div>
       <%= yield %>
       <%= render 'home/footer' %>
     <% end %>

@@ -7,4 +7,8 @@ class UserMailerPreview < ActionMailer::Preview
   def group_invite_new_user
     UserMailer.group_invite_new_user(GroupInvite.eager_load(:group, :invitee, :inviter).first)
   end
+  
+  def feedback
+    UserMailer.feedback(Feedback.first)
+  end
 end
