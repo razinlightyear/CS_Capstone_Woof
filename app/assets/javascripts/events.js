@@ -251,4 +251,7 @@ function draw_marker(data)
 
 }
 
-
+$(document).on('turbolinks:load', function() {
+  $('#lost_dogs_table').dataTable();
+  $('#found_dogs_table').dataTable();
+});

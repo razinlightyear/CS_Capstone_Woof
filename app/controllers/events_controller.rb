@@ -29,6 +29,10 @@ class EventsController < ApplicationController
 
   end
 
+  def lost_and_found
+    @lost_dogs = LostDog.all.eager_load(pet: [:breed, :colors, :weight])
+    @found_dogs = FoundDog.all.eager_load(delegate: [:breed, :colors, :weight])
+  end
   private
   
   # Use callbacks to share common setup or constraints between actions.
