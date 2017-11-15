@@ -8,30 +8,16 @@ var address_event;
 var latitude;
 var longitude;
 
-if("<%= @post_event.address %>" == "")
-{
-    latitude  = parseFloat("<%= @post_event.latitude %>")
-    longitude = parseFloat("<%= @post_event.longitude %>")
+address_event = "<%= @post_event.address %>";
+//console.log(address_event);
 
-    geocoder.geocode({"location": {"lat": latitude, "lng": longitude}}, function(results){
-        address_event = results[0].formatted_address;
-        //console.log(results[0].formatted_address);
-        update_address(latitude, longitude, address_event);
-    });
-}
-else
-{
-    address_event = "<%= @post_event.address %>";
-    //console.log(address_event);
-
-    geocoder.geocode({"address": address_event}, function(results){
-        //console.log(results[0].geometry.location.lat());
-        //console.log(results[0].geometry.location.lng());
-        latitude = results[0].geometry.location.lat();
-        longitude = results[0].geometry.location.lng();
-        update_address(latitude, longitude, address_event);
-    });
-}
+geocoder.geocode({"address": address_event}, function(results){
+    //console.log(results[0].geometry.location.lat());
+    //console.log(results[0].geometry.location.lng());
+    latitude = results[0].geometry.location.lat();
+    longitude = results[0].geometry.location.lng();
+    update_address(latitude, longitude, address_event);
+});
 
 function update_address(latitude, longitude, address_event)
 {
@@ -54,7 +40,7 @@ function update_address(latitude, longitude, address_event)
         dataType: 'json',
         method: 'POST',
         success: (data)=>{
-            get_all_events();
+            remove_event_for_update("<%= @post_event.id %>");
         },
         error: function(data){
             console.log("Error is: " + data.error);

@@ -4,9 +4,6 @@
         
         <!-- Breed, weight, color need to be added -->
         <!-- These are hard-coded values. We have to change this soon -->
-        <%= f.hidden_field :breed_id, value: 1 %>
-        <%= f.hidden_field :weight_id, value: 1 %>
-
 
         <div class = 'form-group'>
             Owner: <h1><%= @user.first_name %>  <%= @user.last_name %></h1>
@@ -17,6 +14,20 @@
             <!-- Right now, this is latitude, longitude. Ideally, it should be 
                     an address -->
             <%= f.text_area :description, size: '5x5', class: 'form-control' %>
+        </div>
+        
+        <div class = 'form-group'>
+            <%= f.label :breed_id %>
+            <%= f.collection_select :breed_id, (found_dog.breed ? [found_dog.breed] : []), :id, :name, { include_blank: true }, { class: "form-control breed-selector", style: "width: 100%;" } %>
+            <%= form_feedback(found_dog, :breed).html_safe %>
+        </div>
+
+        <div class = 'form-group'>
+            <%= f.label :weight_id %>
+
+            <%= f.collection_select :weight_id, weight_range_dropdown(weight_options), :last, :first, { include_blank: true, selected: found_dog.weight_id }, { class: "form-control weight-selector", style: "width: 100%;" } %>
+            <%= form_feedback(found_dog, :weight).html_safe %>
+
         </div>
 
         <div class = 'form-group'>

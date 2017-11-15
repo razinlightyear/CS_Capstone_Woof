@@ -1,43 +1,40 @@
-<%= form_tag({controller: "events", action: "filter_events"}, method: "post", "data-remote": true) do %>
-    <div class = "form-check">
-        <label class= "form-check-label">
-            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "filter_lost" value = "LostDog">
-            Lost Dog
-        </label>
-    </div>
-
-    <div class = "form-check">
-        <label class= "form-check-label">
-            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "filter_found" value = "FoundDog">
-            Found Dog
-        </label>
-    </div>
-
-    <div class = "form-check">
-        <label class= "form-check-label">
-            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "filter_post_event" value = "PostEvent">
-            Around Me Events
-        </label>
-    </div>
-
-    <div class = "form-check">
-        <label class= "form-check-label">
-            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "filter_all" value = "All">
-            All Events
-        </label>
-    </div>
 
 
-    <div class = "form-check">
-        <label class= "form-check-label">
-            <input class = "form-check-input" type = "checkbox" name = "filter_events[]" id = "filter_personal" value = "Personal" onchange="disable_filters();">
-            My Posted Events
-        </label>
-    </div>    
+<div class = "form-check">
+    <label class= "form-check-label">
+        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_lost" value = "LostDog" onchange = "gather_filters()">
+        Lost Dog
+    </label>
+</div>
 
-    <%= submit_tag("Filter the events", class: "btn btn-primary") %>
+<div class = "form-check">
+    <label class= "form-check-label">
+        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_found" value = "FoundDog" onchange = "gather_filters()">
+        Found Dog
+    </label>
+</div>
 
-<% end %>
+<div class = "form-check">
+    <label class= "form-check-label">
+        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_post_event" value = "PostEvent" onchange = "gather_filters()">
+        Around Me Events
+    </label>
+</div>
+
+<div class = "form-check">
+    <label class= "form-check-label">
+        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_all" value = "All" onchange = "gather_filters()" checked>
+        All Events
+    </label>
+</div>
+
+
+<div class = "form-check">
+    <label class= "form-check-label">
+        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_personal" value = "Personal" onchange="disable_filters(<%= current_user %>);">
+        My Posted Events
+    </label>
+</div>
 
 <%= link_to 'Post a Lost Dog Event', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
 

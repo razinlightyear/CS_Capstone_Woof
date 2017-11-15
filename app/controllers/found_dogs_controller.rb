@@ -40,16 +40,31 @@ class FoundDogsController < ApplicationController
     end
 
     def update
+
         respond_to do |format|
-            if @found_dog.update(found_dog_params)
-                format.html { redirect_to event_path(current_user), notice: 'Found Dog event has been updated' }
-                # for doing the JSON reply
-                format.json { render :show, status: :ok }
+            if @found_dog.address != params[:found_dog][:address]
+                if @found_dog.update(found_dog_params)
+                    format.js
+                    # for doing the JSON reply
+                    format.json { render :show, status: :ok }
+                else
+                    format.html { render :edit }
+                    format.json { render json: found_dog.errors, status: :unprocessable_entity }     
+                end
             else
-                format.html { render :edit }
-                format.json { render json: found_dog.errors, status: :unprocessable_entity }     
-            end 
+                if @found_dog.update(found_dog_params)
+                    format.js
+                    # format.html { redirect_to event_path(current_user), notice: 'Found Dog event has been updated' }
+                    # for doing the JSON reply
+                    format.json { render :show, status: :ok }
+                else
+                    format.html { render :edit }
+                    format.json { render json: found_dog.errors, status: :unprocessable_entity }     
+                end
+            end
         end
+
+        
     end
 
     # DELETE /found_dogs/1
@@ -57,7 +72,8 @@ class FoundDogsController < ApplicationController
     def destroy
         @found_dog.destroy
         respond_to do |format|
-            format.html { redirect_to event_path(current_user), notice: 'Found Dog Event was successfully destroyed.' }
+            format.js
+            #format.html { redirect_to event_path(current_user), notice: 'Found Dog Event was successfully destroyed.' }
             format.json { head :no_content }
         end
     end

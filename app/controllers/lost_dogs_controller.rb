@@ -59,16 +59,31 @@ class LostDogsController < ApplicationController
     end
 
     def update
+
         respond_to do |format|
-            if @lost_dog.update(lost_dog_params)
-                format.html { redirect_to event_path(current_user), notice: 'Lost Dog event has been updated' }
-                # for doing the JSON reply
-                format.json { render :show, status: :ok }
+            if @lost_dog.address != params[:lost_dog][:address]
+                if @lost_dog.update(lost_dog_params)
+                    format.js
+                    # for doing the JSON reply
+                    format.json { render :show, status: :ok }
+                else
+                    format.html { render :edit }
+                    format.json { render json: lost_dog.errors, status: :unprocessable_entity }
+                end
             else
-                format.html { render :edit }
-                format.json { render json: lost_dog.errors, status: :unprocessable_entity }     
-            end 
+                if @lost_dog.update(lost_dog_params)
+                    #format.html { redirect_to event_path(current_user), notice: 'Lost Dog event has been updated' }
+                    format.js
+                    # for doing the JSON reply
+                    format.json { render :show, status: :ok }
+                else
+                    format.html { render :edit }
+                    format.json { render json: lost_dog.errors, status: :unprocessable_entity }     
+                end
+            end
         end
+
+
     end
 
     # DELETE /lost_dogs/1
@@ -77,7 +92,8 @@ class LostDogsController < ApplicationController
         @lost_dog.destroy
         
         respond_to do |format|
-            format.html { redirect_to event_path(current_user), notice: 'Lost Dog Event was successfully destroyed.' }
+            format.js
+            #format.html { redirect_to event_path(current_user), notice: 'Lost Dog Event was successfully destroyed.' }
             format.json { head :no_content }
         end
     end  

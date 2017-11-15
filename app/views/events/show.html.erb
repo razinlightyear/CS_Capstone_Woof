@@ -4,11 +4,12 @@
             <div id = 'map'></div>
         </div>
         <div class = 'col-sm-2'>
-            <%= render 'events/around_side_menu' %>
+            <%= render partial: 'events/around_side_menu', locals: {current_user: @current_user_id}  %>
         </div>
     </div>
 
-<div class="modal" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventLabel" aria-hidden="true">
+<!-- removed the tabindex = -1 from the below div to account for select2 -->
+<div class="modal" id="eventModal" role="dialog" aria-labelledby="eventLabel" aria-hidden="true">
 
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -25,5 +26,6 @@
 
 </div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGAMfpUVwJJYpahbklrZ0Q_RPU0NgpuP4&callback=initMap">
+<!-- removed async defer -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGAMfpUVwJJYpahbklrZ0Q_RPU0NgpuP4&callback=initMap">
 </script>

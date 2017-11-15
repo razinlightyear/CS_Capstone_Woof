@@ -12,6 +12,9 @@ class EventsController < ApplicationController
     if request.format.json?
       @events = Event.where(:is_around_me => 1)
     end
+
+    @current_user_id = current_user.id
+    
   end
 
   def events_map

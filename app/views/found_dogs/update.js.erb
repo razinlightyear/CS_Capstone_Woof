@@ -1,0 +1,49 @@
+$('#eventModal').modal('hide')
+
+// Find out the address for this latitude and longitude.
+var geocoder;
+geocoder = new google.maps.Geocoder();
+
+var address_event;
+var latitude;
+var longitude;
+
+address_event = "<%= @found_dog.address %>";
+//console.log(address_event);
+
+geocoder.geocode({"address": address_event}, function(results){
+    //console.log(results[0].geometry.location.lat());
+    //console.log(results[0].geometry.location.lng());
+    latitude = results[0].geometry.location.lat();
+    longitude = results[0].geometry.location.lng();
+    update_address(latitude, longitude, address_event);
+});
+
+function update_address(latitude, longitude, address_event)
+{
+    // For below object, where's the event id
+    found_dog_created = {
+        found_dog: {
+            address: ""+address_event,
+            latitude: ""+latitude,
+            longitude: ""+longitude,
+            event_id: "<%= @found_dog.id %>"
+        }
+    }
+
+    // Update the address or lat/lng of the lost_dog object
+    jQuery.ajax({
+        url: '/found_dogs/update_lost_address',
+        data: found_dog_created,
+        dataType: 'json',
+        method: 'POST',
+        success: (data)=>{
+            // get_all_events();
+            remove_event_for_update("<%= @found_dog.id %>");
+        },
+        error: function(data){
+            console.log("Error is: " + data.error);
+            console.log("Status is: " + data.status);
+        }
+    });
+}
