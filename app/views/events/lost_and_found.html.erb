@@ -1,0 +1,64 @@
+<table id='lost_dogs_table' class='table table-striped table-bordered' cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th></th><!-- thumbnail image -->
+      <th>Name</th>
+      <th>Breed</th>
+      <th>Weight Range</th>
+      <th>Colors</th>
+      <th>Date Missing</th>
+      <th>Last Location</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lost_dogs.each do |lost_dog| %>
+      <tr>
+        <td>
+          <% unless lost_dog.pet.image.thumb.url.nil? %>
+            <%= image_tag lost_dog.pet.image.thumb.url, class: "rounded-circle" %><!-- Thumb is alraedy 50x50 -->
+          <% else %>
+            <%= image_tag 'pet_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+          <% end %>
+        </td>
+        <td><%= lost_dog.pet.name %></td>
+        <td><%= lost_dog.pet.breed.name %></td>
+        <td><%= lost_dog.pet.weight.display %></td>
+        <td><%= lost_dog.pet.color_ids %></td>
+        <td><%= lost_dog.created_at %></td>
+        <td><%= lost_dog.address %></td>
+        <td>Buttons here</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</br>
+</br>
+<table id='found_dogs_table' class='table table-striped table-bordered' cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th></th><!-- thumbnail image -->
+      <th>Breed</th>
+      <th>Weight Range</th>
+      <th>Colors</th>
+      <th>Date Missing</th>
+      <th>Last Location</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @found_dogs.each do |found_dog| %>
+      <tr>
+        <td>
+          <%= image_tag 'pet_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+        </td>
+        <td><%= found_dog.breed.name %></td>
+        <td><%= found_dog.weight.display %></td>
+        <td><%= found_dog.color_ids %></td>
+        <td><%= found_dog.created_at %></td>
+        <td><%= found_dog.address %></td>
+        <td>Buttons here</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

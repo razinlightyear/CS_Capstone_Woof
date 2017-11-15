@@ -38,6 +38,11 @@ class EventsController < ApplicationController
     @chat = Chat.joins(:event).where('events.chat_id' => @event.id).eager_load(messages: :user).first
   end
 
+  def lost_and_found
+    @lost_dogs = LostDog.all.eager_load(pet: [:breed, :colors, :weight])
+    @found_dogs = FoundDog.all.eager_load(delegate: [:breed, :colors, :weight])
+  end
+
   private
   
   # Use callbacks to share common setup or constraints between actions.
