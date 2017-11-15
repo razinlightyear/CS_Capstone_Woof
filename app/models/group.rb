@@ -5,6 +5,7 @@ class Group < ApplicationRecord
   has_many :feeding_histories
   has_many :nudges
   has_many :group_invites
+  belongs_to :chat, optional: true
   
   validates :name, presence: { message: "Please enter a group name" }
   validates :owner, presence: true

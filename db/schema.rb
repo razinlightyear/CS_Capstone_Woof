@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110060748) do
+ActiveRecord::Schema.define(version: 20171115141513) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -62,8 +62,17 @@ ActiveRecord::Schema.define(version: 20171110060748) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.string   "address"
+    t.integer  "chat_id"
+    t.index ["chat_id"], name: "index_events_on_chat_id", using: :btree
     t.index ["pet_id"], name: "index_events_on_pet_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+  end
+
+  create_table "events_users", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.index ["event_id"], name: "index_events_users_on_event_id", using: :btree
+    t.index ["user_id"], name: "index_events_users_on_user_id", using: :btree
   end
 
   create_table "feedbacks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -109,6 +118,8 @@ ActiveRecord::Schema.define(version: 20171110060748) do
     t.integer  "owner_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "chat_id"
+    t.index ["chat_id"], name: "index_groups_on_chat_id", using: :btree
     t.index ["owner_id"], name: "fk_rails_5447bdb9c5", using: :btree
   end
 
@@ -229,13 +240,17 @@ ActiveRecord::Schema.define(version: 20171110060748) do
   add_foreign_key "colors_pets", "colors"
   add_foreign_key "colors_pets", "pets"
   add_foreign_key "devices", "users"
+  add_foreign_key "events", "chats"
   add_foreign_key "events", "pets"
   add_foreign_key "events", "users"
+  add_foreign_key "events_users", "events"
+  add_foreign_key "events_users", "users"
   add_foreign_key "found_dog_delegates", "breeds"
   add_foreign_key "found_dog_delegates", "weights"
   add_foreign_key "group_invites", "groups"
   add_foreign_key "group_invites", "users", column: "invitee_id"
   add_foreign_key "group_invites", "users", column: "inviter_id"
+  add_foreign_key "groups", "chats"
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
