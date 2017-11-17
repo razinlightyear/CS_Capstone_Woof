@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV['EMAIL_USERNAME']
+  default from: 'Woof app <confirmation@mywoofapp.com>'
   layout 'mailer'
 end
