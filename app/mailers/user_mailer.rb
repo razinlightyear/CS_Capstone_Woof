@@ -17,6 +17,6 @@ class UserMailer < ApplicationMailer
   def feedback(feedback)
     @feedback = feedback
     email_with_name = %("Woof Admin" <#{ENV['EMAIL_USERNAME']}>)
-    mail(to: email_with_name, subject: "Anonymous user feedback")
+    mail(from: 'Woof app <contact@mywoofapp.com>',to: email_with_name, subject: "Anonymous user feedback")
   end
 end
