@@ -173,8 +173,7 @@ function get_all_events(filter_array)
     url: '/events_map',
     dataType: 'json',
     type: 'GET',
-
-    success: function(data){
+    success: function(data) {
       //console.log("filter_array is: " + filter_array);
 
       if(typeof filter_array!='undefined')
