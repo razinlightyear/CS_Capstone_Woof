@@ -1,0 +1,95 @@
+<div class='container' id='user_profile_edit'>
+  <%= form_for(@user, url: new_invited_user_path, method: 'patch', html: {multipart: true}) do |f| %>
+  <div class='row'>
+    <div class='col-lg-6'><!-- left side -->
+
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Email</strong></p>
+        </div>
+        <div class='col-lg-6 form-group'>
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>First Name</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= f.text_field :first_name, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Last Name</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= f.text_field :last_name, class: "form-control" %>
+        </div>
+      </div>
+      
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Password</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= f.password_field :password, :autocomplete => "off", class: "form-control" %>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Password Confirmation</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+      </div>
+    </div><!-- end left side -->
+    
+    
+    <div class='col-lg-6'><!-- right side -->
+      
+      <div class='row'>
+        <div class='col-lg-6'>
+          <% unless @user.image.thumb.url.nil? %>
+            <%= image_tag @user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+          <% else %>
+            <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+          <% end %>
+        </div>
+        <div class='col-lg-6'>
+          <%= f.file_field :image, id: 'user_image_file_input', accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+          <%= f.hidden_field :image_cache %><!-- used to keep the file in case a validation fails -->
+        </div>
+      </div>
+      
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Private Profile</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= f.check_box :private, class: 'form-control', title: "don't allow people to see your profile. (If they know your email, they can still invite you)" %>
+        </div>
+      </div>
+      
+      <div class='row'>
+        <div class='col-lg-6'>
+          <p class="text-muted"><strong>Active account</strong></p>
+        </div>
+        <div class='col-lg-6'>
+          <%= f.check_box :active, class: 'form-control', data: {confirm: "Are you really going to leave us?"} %>
+        </div>
+      </div>
+      
+    </div><!-- end right side -->
+  </div>
+  <div class='row'>
+    <div class='col'>
+      <%= f.submit "Create Profile",  class: 'btn btn-primary float-right' %>
+    </div>
+  </div>
+  <% end %>
+</div>

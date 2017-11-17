@@ -182,13 +182,13 @@ class GroupInvitesController < ApplicationController
       @invite = GroupInvite.where(invite_token: params[:invite_token], accepted_at: nil, declined_at: nil)
                            .eager_load(:group, :invitee, :inviter).first
       unless @invite
-        puts "Invitation has closed"
+        Rails.logger.debug "Invitation has closed"
         flash[:error] = "Invitation has closed"
         redirect_to root_path
         return
       end
       if current_user && current_user != @invite.invitee
-        puts "This link was created for another user"
+        Rails.logger.debug "This link was created for another user"
         flash[:error] = "This link was created for another user"
         redirect_to groups_pets_path
         return
@@ -204,7 +204,8 @@ class GroupInvitesController < ApplicationController
           sign_in @invite.invitee
           @invite.invitee.update!(active: true)
           Rails.logger.debug "new user succesfully joined group"
-          format.html { redirect_to profile_edit_path, notice: "You have succesfully joined group: #{@invite.group.name}. Please complete your profile." }
+          @user = current_user
+          format.html { render 'users/new_invited_user', notice: "You have succesfully joined group: #{@invite.group.name}. Please complete your profile." }
         rescue ActiveRecord::RecordInvalid
           error_messages = ["The following errors prevented you from joining the group: #{@invite.group.name}"]
           error_messages << @invite.invitee.errors.messages.values if @invite.invitee.errors.any?

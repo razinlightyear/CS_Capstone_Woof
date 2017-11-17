@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :update_password]
-  skip_before_action :authenticate_user!, only: :profile_edit
+  skip_before_action :authenticate_user!, only: :new_invited_user
   # before any of the below specified methods are exceuted, its going to do the above statement.
     # incase of user, before any of the four methods ar eexectued, it is going to run before_action.
     # look into rails log, when you make a request to Users option and then click on a particular user say, "Paarth", then the parameter pertaining to Paarth would
@@ -138,11 +138,33 @@ class UsersController < ApplicationController
         redirect_to root_path
       else
         if @user.errors.any?
-          error_messages = ["Password could be updated:"]
+          error_messages = ["Password could not be updated:"]
           error_messages << @user.errors.messages.values
           flash[:error] = error_messages.join('<br/>')
         end
         render "update_password"
+      end
+    end
+  end
+  
+  # We need another action because the new user has to also change their password
+  # GET /new_invited_user
+  # PATCH /new_invited_user
+  def new_invited_user
+    if request.patch?
+      @user = current_user
+      if @user.update(user_params)
+        # Sign in the user by passing validation in case their password changed
+        bypass_sign_in(@user)
+        flash[:notice] = "Profile successfully created."
+        redirect_to profile_path
+      else
+        if @user.errors.any?
+          error_messages = ["Couldn't update your profile for the following reasons:"]
+          error_messages << @user.errors.messages.values
+          flash[:error] = error_messages.join('<br/>')
+        end
+        render 'new_invited_user'
       end
     end
   end

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/users/find', controller: :users, action: :find
   get 'update_password', controller: :users, action: :update_password
   patch 'update_password', controller: :users, action: :update_password
+  patch 'new_invited_user', controller: :users, action: :new_invited_user
+  get 'new_invited_user', controller: :users, action: :new_invited_user
   # resources creates index, create, new, edit, update, destroy actions by default
   # you can run rails routes to see all of the routing information. For colors you will see
   #     Prefix Verb   URI Pattern                       Controller#Action
