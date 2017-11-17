@@ -21,7 +21,6 @@
 //= require_tree .
 //= require_tree ./channels
 
-
 $(document).on('turbolinks:load', function() {
   //$('[data-toggle="popover"]').popover();
   

@@ -49,6 +49,7 @@ test:
 #
 production:
   <<: *default
-  database: woof_production
-  username: woof
-  password: <%= ENV['WOOF_DATABASE_PASSWORD'] %>
+  database: woof_development
+  #database: woof_production
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>

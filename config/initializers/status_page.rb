@@ -4,6 +4,7 @@ StatusPage.configure do
   # Use service
   self.use :database
   self.use :cache
+  self.use :resque
   #self.use :redis
   # Custom redis url
   #self.use :redis, url: 'redis://you-redis-host:3306/1'
