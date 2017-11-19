@@ -97,6 +97,7 @@ Rails.application.configure do
   :enable_starttls_auto => true
   }
   
+  # config.action_cable.disable_request_forgery_protection = true  # may need for debugging
   #config.action_cable.allowed_request_origins = ["ws://#{(ENV['PROD_HOST'] || 'https://www.mywoofapp.com')}"]
   #config.action_cable.url = "wss://#{(ENV['PROD_HOST'] || 'https://www.mywoofapp.com')}]/cable"
 end
