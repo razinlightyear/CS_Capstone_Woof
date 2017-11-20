@@ -1,12 +1,22 @@
-
-    <div class = 'row'>
-        <div class = 'col-sm-10'>
-            <div id = 'map'></div>
-        </div>
-        <div class = 'col-sm-2'>
-            <%= render partial: 'events/around_side_menu', locals: {current_user: @current_user_id}  %>
+<div class = 'row'>
+    <div class = 'col-sm-12'>
+        <div id = 'map'>
         </div>
     </div>
+    <div id = "event-section">
+        <div id = "event-content">
+        </div>
+        <button type="button" class="close" aria-label="Close" onclick = "close_event_section()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<div class = 'row'>
+    <div id = 'container-fluid filter-menu'>
+        <%= render partial: 'events/around_side_menu', locals: {current_user: @current_user_id}  %>
+    </div>
+</div>
 
 <!-- removed the tabindex = -1 from the below div to account for select2 -->
 <div class="modal" id="eventModal" role="dialog" aria-labelledby="eventLabel" aria-hidden="true">
@@ -16,7 +26,7 @@
         <div class="modal-header">
             <h5 class="modal-title" id="eventLabel">Dog Event</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body event_content">

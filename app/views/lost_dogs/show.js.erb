@@ -1,3 +1,6 @@
-$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'lost_dogs/show_lost_dog_modal', :object => @lost_dog) %>')
+/*$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'lost_dogs/show_lost_dog_modal', :object => @lost_dog) %>')
 $('#eventModal').modal('show')
-$('.modal-title').text('Lost dog event')
+$('.modal-title').text('Lost dog event')*/
+
+$("#event-content").html('<%= escape_javascript(render :partial => 'lost_dogs/show_lost_dog_modal', :object => @lost_dog) %>');
+$("#event-section").css("width", "450px");

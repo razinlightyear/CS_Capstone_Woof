@@ -1,43 +1,53 @@
 
+<form class = 'form-inline'>
+<div class = 'row'>
+    <div class = "form-check col-sm-3">
+        <label class= "form-check-label">
+            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_lost" value = "LostDog" onchange = "gather_filters()">
+            Lost Dog
+        </label>
+    </div>
 
-<div class = "form-check">
-    <label class= "form-check-label">
-        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_lost" value = "LostDog" onchange = "gather_filters()">
-        Lost Dog
-    </label>
+    <div class = "form-check col-sm-3">
+        <label class= "form-check-label">
+            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_found" value = "FoundDog" onchange = "gather_filters()">
+            Found Dog
+        </label>
+    </div>
+
+    <div class = "form-check col-sm-3">
+        <label class= "form-check-label">
+            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_post_event" value = "PostEvent" onchange = "gather_filters()">
+            Around Me Events
+        </label>
+    </div>
+
+    <div class = "form-check col-sm-3">
+        <label class= "form-check-label">
+            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_all" value = "All" onchange = "gather_filters()" checked>
+            All Events
+        </label>
+    </div>
+
+
+    <div class = "form-check col-sm-3">
+        <label class= "form-check-label">
+            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_personal" value = "Personal" onchange="disable_filters(<%= current_user %>);">
+            My Posted Events
+        </label>
+    </div>
 </div>
 
-<div class = "form-check">
-    <label class= "form-check-label">
-        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_found" value = "FoundDog" onchange = "gather_filters()">
-        Found Dog
-    </label>
+<div class = 'row'>
+
+    <%= link_to 'Post a Lost Dog Event', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+
+    <%= link_to 'Post a Found Dog Event', found_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+
+    <%= link_to 'Post any Around Me event', post_events_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+
+    <button type="button" class="btn btn-primary" onclick = 'open_event_section()'> Open Right Menu </button>
+
 </div>
 
-<div class = "form-check">
-    <label class= "form-check-label">
-        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_post_event" value = "PostEvent" onchange = "gather_filters()">
-        Around Me Events
-    </label>
-</div>
-
-<div class = "form-check">
-    <label class= "form-check-label">
-        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_all" value = "All" onchange = "gather_filters()" checked>
-        All Events
-    </label>
-</div>
-
-
-<div class = "form-check">
-    <label class= "form-check-label">
-        <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_personal" value = "Personal" onchange="disable_filters(<%= current_user %>);">
-        My Posted Events
-    </label>
-</div>
-
-<%= link_to 'Post a Lost Dog Event', lost_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
-
-<%= link_to 'Post a Found Dog Event', found_dogs_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
-
-<%= link_to 'Post any Around Me event', post_events_new_path, class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+</form>
