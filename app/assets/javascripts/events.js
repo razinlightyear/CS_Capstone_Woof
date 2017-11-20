@@ -237,45 +237,80 @@ function draw_marker(data)
   if(data.event_type == 'LostDog')
   {
 
+    contentString = 
+    "<div class = 'list-group'>"+
+      "<li class = 'list-group-item'><h5>" + data.first_name + ' '  + data.last_name + "</h5></li>" +
+      "<li class = 'list-group-item'><h5>" + data.event_type + ": " + data.pet_name + "</h5></li>" +
+      "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
+      "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
+
+    /*
     contentString = " <div class = 'event_window'>"+
               "<h5>" + data.pet_name + "</h5>" +
               "<h5>"+ data.event_type +"</h5>"+
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
               "<p>Description: " + data.description + "<br>"+
-              "Address: " + data.address + "</p>";
+              "Address: " + data.address + "</p>";*/
     
     marker.setLabel("LostDog");
   }
   else if(data.event_type == 'FoundDog')
   {
+    contentString = 
+    "<div class = 'list-group'>"+
+      "<li class = 'list-group-item'><h5>" + data.first_name + ' '  + data.last_name + "</h5></li>" +
+      "<li class = 'list-group-item'><h5>" + data.event_type + "</h5></li>" +
+      "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
+      "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
+
+    /*
     contentString = " <div class = 'event_window'>"+
               "<h5>"+ data.event_type +"</h5>"+
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
               "<p>Description: " + data.description + "<br>" + 
-              "Address: " + data.address + "</p>";
+              "Address: " + data.address + "</p>";*/
     
     marker.setLabel("FoundDog");
   }
   else if(data.event_type == 'PostEvent')
   {
 
+    contentString = 
+    "<div class = 'list-group'>"+
+      "<li class = 'list-group-item'><h5>" + data.first_name + ' '  + data.last_name + "</h5></li>" +
+      "<li class = 'list-group-item'><h5>" + data.event_type + "</h5></li>" +
+      "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
+      "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
+
+    /*
     contentString = " <div class = 'event_window'>"+
               "<h5>"+ data.event_type +"</h5>"+
               "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
               "<p>Description: " + data.description + "<br>" + 
-              "Address: " + data.address + "</p>";
-
+              "Address: " + data.address + "</p>"; */
+    
     marker.setLabel('PostEvent');
   }
 
   var link = '';
 
   if(data.event_type == 'LostDog' )
-    link = "<a href='/lost_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Event</a>";
+  {
+   // link = "<a href='/lost_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a>";
+    link = "<a href='/lost_dogs/" + data.event_id + "' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";
+  }
   else if(data.event_type == 'FoundDog')
-    link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
+  {
+    //link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
+
+    link = "<a href='/found_dogs/" + data.event_id + "' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";    
+  }
   else if(data.event_type == 'PostEvent')   // This needs to be given more thought.
-    link = "<a href='/post_events/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";  
+  {
+    //link = "<a href='/post_events/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";  
+
+    link = "<a href='/post_events/"+data.event_id+"' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";
+  }
 
   contentString = contentString + link;
 
@@ -290,8 +325,20 @@ function draw_marker(data)
 
   allMarkers.push(marker);
 
+  }
 }
 
+function open_event_section()
+{
+  //document.getElementById("event-section").style.width = "250px";
+
+  $("#event-content").html("This is awesome");
+  $("#event-section").css("width", "450px");
+
 }
 
-
+function close_event_section()
+{
+  $("#event-content").html("");
+  $("#event-section").css("width", "0px");
+}
