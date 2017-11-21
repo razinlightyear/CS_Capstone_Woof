@@ -35,7 +35,22 @@ class EventsController < ApplicationController
   # Get the chat for event 1
   # GET /events/1/chat
   def chat
-    @chat = Chat.joins(:event).where('events.chat_id' => @event.id).eager_load(messages: :user).first
+    @chat = @event.chat
+    @message = Message.new
+
+    if @chat.nil?
+      @chat = Chat.new(identifier: SecureRandom.hex)
+
+      if !@chat.persisted?
+        @chat.save
+        @event.update(chat_id: @chat.id)
+      end
+    end
+
+    respond_to do |format|
+      format.html { render "event_chat" }
+      # format.json { head :no_content }
+    end
   end
 
   private
