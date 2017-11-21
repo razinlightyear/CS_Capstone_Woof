@@ -69,7 +69,22 @@ class GroupsController < ApplicationController
   # Get the chat for group 1
   # GET /groups/1/chat
   def chat
-    @chat = Chat.joins(:group).where('groups.chat_id' => @group.id).eager_load(messages: :user).first
+    @chat = @group.chat
+    @message = Message.new
+
+    if @chat.nil?
+      @chat = Chat.new(identifier: SecureRandom.hex)
+
+      if !@chat.persisted?
+        @chat.save
+        @group.update(chat_id: @chat.id)
+      end
+    end
+
+    respond_to do |format|
+      format.html { render "group_chat" }
+      # format.json { head :no_content }
+    end
   end
 
   private
