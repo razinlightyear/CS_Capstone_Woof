@@ -18,41 +18,56 @@
     <% @body_id = '' %>
   <% end %>
 
-  <body id = <%= @body_id %> >
-    <% if user_signed_in? %>
-    
 
+  <div id = 'outer-container'>
+    <% if user_signed_in? %>
+      <div id = 'header-page'>
         <%= render 'users/user_navbar' %>
+        <div id = 'flash_messages_div'>
+          <%= render partial: "shared/flash_messages", flash: flash %>      
+        </div>
+      </div>
+
+      <div id = 'body-page'>
+        <body id = <%= @body_id %> >
+          <div class = 'd-flex'>
+            <%= render 'users/user_sidemenu3' %>
+            <div id = 'main-content'>
+              <!-- The below button is the toggle button for the sidebar. Have to decide 
+                    the correct location -->
+              <div class = 'toggle-button'>
+                <!-- Could use the icon arrow-left and change the icon with jquery -->
+                <%= button_tag type: 'button', id: 'sidebarCollapse', class: 'btn', style: 'background-color: transparent;' do %>
+                  <%= fa_icon 'bars 2x', id: 'sidemenu_show_icon' %>
+                  <%= fa_icon 'arrow-left 2x', id: 'sidemenu_collapse_icon' , style: "display: none;" %>
+                <% end %>
+              </div>
+              <%= yield %>
+            </div>
+          </div>
+        </body>
+      </div>
+
+      <%= render 'home/footer' %>
+    
+    <% else %>
+      <div id = 'header-page'>
+        <%= render 'home/navbar2' %>
         <div id='flash_messages_div'>
           <%= render partial: "shared/flash_messages", flash: flash %>
-        </div>
-      <div class = 'd-flex'>
-        <%= render 'users/user_sidemenu3' %>
-        <div id = 'main-content'>
-          <!-- The below button is the toggle button for the sidebar. Have to decide 
-                the correct location -->
-          <div class = 'toggle-button'>
-            <!-- Could use the icon arrow-left and change the icon with jquery -->
-            <%= button_tag type: 'button', id: 'sidebarCollapse', class: 'btn', style: 'background-color: transparent;' do %>
-              <%= fa_icon 'bars 2x', id: 'sidemenu_show_icon', style: "display: none;" %>
-              <%= fa_icon 'arrow-left 2x', id: 'sidemenu_collapse_icon' %>
-            <% end %>
-          </div>
+        </div>        
+      </div>
+
+      <div id = 'body-page'>
+        <body id = <%= @body_id %> >
           <%= yield %>
-        </div>
+        </body>
       </div>
 
       <%= render 'home/footer' %>
-    
-      
-    <% else %>
-      <%= render 'home/navbar2' %>
-      <div id='flash_messages_div'>
-        <%= render partial: "shared/flash_messages", flash: flash %>
-      </div>
-      <%= yield %>
-      <%= render 'home/footer' %>
+
     <% end %>
+  </div>
 
-  </body>
+
 </html>
