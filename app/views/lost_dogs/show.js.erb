@@ -2,5 +2,10 @@
 $('#eventModal').modal('show')
 $('.modal-title').text('Lost dog event')*/
 
+console.log("I am in the lost dog window");
+var height_event_section = $("#map").css("height");
+
+
 $("#event-content").html('<%= escape_javascript(render :partial => 'lost_dogs/show_lost_dog_modal', :object => @lost_dog) %>');
 $("#event-section").css("width", "450px");
+$("#event-section").css("height", height_event_section);

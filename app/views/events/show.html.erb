@@ -12,10 +12,14 @@
     </div>
 </div>
 
+<div class = 'row' id = 'google-filter-button'>
+    <button type = "button" class = "btn btn-sm btn-primary btn-block" >
+        Open Filter Menu
+    </button>
+</div>
+
 <div class = 'row'>
-    <div id = 'container-fluid filter-menu'>
-        <%= render partial: 'events/around_side_menu', locals: {current_user: @current_user_id}  %>
-    </div>
+    <%= render partial: 'events/around_side_menu', locals: {current_user: @current_user_id}  %>
 </div>
 
 <!-- removed the tabindex = -1 from the below div to account for select2 -->
