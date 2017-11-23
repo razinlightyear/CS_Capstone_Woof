@@ -340,4 +340,5 @@ function close_event_section()
 {
   $("#event-content").html("");
   $("#event-section").css("width", "0px");
+  $("#event-section").css("height", "0px");
 }

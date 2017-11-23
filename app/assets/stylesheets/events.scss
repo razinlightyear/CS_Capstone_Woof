@@ -16,25 +16,34 @@
   height: 75vh;
   margin: 0px 0px 10px 20px;
   background-color: grey;
-  
+  z-index: 0;
 }
 
+#map-filter-form
+{
+  margin: 0px 0px 20px 40px;
+  z-index: 0;
+  width: 98%;
+  position: static;
+}
+
+#google-filter-button
+{
+  margin: 1px 2px 1px 20px;
+}
+
+/* The top attribute pixels is set by trail and error because the font-awesome height is not known. */
 #event-section{
   background-color: #F8F8F8;
   width: 0px;
-  height: 100%;
-  position: fixed;
+  height: 0px; /* This has been set dynamically */
+  position: absolute;
   z-index: 1; /* Stay on top */
   /* The below needs to change */
-  top: 0;
+  top: 50px;
   right: 0;
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-}
-
-#filter-menu
-{
-  margin: 0px 10px 10px 40px;
 }
 
 /* Optional: Makes the sample page fill the window. */
