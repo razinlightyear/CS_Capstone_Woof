@@ -371,6 +371,4 @@ function close_filter_menu()
   var filter_button_values = $("#google-filter-button button");
   filter_button_values.text("Open Filter Menu");
   filter_button_values.attr("onclick", "open_filter_menu();");
-
-  // Close the filter menu here
 }
