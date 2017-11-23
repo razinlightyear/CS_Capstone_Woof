@@ -24,7 +24,7 @@ function initMap() {
 
   icons = {
     LostDog:{
-      icon: '/assets/lost-dog.png' 
+      icon: '/assets/lost-dog.png'
     },
     FoundDog:{
       icon: '/assets/found-dog.png'
@@ -341,4 +341,35 @@ function close_event_section()
   $("#event-content").html("");
   $("#event-section").css("width", "0px");
   $("#event-section").css("height", "0px");
+}
+
+
+function open_filter_menu()
+{
+  var filter_menu_height = $("#map-filter-form").css("height");
+  $("#map-filter-form").show("2000");
+
+  var map_height = $("#map").css("height");
+  map_height = parseInt(map_height) - parseInt(filter_menu_height);
+  $("#map").css("height", map_height);
+
+  var filter_button_values = $("#google-filter-button button");
+  filter_button_values.text("Close Filter Menu");
+  filter_button_values.attr("onclick", "close_filter_menu();");
+}
+
+function close_filter_menu()
+{
+  var filter_menu_height = $("#map-filter-form").css("height");
+  $("#map-filter-form").hide(1000);
+
+  var map_height = $("#map").css("height");
+  map_height = parseInt(map_height) + parseInt(filter_menu_height);
+  $("#map").css("height", map_height);
+
+  var filter_button_values = $("#google-filter-button button");
+  filter_button_values.text("Open Filter Menu");
+  filter_button_values.attr("onclick", "open_filter_menu();");
+
+  // Close the filter menu here
 }
