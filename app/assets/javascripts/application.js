@@ -24,7 +24,13 @@
 
 $(document).on('turbolinks:load', function() {
   //$('[data-toggle="popover"]').popover();
-  
+
+  var filter_height = $('#map-filter-form').css('height');
+  $('#map-filter-form').hide();
+  var height = $('#map').css('height');
+  height = parseInt(height) + parseInt(filter_height);
+  $('#map').css('height', height);
+
   $('#profile_pic').popover({
           html :     true,
           placement: "left",
