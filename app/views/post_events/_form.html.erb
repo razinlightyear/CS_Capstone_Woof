@@ -16,11 +16,11 @@
 
         <div class = 'form-group'>
             <%= f.label :address %>
-            <%= f.text_area :address, size: '1x1', class: 'form-control' %>
+            <%= f.text_field :address, size: '1x1', class: 'form-control', required: :true %>
         </div>
 
         <%= f.hidden_field :latitude, value: "" %>
-        <%= f.hidden_field :longitude, value: "" %>        
+        <%= f.hidden_field :longitude, value: "" %>    
 
         <% @private = "unchecked" %>
         <% @public = "checked" %>

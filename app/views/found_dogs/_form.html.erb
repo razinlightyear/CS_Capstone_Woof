@@ -25,14 +25,14 @@
         <div class = 'form-group'>
             <%= f.label :weight_id %>
 
-            <%= f.collection_select :weight_id, weight_range_dropdown(weight_options), :last, :first, { include_blank: true, selected: found_dog.weight_id }, { class: "form-control weight-selector", style: "width: 100%;" } %>
+            <%= f.collection_select :weight_id, weight_range_dropdown(weight_options), :last, :first, { include_blank: true, selected: found_dog.weight_id }, { class: "form-control weight-selector", style: "width: 100%;", required: :true } %>
             <%= form_feedback(found_dog, :weight).html_safe %>
 
         </div>
 
         <div class = 'form-group'>
             <%= f.label :address %>
-            <%= f.text_area :address, size: '1x1', class: 'form-control' %>
+            <%= f.text_field :address, size: '1x1', class: 'form-control', required: :true %>
         </div>
 
         <%= f.hidden_field :latitude, value: "" %>
