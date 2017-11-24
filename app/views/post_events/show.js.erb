@@ -1,3 +1,10 @@
-$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'post_events/show_post_event_modal', :object => @post_event) %>')
+/*$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'post_events/show_post_event_modal', :object => @post_event) %>')
 $('#eventModal').modal('show')
-$('.modal-title').text('AroundMe event')
+$('.modal-title').text('AroundMe event')*/
+
+var height_event_section = $("#map").css("height");
+
+
+$("#event-content").html('<%= escape_javascript(render :partial => 'post_events/show_post_event_modal', :object => @post_event) %>');
+$("#event-section").css("width", "450px");
+$("#event-section").css("height", height_event_section);
