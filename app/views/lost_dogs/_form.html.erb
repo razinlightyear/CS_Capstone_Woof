@@ -9,11 +9,11 @@
         <div class = 'form-group'>
             <%= label_tag(:group_id, 'Select a group:') %>
             <% @group_list = [] %>
-            <% @group_list << ['', -1] %>
+            <% @group_list << ['', ''] %>
             <% @user.groups.each do |group| %>
                 <% @group_list << [group.name, group.id] %>
-            <% end %>        
-            <%= select_tag(:group_id, options_for_select(@group_list), class: 'form-control', onchange: "get_pets_div(this.value)") %>
+            <% end %>     
+            <%= select_tag(:group_id, options_for_select(@group_list), class: 'form-control', required: :true, onchange: "get_pets_div(this.value)") %>
         </div>
 
         <div class = 'form-group'>
@@ -41,8 +41,10 @@
 
         <div class = 'form-group'>
             <%= f.label :address %>
-            <%= f.text_area :address, size: '1x1', class: 'form-control' %>
+            <%= f.text_field :address, class: 'form-control', required: :true %>
         </div>
+
+        <div class="pac-container pac-logo"></div>
 
         <%= f.hidden_field :latitude, value: "" %>
         <%= f.hidden_field :longitude, value: "" %>
