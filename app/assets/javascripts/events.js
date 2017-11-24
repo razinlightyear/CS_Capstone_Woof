@@ -19,8 +19,8 @@ function initMap() {
   // 40.874, -112.13
   // 40.846, -112.08
 
-  var myLatLng = {lat: 40.768, lng: -111.845}
-  //var myLatLng;
+  //var myLatLng = {lat: 40.768, lng: -111.845}
+  var myLatLng;
 
   icons = {
     LostDog:{
@@ -34,18 +34,18 @@ function initMap() {
     }
   };
 
-  //if(navigator.geolocation){
+  if(navigator.geolocation){
 
+    
 
-    //navigator.geolocation.getCurrentPosition(function(position){
-      /*myLatLng = {
+    navigator.geolocation.getCurrentPosition(function(position){
+      myLatLng = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
-      };*/
+      };
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
-        //zoom: 15
         zoom: 13
       });
 
@@ -56,16 +56,21 @@ function initMap() {
 
       get_all_events();
 
-    //});
-  //}
+    });
+  }
+  else{
 
+    console.log("There is an error in getting the location. So we are locating at salt lake city");
+    
+    myLatLng = {lat: 40.768, lng: -111.845}
 
-  /*else{
-    console.log("There is an error");
-    // Handle the error of not able to get the user location
-  }*/
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
+      zoom: 13
+    });
 
-
+    get_all_events();
+  }
 }
 
 
