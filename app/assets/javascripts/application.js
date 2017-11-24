@@ -22,7 +22,6 @@
 //= require_tree ./channels
 
 $(document).on('turbolinks:load', function() {
-  //$('[data-toggle="popover"]').popover();
 
   var filter_height = $('#map-filter-form').css('height');
   $('#map-filter-form').hide();
