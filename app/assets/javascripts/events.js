@@ -14,11 +14,6 @@ function initMap() {
   allMarkers = [];
   markerObjectsId = [];
 
-  // 40.75, -111.84
-  // 40.716, -111.93
-  // 40.874, -112.13
-  // 40.846, -112.08
-
   //var myLatLng = {lat: 40.768, lng: -111.845}
   var myLatLng;
 
@@ -107,7 +102,6 @@ function remove_markers(filter_array, current_user_id)
 {
 
   allMarkers.map(function(marker){
-  // console.log("Marker label is: " + marker.getLabel());
 
     if(filter_array.includes("Personal"))
     {
@@ -120,10 +114,6 @@ function remove_markers(filter_array, current_user_id)
       {
         marker.setMap(null);
       }
-
-      // Filter the events that are created by the user.
-      //console.log("Marker is: ");
-      //console.log(marker);
     }
     else
     {
@@ -135,7 +125,6 @@ function remove_markers(filter_array, current_user_id)
       {
         if(filter_array.includes(marker.getLabel()))
         {
-          // console.log("Hello Everyone");
           marker.setMap(map);
         }
         else
@@ -171,8 +160,6 @@ function remove_event_for_update(event_id)
 function get_all_events(filter_array)
 {
 
- //console.log("I am in the get all events function");
-
   /// Make an AJAX call to events_map action in events_controller
   jQuery.ajax({
     url: '/events_map',
@@ -180,7 +167,6 @@ function get_all_events(filter_array)
     type: 'GET',
 
     success: function(data){
-      //console.log("filter_array is: " + filter_array);
 
       if(typeof filter_array!='undefined')
       {
@@ -193,12 +179,9 @@ function get_all_events(filter_array)
 
           if(markerObjectsId.includes(marker.event_id))
           {
-            //console.log("This marker is in the list");
-            // draw_marker(marker);
           }
           else
           {
-            //console.log("This marker is not in the list");
             markerObjectsId.push(marker.event_id);
             draw_marker(marker);
           }
@@ -219,9 +202,6 @@ function get_all_events(filter_array)
 
 function draw_marker(data)
 {
-  //console.log("I am drawing the marker");
-  //console.log("Marker is: ");
-  //console.log(data);
 
   var marker;
   if(data.event_type!='WalkingPartner')
@@ -235,8 +215,6 @@ function draw_marker(data)
         event_id: data.event_id
     });
 
-    //console.log(marker);
-
   var contentString = "";
 
   if(data.event_type == 'LostDog')
@@ -248,14 +226,6 @@ function draw_marker(data)
       "<li class = 'list-group-item'><h5>" + data.event_type + ": " + data.pet_name + "</h5></li>" +
       "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
       "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
-
-    /*
-    contentString = " <div class = 'event_window'>"+
-              "<h5>" + data.pet_name + "</h5>" +
-              "<h5>"+ data.event_type +"</h5>"+
-              "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
-              "<p>Description: " + data.description + "<br>"+
-              "Address: " + data.address + "</p>";*/
     
     marker.setLabel("LostDog");
   }
@@ -286,13 +256,6 @@ function draw_marker(data)
       "<li class = 'list-group-item'><h5>" + data.event_type + "</h5></li>" +
       "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
       "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
-
-    /*
-    contentString = " <div class = 'event_window'>"+
-              "<h5>"+ data.event_type +"</h5>"+
-              "<h5>Posted By: "+data.first_name + data.last_name+"</h5>"+
-              "<p>Description: " + data.description + "<br>" + 
-              "Address: " + data.address + "</p>"; */
     
     marker.setLabel('PostEvent');
   }
@@ -306,14 +269,10 @@ function draw_marker(data)
   }
   else if(data.event_type == 'FoundDog')
   {
-    //link = "<a href='/found_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";
-
     link = "<a href='/found_dogs/" + data.event_id + "' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";    
   }
   else if(data.event_type == 'PostEvent')   // This needs to be given more thought.
   {
-    //link = "<a href='/post_events/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>View Details</a></div>";  
-
     link = "<a href='/post_events/"+data.event_id+"' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";
   }
 
@@ -335,7 +294,6 @@ function draw_marker(data)
 
 function open_event_section()
 {
-  //document.getElementById("event-section").style.width = "250px";
 
   $("#event-content").html("This is awesome");
   $("#event-section").css("width", "450px");

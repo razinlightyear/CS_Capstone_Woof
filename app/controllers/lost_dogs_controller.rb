@@ -54,7 +54,6 @@ class LostDogsController < ApplicationController
     def update_lost_address
         @lost_dog = params[:lost_dog]
         @event = Event.find_by(id: @lost_dog['event_id'])
-        #@event.update(address: @lost_dog['address'])
         @event.update(latitude: @lost_dog['latitude'].to_f, longitude: @lost_dog['longitude'].to_f, address: @lost_dog['address']);
     end
 
