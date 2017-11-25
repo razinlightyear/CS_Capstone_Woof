@@ -1,11 +1,68 @@
-<div id = 'show_post'>
-    Name:  <%= @post_event.user.first_name %> <%= @post_event.user.last_name %><br>
-    Description: <%= @post_event.description %><br>
+<!--<div id = 'show_post'>
+</div>-->
 
-    <% if @post_event.user.id == current_user.id %>
-        <%= link_to 'Edit event', edit_post_event_path(@post_event.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+<div class = 'card'>
+    <h4 class = 'card-header'>AroundMe Event</h4>
+    <ul class = 'list-group list-group-flush'>
+        <li class = 'list-group-item'>
+            <% unless @post_event.user.image.thumb.url.nil? %>
+                <%= image_tag @post_event.user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+            <% else %>
+                <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+            <% end %>
+            <%= @post_event.user.first_name %> <%= @post_event.user.last_name %>
+        </li>
+        <!-- Above the description, there needs to be something related to the pets images, around me events, etc  -->
 
-        <%= link_to 'Delete event', @post_event, method: :delete, class: 'btn btn-primary',data: {remote: true, confirm: 'Are you sure? '} %>
-    <% end %>
+        <li class = 'list-group-item'>
+            <div class = 'card-body'>
+                <%= @post_event.description %><br>
+            </div>
+        </li>
+        <li class = 'list-group-item'>
+            The event is at: <br>
+            <%= @post_event.address %>
+        </li>
+        <li class = 'list-group-item'>
+            <strong>Date:</strong>
+            <%= @post_event.date_time.month %>/<%= @post_event.date_time.day %>/<%= @post_event.date_time.year %>
+        </li>
+        <li class = 'list-group-item'>
+            <strong>Time:</strong>
+            <%= @post_event.date_time.hour %>:<%= @post_event.date_time.min %>
+        </li>
+        <li class = 'list-group-item'>
+            <% if @post_event.private %>
+                <p>The event is private. You have to be invited by the owner to see the conversation.</p>
+            <% else %>
+                <p> The event is public. You can join the event and take part in the conversation
+                </p>
+            <% end %>
+        </li>
 
+        <!-- 
+            Ability to invite people to the event. Only the owner should have the ability to do this.
+            People who have access to the event, should be able to see the people in the event and a conversation box should also be there
+        -->
+    </ul>
+
+    <div class = 'card-footer'>
+        <% if @post_event.user.id == current_user.id %>
+            <div class = 'row'>
+                <div class = 'col-md-4 offset-md-1'>
+                    <%= link_to 'Edit event', edit_post_event_path(@post_event.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+                </div>
+                <div class = 'col-md-4 offset-md-2'>
+                    <%= link_to 'Delete event', @post_event, method: :delete, class: 'btn btn-primary',data: { remote: true, confirm: 'Are you sure? '} %>
+                </div>
+            </div>
+        <% end %>
+        <div class = 'row'>
+            <div class = 'col-md-4 offset-md-3'>
+                <button type="button" class="btn btn-primary" aria-label="Close" onclick = "close_event_section()">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

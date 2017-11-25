@@ -1,4 +1,8 @@
-$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'lost_dogs/form', locals: {lost_dog: @lost_dog, path: lost_dog_path(@lost_dog.id), button_name: "Update the Lost Dog Event"} ) %>')
+/*$('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'lost_dogs/form', locals: {lost_dog: @lost_dog, path: lost_dog_path(@lost_dog.id), button_name: "Update the Lost Dog Event"} ) %>')
 
 $('#eventModal').modal('show')
-$('.modal-title').text('Editing the lost dog event')
+$('.modal-title').text('Editing the lost dog event')*/
+
+$("#event-content").html('<%= escape_javascript(render :partial => 'lost_dogs/form', locals: {lost_dog: @lost_dog, path: lost_dog_path(@lost_dog.id), button_name: "Update the Lost Dog Event"} ) %>');
+
+$("#event-section").css("width", "450px");

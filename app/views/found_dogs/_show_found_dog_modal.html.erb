@@ -1,11 +1,57 @@
-<div id = 'show_found'>
-    Name:  <%= @found_dog.user.first_name %> <%= @found_dog.user.last_name %><br>
-    Description: <%= @found_dog.description %><br>
+<!--
+    <div id = 'show_found'>
+    </div>
+-->
 
-    <% if @found_dog.user.id == current_user.id %>
-        <%= link_to 'Edit event', edit_found_dog_path(@found_dog.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+<div class = 'card'>
+    <h4 class = 'card-header'>Found Dog</h4>
+    <ul class = 'list-group list-group-flush'>
+        <li class = 'list-group-item'>
+            <% unless @found_dog.user.image.thumb.url.nil? %>
+                <%= image_tag @found_dog.user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+            <% else %>
+                <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+            <% end %>
+            <%= @found_dog.user.first_name %> <%= @found_dog.user.last_name %>
+        </li>
+        <!-- Before the below description, you have to put the pet image. So the functionality of uploading images needs to be there -->
+        <li class = 'list-group-item'>
+            <strong>Breed:</strong><%= @found_dog.breed.name %><br>
+        </li>
+        <li class = 'list-group-item'>
+            <strong>Weight Range: </strong><%= @found_dog.weight.start_weight %> - <%= @found_dog.weight.end_weight %>
+        </li>
+        <li class = 'list-group-item'>
+            <div class = 'card-body'>
+                <%= @found_dog.description %><br>
+            </div>
+        </li>
+        <li class = 'list-group-item'>
+            The dog was found at: <br>
+            <%= @found_dog.address %>
+        </li>
+        <li class = 'list-group-item'>
+            if you think this dog might belong to someone who has posted a lost dog, then contact the person using the lost dog/found dog page.
+        </li>
+    </ul>
 
-        <%= link_to 'Delete event', @found_dog, method: :delete, class: 'btn btn-primary',data: { remote: true, confirm: 'Are you sure? '} %>
-    <% end %>
-
+    <div class = 'card-footer'>
+        <% if @found_dog.user.id == current_user.id %>
+            <div class = 'row'>
+                <div class = 'col-md-4 offset-md-1'>
+                    <%= link_to 'Edit event', edit_found_dog_path(@found_dog.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+                </div>
+                <div class = 'col-md-4 offset-md-2'>
+                    <%= link_to 'Delete event', @found_dog, method: :delete, class: 'btn btn-primary',data: { remote: true, confirm: 'Are you sure? '} %>
+                </div>
+            </div>
+        <% end %>
+        <div class = 'row'>
+            <div class = 'col-md-4 offset-md-3'>
+                <button type="button" class="btn btn-primary" aria-label="Close" onclick = "close_event_section()">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

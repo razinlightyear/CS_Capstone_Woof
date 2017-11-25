@@ -29,14 +29,23 @@
     transform: translateX(-50%);
 }
 
-html {
+/* Make sure you want to do this for overflow */
+html,
+body {
+  margin: 0;
+  padding: 0;
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
-body {
+#outer-container{
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+}
+
+#body-page{
+  border-bottom: 50px; /* height of footer */
 }
 
 #home-page{
@@ -60,9 +69,14 @@ body {
   margin: 0px;
 }
 
+/* You have changed this also. Make sure the correctness */
 #main-content{
   width: 100%;
   border-left: 2px solid black;
+  padding-bottom: 35px;
+  position: relative;
+  left: 0;
+  right: 0;
 }
 
 .container-top-navbar {
