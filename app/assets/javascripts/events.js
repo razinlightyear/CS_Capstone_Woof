@@ -301,8 +301,34 @@ function open_event_section()
 }
 
 $(document).on('turbolinks:load', function() {
-  $('#lost_dogs_table').dataTable();
-  $('#found_dogs_table').dataTable();
+  $('#lost_dogs_table').DataTable({
+    "columnDefs": [
+      {
+          "targets": [ 'invisible' ],
+          "visible": false,
+          "searchable": true
+      },
+      {
+          "targets": [ 'no-search' ],
+          "visible": true,
+          "searchable": false
+      }
+    ]
+  });
+  $('#found_dogs_table').DataTable({
+    "columnDefs": [
+      {
+          "targets": [ 'invisible' ],
+          "visible": false,
+          "searchable": true
+      },
+      {
+          "targets": [ 'no-search' ],
+          "visible": true,
+          "searchable": false
+      }
+    ]
+  });
 });
 
 function close_event_section()
