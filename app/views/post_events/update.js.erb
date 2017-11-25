@@ -1,4 +1,5 @@
-$('#eventModal').modal('hide')
+//$('#eventModal').modal('hide');
+close_event_section();
 
 // Find out the address for this latitude and longitude.
 var geocoder;
@@ -9,11 +10,8 @@ var latitude;
 var longitude;
 
 address_event = "<%= @post_event.address %>";
-//console.log(address_event);
 
 geocoder.geocode({"address": address_event}, function(results){
-    //console.log(results[0].geometry.location.lat());
-    //console.log(results[0].geometry.location.lng());
     latitude = results[0].geometry.location.lat();
     longitude = results[0].geometry.location.lng();
     update_address(latitude, longitude, address_event);

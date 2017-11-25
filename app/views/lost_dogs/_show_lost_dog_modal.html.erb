@@ -1,11 +1,53 @@
-<div id = 'show_lost'>
-    Name: <%= @lost_dog.user.first_name %> <%= @lost_dog.user.last_name %><br>
-    Description: <%= @lost_dog.description %><br>
-    
-    <% if @lost_dog.user.id == current_user.id %>
-        <%= link_to 'Edit event', edit_lost_dog_path(@lost_dog.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+<div class = 'card'>
+    <h4 class = 'card-header'>Lost Dog</h4>
+    <ul class = 'list-group list-group-flush'>
+        <li class = 'list-group-item'>
+            <% unless @lost_dog.user.image.thumb.url.nil? %>
+                <%= image_tag @lost_dog.user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+            <% else %>
+                <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+            <% end %>
+            <%= @lost_dog.user.first_name %> <%= @lost_dog.user.last_name %>
+        </li>
+        <li class = 'list-group-item'>
+            <% unless @lost_dog.pet.image.thumb.url.nil? %>
+                <%= image_tag @lost_dog.pet.image.thumb.url, class: "rounded-circle", width:50, height: 50, alt: 'Card image' %>
+            <% else %>
+                <%= image_tag 'pet_placeholder', class: "rounded-circle", width: 50, height: 50, alt: 'Pet image' %>
+            <% end %>
+            <%= @lost_dog.pet.name %>
+        </li>
+        <li class = 'list-group-item'>
+            <div class = 'card-body'>
+                <%= @lost_dog.description %><br>
+            </div>
+        </li>
+        <li class = 'list-group-item'>
+            <%= @lost_dog.pet.name %> was lost at: <br>
+            <%= @lost_dog.address %>
+        </li>
+        <li class = 'list-group-item'>
+            If you find this dog or have any other information, contact the owner through lost/found dog page
+        </li>
+    </ul>
 
-        <%= link_to 'Delete event', @lost_dog, method: :delete, class: 'btn btn-primary',data: { remote: true, confirm: 'Are you sure? '} %>
-    <% end %>
-
+    <div class = 'card-footer'>
+        <% if @lost_dog.user.id == current_user.id %>
+            <div class = 'row'>
+                <div class = 'col-md-4 offset-md-1'>
+                    <%= link_to 'Edit event', edit_lost_dog_path(@lost_dog.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+                </div>
+                <div class = 'col-md-4 offset-md-2'>
+                    <%= link_to 'Delete event', @lost_dog, method: :delete, class: 'btn btn-primary',data: { remote: true, confirm: 'Are you sure? '} %>
+                </div>
+            </div>
+        <% end %>
+        <div class = 'row'>
+            <div class = 'col-md-4 offset-md-3'>
+                <button type="button" class="btn btn-primary" aria-label="Close" onclick = "close_event_section()">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

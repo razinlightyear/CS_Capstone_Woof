@@ -10,26 +10,20 @@ var longitude;
 
 if("<%= @found_dog.address %>" == "")
 {
-    console.log("The address is blank");
     latitude  = parseFloat("<%= @found_dog.latitude %>")
     longitude = parseFloat("<%= @found_dog.longitude %>")
 
 
     geocoder.geocode({"location": {"lat": latitude, "lng": longitude}}, function(results){
         address_event = results[0].formatted_address;
-        //console.log(results[0].formatted_address);
         update_address(latitude, longitude, address_event);
     });
 }
 else
 {
-    console.log("Address is not blank");
     address_event = "<%= @found_dog.address %>";
-    //console.log(address_event);
 
     geocoder.geocode({"address": address_event}, function(results){
-        //console.log(results[0].geometry.location.lat());
-        //console.log(results[0].geometry.location.lng());
         latitude = results[0].geometry.location.lat();
         longitude = results[0].geometry.location.lng();
         update_address(latitude, longitude, address_event);
