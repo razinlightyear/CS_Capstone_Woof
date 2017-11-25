@@ -83,7 +83,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.html { render "group_chat" }
-      # format.json { head :no_content }
+      format.json { render "chats/create" }
     end
   end
 
