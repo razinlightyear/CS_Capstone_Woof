@@ -1,0 +1,22 @@
+<% weight_options = Weight.all %>
+<div class="card">
+  <div class="card-block">
+    
+    <!-- Create group tab buttons -->
+    <ul class="nav nav-tabs" role="tablist">
+      <% @groups.each_with_index do |group,i| %>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if i==0 %>" data-toggle="tab" href="#group_<%=group.id%>" role="tab"><%= group.name %></a>
+        </li>
+      <% end %>
+    </ul>
+    
+    <div class="tab-content" style="background-color: #fafbfc; border-style: solid; border-width: 1px; border-radius: 5px; border-color: #ddd;">
+      <% @groups.each_with_index do |group,i| %>
+        <%= render 'groups/individual_chat', group: group, i: i, weight_options: weight_options %>
+      <% end %>
+    </div><!-- tab content -->
+    
+
+  </div><!-- card block -->
+</div><!-- card -->

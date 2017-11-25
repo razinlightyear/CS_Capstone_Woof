@@ -13,6 +13,7 @@
           </div>
         </div>
       </div>
+      
       <div id="pet_accordion_group_<%=group.id%>" role="tablist" aria-multiselectable="true">
         <% group.pets.active.each_with_index do |pet,j| %>
           <%= render 'pets/card', group: group, pet: pet, j: j, weight_options: weight_options %>
@@ -32,9 +33,8 @@
             </div><!-- card-block -->
           </div>
         </div>
-
-
       </div><!-- accordian -->
+
       <button id="new-pet-<%=group.id%>" data-group-id="<%=group.id%>" class="btn btn-outline-primary btn-sm float-right add-pet">Add Pet</button>
     </div><!-- col-lg-6 -->
   

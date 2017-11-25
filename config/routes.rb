@@ -47,6 +47,10 @@ Rails.application.routes.draw do
       get 'chat'
     end
   end
+
+  # Added by Paarth Lakhani for the group chatting. Ask Andrew about the chat
+  get 'groups_allChats', controller: :groups, action: :groups_allChats
+
   resources :events do
     member do
       get 'chat'
