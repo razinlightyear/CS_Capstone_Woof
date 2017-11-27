@@ -6,7 +6,7 @@
                 <div class = "col-md-2">
                     <div class = "form-check-inline">
                         <label class = "form-check-label">
-                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_lost" value = "LostDog" onchange = "gather_filters()">
+                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_lost" value = "LostDog" onchange = "gather_filters()" disabled>
                             Lost Dog
                         </label>
                     </div>
@@ -15,7 +15,7 @@
                 <div class = "col-md-2">
                     <div class = "form-check-inline">
                         <label class= "form-check-label">
-                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_found" value = "FoundDog" onchange = "gather_filters()">
+                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_found" value = "FoundDog" onchange = "gather_filters()" disabled>
                             Found Dog
                         </label>
                     </div>
@@ -28,7 +28,7 @@
                 <div class = "col-md-2">
                     <div class = "form-check-inline">
                         <label class= "form-check-label">
-                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_post_event" value = "PostEvent" onchange = "gather_filters()">
+                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_post_event" value = "PostEvent" onchange = "gather_filters()" disabled>
                             Around Me Events
                         </label>
                     </div>
@@ -37,7 +37,7 @@
                 <div class = "col-md-2">
                     <div class = "form-check-inline">
                         <label class= "form-check-label">
-                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_all" value = "All" onchange = "gather_filters()" checked>
+                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_all" value = "All" onchange = "disable_other_filters()" checked>
                             All Events
                         </label>
                     </div>
@@ -50,7 +50,7 @@
                 <div class = "col-md-2">
                     <div class = "form-check-inline">
                         <label class= "form-check-label">
-                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_personal" value = "Personal" onchange="disable_filters(<%= current_user %>);">
+                            <input class = "form-check-input filter_map" type = "checkbox" name = "filter_events[]" id = "filter_personal" value = "Personal" onchange="disable_my_filters(<%= current_user %>);" disabled>
                             My Posted Events
                         </label>
                     </div>

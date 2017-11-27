@@ -84,7 +84,19 @@ function gather_filters(current_user_id)
 
 }
 
-function disable_filters(current_user_id)
+// When all is selected, then other filters should be disabled
+function disable_other_filters()
+{
+  $('#filter_lost').prop('disabled', function(i, v){ return !v});
+  $('#filter_found').prop('disabled', function(i, v){ return !v});
+  $('#filter_post_event').prop('disabled', function(i, v){ return !v});
+  $('#filter_personal').prop('disabled', function(i, v){ return !v});
+
+  gather_filters();
+}
+
+// When viewing my posted events, all other events should be disabled
+function disable_my_filters(current_user_id)
 {
 
   $('#filter_lost').prop('disabled', function(i, v){ return !v});
@@ -216,7 +228,6 @@ function draw_marker(data)
     // Checking whether the marker is in map.
     if(!map.getBounds().contains(marker.getPosition()))
     {
-      console.log("I need zoom out the map");
       //map.fitBounds(marker.position);
       map.getBounds().extend(marker.getPosition());
       map.fitBounds(map.getBounds());
