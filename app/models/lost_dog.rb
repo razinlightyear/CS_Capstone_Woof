@@ -5,7 +5,8 @@ class LostDog < Event
   methods_to_delegate = [
                         :description, :description=,
                         :lost_dog_id, :lost_dog_id=,
-                        :lost_dog, :lost_dog=
+                        :lost_dog, :lost_dog=,
+                        :returned, :returned=
   ]
   # splat operator *. It removes the surrounding array. ex: arr = [1, 2, 3]; *arr is just 1, 2, 3
   delegate *methods_to_delegate, to: :lazily_built_delegates

@@ -4,8 +4,9 @@
 $(document).on 'turbolinks:load', ->
   $('.thumb-image-modal').click (e) ->
     pet_id = this.dataset.petId
+    view_only = if this.dataset.viewOnly then true else false
     $.ajax
-      url: '/pets/'+pet_id+'/image_modal'
+      url: '/pets/'+pet_id+'/image_modal?view_only='+view_only
       timeout: 500
       type: 'get'
       dataType: 'script'
