@@ -4,7 +4,12 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
+    @user = current_user
+    @groups = Group.joins(:groups_users)
+                  .where('groups_users.user_id' => @user.id)
+                  .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
+                  .where('users.active' => true)
+                  #.where('group_invites.accepted_at' => nil, 'group_invites.declined_at' => nil, 'users.active' => true)
   end
 
   # GET /groups/1
@@ -88,12 +93,28 @@ class GroupsController < ApplicationController
   end
 
   def groups_allChats
+
     @user = current_user
     @groups = Group.joins(:groups_users)
                    .where('groups_users.user_id' => @user.id)
                    .eager_load(:users, group_invites: [:invitee, :inviter], pets: [:breed,:colors,:weight])
                    .where('users.active' => true)
-                   #.where('group_invites.accepted_at' => nil, 'group_invites.declined_at' => nil, 'users.active' => true)    
+                   #.where('group_invites.accepted_at' => nil, 'group_invites.declined_at' => nil, 'users.active' => true)
+    
+    # Doing this as it is done in the previous action.
+    @groups.each do |group|
+      @chat = group.chat
+      if @chat.nil?
+        @chat = Chat.new(identifier: SecureRandom.hex)
+
+        if !@chat.persisted?
+          @chat.save
+          group.update(chat_id: @chat.id)
+        end
+      end
+    end
+
+
   end
 
   private

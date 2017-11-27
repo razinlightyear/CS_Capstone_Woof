@@ -1,3 +1,4 @@
+<%= group.name %>
 <div class="tab-pane fade <%= 'show active' if i==0 %>" id="group_<%=group.id%>" role="tabpanel" style="margin: 5px;">
   <div class="row">
     <div class="col-lg-6"><!-- Pets Column -->
@@ -12,10 +13,23 @@
       </div>
       
       <!-- The Chat room is below -->
-      <div>
-        
+      <div role = 'tablelist'>
+        <% if chat.messages.any? %>
+          <div id="messages">
+            <%= render partial: 'messages/message', collection: chat.messages.order(id: :asc)%>
+          </div>
+        <% else %>
+          <div id="messages">
+          </div>
+        <% end %>
+        <div id = 'myMessages'>
+          <%=form_for message, remote: true,authenticity_token: true do |f|%>
+            <%= f.text_area :content, data: {textarea: "message"}, class: 'form-control' %>
+            <%= f.hidden_field :chat_id, value: chat.id %>
+          <% end %>
+        </div>
       </div> <!-- End of the chat room -->
-    
+      
     </div><!-- col-lg-6 -->
   
     <div class="col-lg-6"><!-- User column -->

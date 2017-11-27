@@ -1,16 +1,12 @@
-<div>
-  <h5><%= @group.name %> Group Chat</h5>
-  <% if @chat.messages.any? %>
-    <div id="messages">
-      <%= render partial: 'messages/message', collection: @chat.messages.order(id: :asc)%>
-    </div>
-  <%else%>
-    <div id="messages">
-    </div>
-  <%end%>
-</div>
-<%= render partial: 'messages/message_form', locals: {message: @message, chat: @chat}%>
-</div>
+
+<div class="card">
+  <div class="card-block">
+    
+    <div class="tab-content" style="background-color: #fafbfc; border-style: solid; border-width: 1px; border-radius: 5px; border-color: #ddd;">
+    <%= render 'groups/individual_chat', group: @group, i: 0, chat: @chat, message: @message %>
+    </div><!-- tab content -->
+  </div><!-- card block -->
+</div><!-- card -->
 
 <script>
   createMessageChannel();
