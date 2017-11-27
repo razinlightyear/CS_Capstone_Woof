@@ -78,6 +78,7 @@ class PetsController < ApplicationController
 
   # GET /pets/1/image_modal.json
   def image_modal
+    @view_only = params[:view_only] == 'true'
     @pet = Pet.where(id: params[:id]).first
     if @pet
       respond_to do |format|

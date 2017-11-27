@@ -301,6 +301,21 @@ function open_event_section()
 }
 
 $(document).on('turbolinks:load', function() {
+  $('.lost-dog-contact-owner').click(function(e) {
+    debugger;
+    var event_id;
+    event_id = this.dataset.eventId;
+    return $.ajax({
+      url: '/events/' + event_id + '/lost_and_found/contact_owner_modal_body',
+      timeout: 500,
+      type: 'get',
+      dataType: 'script',
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert(errorThrown);
+      },
+      success: function(data, textStatus, jqXHR) {}
+    });
+  });
   $('#lost_dogs_table').DataTable({
     "columnDefs": [
       {

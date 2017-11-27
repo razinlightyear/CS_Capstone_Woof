@@ -101,7 +101,7 @@ class LostDogsController < ApplicationController
 
     def lost_dog_params
         # adding address field to the params list
-        params.require(:lost_dog).permit(:user_id, :pet_id, :description, :latitude, :longitude, :address)
+        params.require(:lost_dog).permit(:user_id, :pet_id, :description, :latitude, :longitude, :address, :returned)
     end
 
     def set_lost_dog

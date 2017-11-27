@@ -19,9 +19,9 @@
       <tr>
         <td>
           <% unless lost_dog.pet.image.thumb.url.nil? %>
-            <%= image_tag lost_dog.pet.image.thumb.url, class: "rounded-circle" %><!-- Thumb is alraedy 50x50 -->
+            <%= image_tag lost_dog.pet.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: lost_dog.pet.id, view_only: true} %><!-- Thumb is alraedy 50x50 -->
           <% else %>
-            <%= image_tag 'pet_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+            <%= image_tag 'pet_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: lost_dog.pet.id, view_only: true} %>
           <% end %>
         </td>
         <td><%= lost_dog.pet.name %></td>
@@ -34,7 +34,13 @@
         <td><%= lost_dog.pet.colors.map { |c| c.color_badge }.join(' ').html_safe %></td>
         <td><%= lost_dog.created_at %></td>
         <td><%= lost_dog.address %></td>
-        <td>Buttons here</td>
+        <td>
+          <% if lost_dog.user_id == current_user.id %>
+            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal'} %>
+          <% else %>
+            <%= button_tag 'Contact Owner', type: nil, class: 'btn btn-primary lost-dog-contact-owner', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: lost_dog.id} %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -80,8 +86,16 @@
         <td><%= colors %></td>
         <td><%= found_dog.created_at %></td>
         <td><%= found_dog.address %></td>
-        <td>Buttons here</td>
+        <td>
+          <% if found_dog.user_id == current_user.id %>
+            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal'}%>
+          <% else %>
+            <%= button_tag 'Contact Owner', type: nil, class: 'btn btn-primary', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal'}%>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= render 'events/lost_and_found_modal' %>
+<%= render 'pets/pet_image_modal' %>
