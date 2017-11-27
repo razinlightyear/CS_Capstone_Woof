@@ -9,5 +9,10 @@
 
         <%= link_to(image_tag("icon.png", class: 'image-responsive', width: 30, height: 30), @home_root, :method => :get) %>
         Copyright &copy; 2017 Team Woof
+
+        <% if user_signed_in? %>
+            <%= link_to "About Team", about_team_path %>
+            <%= link_to "About Woof Project", about_path %>
+        <% end %>
     </div>
 </div>

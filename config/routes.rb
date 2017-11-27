@@ -96,6 +96,8 @@ Rails.application.routes.draw do
   # controller of home - index rediret to the events page.
 
   get 'home/sign_out_profile'
+  get '/about', controller: :home, action: :about
+  get '/about_team', controller: :home, action: :about_team
 
   # Serve websocket cable requests in-process
   mount ActionCable.server => '/cable'
