@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115141513) do
+ActiveRecord::Schema.define(version: 20171125231301) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -90,9 +90,10 @@ ActiveRecord::Schema.define(version: 20171115141513) do
 
   create_table "found_dog_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "found_dog_id"
-    t.integer "breed_id",                   null: false
-    t.integer "weight_id",                  null: false
+    t.integer "breed_id",                                   null: false
+    t.integer "weight_id",                                  null: false
     t.text    "description",  limit: 65535
+    t.boolean "returned",                   default: false, null: false
     t.index ["breed_id"], name: "index_found_dog_delegates_on_breed_id", using: :btree
     t.index ["found_dog_id"], name: "index_found_dog_delegates_on_found_dog_id", using: :btree
     t.index ["weight_id"], name: "index_found_dog_delegates_on_weight_id", using: :btree
@@ -133,6 +134,7 @@ ActiveRecord::Schema.define(version: 20171115141513) do
   create_table "lost_dog_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text    "description", limit: 65535
     t.integer "lost_dog_id"
+    t.boolean "returned",                  default: false, null: false
     t.index ["lost_dog_id"], name: "index_lost_dog_delegates_on_lost_dog_id", using: :btree
   end
 

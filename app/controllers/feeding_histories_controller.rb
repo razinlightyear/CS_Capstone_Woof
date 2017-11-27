@@ -80,6 +80,6 @@ class FeedingHistoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feeding_history_params
-      params.require(:feeding_history).permit(:amount, :food_item, :pet_id)
+      params.require(:feeding_history).permit(:amount, :food_item, :pet_id, :required)
     end 
 end

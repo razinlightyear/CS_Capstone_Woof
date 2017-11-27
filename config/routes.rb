@@ -54,9 +54,12 @@ Rails.application.routes.draw do
   resources :events do
     member do
       get 'chat'
+      get 'lost_and_found/contact_owner_modal_body', controller: :events, action: :contact_owner_modal_body
+    end
+    collection do
+      get 'lost_and_found'
     end
   end
-
   get '/events_map', controller: :events, action: :events_map
   post '/events/filter_events', controller: :events, action: :filter_events
  # resources :lost_dogs # reaplace :create_lost_dogs
