@@ -213,6 +213,15 @@ function draw_marker(data)
         event_id: data.event_id
     });
 
+    // Checking whether the marker is in map.
+    if(!map.getBounds().contains(marker.getPosition()))
+    {
+      console.log("I need zoom out the map");
+      //map.fitBounds(marker.position);
+      map.getBounds().extend(marker.getPosition());
+      map.fitBounds(map.getBounds());
+    }
+
   var contentString = "";
 
   if(data.event_type == 'LostDog')
