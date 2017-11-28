@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :messages
   has_many :subscriptions
   has_many :chats, through: :subscriptions
+  has_many :sent_event_invites, class_name: "EventInvite", foreign_key: "inviter_id", inverse_of: :inviter
+  has_many :received_event_invites, class_name: "EventInvite", foreign_key: "invitee_id", inverse_of: :invitee
   
   validates :first_name, presence: { message: "Please enter a first name" }, if: :name_required?
   validates :last_name, presence: { message: "Please enter a last name" }, if: :name_required?  
@@ -37,12 +39,14 @@ class User < ApplicationRecord
                                .or(email_contains(name))
                                .public_account
                              }
+
   scope :contains_not_in_group, -> (name, group_id) {
                                                       contains(name)
                                                      .where.not(id: User.select(:id)
                                                                         .joins(:groups)
                                                                         .where('groups.id' => group_id))
                                                     }
+
   # User search by email that are not in the given group
   scope :user_not_in_group, -> (email, group_id) {
                                                       where(email: email)
@@ -50,7 +54,24 @@ class User < ApplicationRecord
                                                                         .joins(:groups)
                                                                         .where('groups.id' => group_id))
                                                     }
-  
+
+  # Find matching users that are not apart of the event
+  # name - is a fuzzy matched on first_name, last_name, email
+  scope :contains_not_in_event, -> (name, event_id) {
+                                                      contains(name)
+                                                     .where.not(id: User.select(:id)
+                                                                        .joins(:joined_events)
+                                                                        .where('events.id' => event_id))
+                                                    }
+
+  # User search by email that are not in the given event
+  scope :user_not_in_event, -> (email, group_id) {
+                                                      where(email: email)
+                                                     .where.not(id: User.select(:id)
+                                                                        .joins(:joined_events)
+                                                                        .where('events.id' => event_id))
+  }
+
   def active_user?
     self.active
   end

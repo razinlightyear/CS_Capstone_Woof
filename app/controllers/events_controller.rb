@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :update, :destroy, :chat, :contact_owner_modal_body]
+  before_action :set_event, only: [:edit, :update, :destroy, :chat, :contact_owner_modal_body, :join, :disjoin]
   #before_action :get_all_events, only: [:show], if: :format_json
   #before_action :get_all_events, only: [:events_map]
   before_action :get_all_events, only: [:show, :events_map]
@@ -79,6 +79,29 @@ class EventsController < ApplicationController
     @message = Message.new
     respond_to do |format|
       format.js {render :contact_owner_modal_body}
+    end
+  end
+  
+  # GET /events/1/join
+  # This will probably only be used for users that are browsing public events that want to join
+  def join
+    @event.joined_users << current_user
+    # Probably want to render js on web
+    respond_to do |format|
+      format.js { render "" }
+      format.html { render "" }
+      format.json { render "" }
+    end
+  end
+  
+  # GET /events/1/disjoin
+  def disjoin
+    @event.joined_users.delete(current_user)  # Just deletes the record from the association
+    # Probably want to render js on web
+    respond_to do |format|
+      format.js { render "" }
+      format.html { render "" }
+      format.json { render "" }
     end
   end
   

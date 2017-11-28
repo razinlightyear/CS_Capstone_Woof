@@ -51,6 +51,8 @@ Rails.application.routes.draw do
     member do
       get 'chat'
       get 'lost_and_found/contact_owner_modal_body', controller: :events, action: :contact_owner_modal_body
+      get :join
+      get :disjoin
     end
     collection do
       get 'lost_and_found'
@@ -67,6 +69,12 @@ Rails.application.routes.draw do
   get 'users/group_invites/accept', controller: :group_invites, action: :accept
   get 'users/group_invites/decline', controller: :group_invites, action: :decline
   get 'users/group_invites/accept_new', controller: :group_invites, action: :accept_new
+  resources :event_invites, only: [:create, :destroy] do
+    collection do
+      get :accept
+      get :decline
+    end
+  end
 
   delete '/ios/sign_out', to: 'ios_sessions#destroy'
   post '/ios/sign_up', to: 'ios_sessions#new'

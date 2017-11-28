@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Woof App</h1>
+     <%= image_tag(attachments['woof_logo.png'].url, size: '100x100', class: 'profile-pic rounded-circle') %>
+    <p>
+      You have been invited by <%= @event_invite.inviter.full_name %> to join an event:<br>
+      Where: <%= @event_invite.event.address %><br>
+      When: <%= @event_invite.event.date_time.localtime.strftime("%m/%d/%Y %l:%M %p %Z") %><br>
+      Description: <%= @event_invite.event.description %><br>
+    </p>
+    <p>
+      To join this event, just follow this link: <%= link_to 'Join event', accept_event_invites_url(invite_token: @event_invite.invite_token) %>.
+    </p>
+    <p><%= link_to 'decline invite', decline_event_invites_url(invite_token: @event_invite.invite_token) %></p>
+    <p>Thanks and have a great day!</p>
+  </body>
+</html>

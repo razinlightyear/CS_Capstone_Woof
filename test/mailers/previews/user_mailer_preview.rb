@@ -11,4 +11,8 @@ class UserMailerPreview < ActionMailer::Preview
   def feedback
     UserMailer.feedback(Feedback.first)
   end
+  
+  def event_invite
+    UserMailer.event_invite(EventInvite.first)
+  end
 end
