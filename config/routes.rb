@@ -51,6 +51,8 @@ Rails.application.routes.draw do
     member do
       get 'chat'
       get 'lost_and_found/contact_owner_modal_body', controller: :events, action: :contact_owner_modal_body
+      get :join
+      get :disjoin
     end
     collection do
       get 'lost_and_found'
