@@ -14,7 +14,7 @@
     <% @body_id = 'home-page' %>
   <% elsif @signin %>
     <% @body_id = 'sign-in' %>
-    <% else %>
+  <% else %>
     <% @body_id = '' %>
   <% end %>
 
@@ -55,7 +55,7 @@
         <%= render 'home/navbar2' %>
         <div id='flash_messages_div'>
           <%= render partial: "shared/flash_messages", flash: flash %>
-        </div>        
+        </div>
       </div>
 
       <div id = 'body-page'>

@@ -11,7 +11,7 @@ class PostEventsController < ApplicationController
 
             if !@chat.persisted?
                 @chat.save
-                @event.update(chat_id: @chat.id)
+                @post_event.update(chat_id: @chat.id)
             end
         end
     end
