@@ -10,7 +10,12 @@ class EventsController < ApplicationController
 
   def show
     if request.format.json?
-      @events = Event.where(:is_around_me => 1)
+      @events = Event.where(:is_around_me => true)
+                     .where.not(id: PostEvent.select(:id)
+                                             .joins(:delegate)
+                                             .where('post_event_delegates.private' => true)
+                                             .where.not(user: current_user)
+                                )
     end
 
     @current_user_id = current_user.id
@@ -18,7 +23,12 @@ class EventsController < ApplicationController
   end
 
   def events_map
-    @events = Event.where(:is_around_me => 1)
+    @events = Event.where(:is_around_me => true)
+                   .where.not(id: PostEvent.select(:id)
+                                           .joins(:delegate)
+                                           .where('post_event_delegates.private' => true)
+                                           .where.not(user: current_user)
+                              )
     render :show
   end
 
