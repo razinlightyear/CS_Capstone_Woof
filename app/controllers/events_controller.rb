@@ -10,7 +10,20 @@ class EventsController < ApplicationController
 
   def show
     if request.format.json?
-      @events = Event.where(:is_around_me => 1)
+      @events = Event.where(:is_around_me => true)   # The events that aren't private
+                     .where.not(id: PostEvent.select(:id)
+                                             .joins(:delegate)
+                                             .where('post_event_delegates.private' => true)
+                                             .where.not(user: current_user)
+                                )
+                                .or(   # The current user already belongs to the private event
+                                    Event.where(id: PostEvent.select(:id)
+                                                             .where(:is_around_me => true)
+                                                             .joins(:joined_users, :delegate)
+                                                             .where('post_event_delegates.private' => true, 
+                                                                    'events_users.user_id' => current_user.id)
+                                                )
+                                    )
     end
 
     @current_user_id = current_user.id
@@ -18,7 +31,20 @@ class EventsController < ApplicationController
   end
 
   def events_map
-    @events = Event.where(:is_around_me => 1)
+    @events = Event.where(:is_around_me => true)   # The events that aren't private
+                   .where.not(id: PostEvent.select(:id)
+                                           .joins(:delegate)
+                                           .where('post_event_delegates.private' => true)
+                                           .where.not(user: current_user)
+                              )
+                              .or(   # The current user already belongs to the private event
+                                  Event.where(id: PostEvent.select(:id)
+                                                           .where(:is_around_me => true)
+                                                           .joins(:joined_users, :delegate)
+                                                           .where('post_event_delegates.private' => true, 
+                                                                  'events_users.user_id' => current_user.id)
+                                              )
+                                  )
     render :show
   end
 

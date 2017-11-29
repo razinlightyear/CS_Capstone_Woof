@@ -16,7 +16,7 @@ class Event < ApplicationRecord
   after_create :add_current_user
   
   def self.around_me_events
-    [LostDog, FoundDog, WalkingPartner]
+    [LostDog, FoundDog, PostEvent] # WalkingPartner
   end
   
   private
