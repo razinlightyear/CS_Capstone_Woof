@@ -5,16 +5,17 @@
             <a class='navbar-brand'>
                 <%= link_to(image_tag('woof_word_trans.png', class: 'image-responsive navbar-brand', width: 122, height: 42), root_path, :method => :get) %>
             </a>
+            <!-- use some div with class col and div with class row -->
             <ul class = 'navbar-nav ml-auto'>
                 <li class = 'nav-item'>
                     <%= link_to 'Log In Now', new_user_session_path, class: 'btn btn-outline-primary' %>
                 </li>
-                <li class = 'nav-item'>
+                <!--<li class = 'nav-item'>
                     <%= link_to 'About Woof', about_path, class: 'btn btn-outline-primary' %>
                 </li>
                 <li class = 'nav-item'>
                     <%= link_to 'About Team', about_team_path, class: 'btn btn-outline-primary' %>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
