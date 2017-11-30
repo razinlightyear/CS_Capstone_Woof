@@ -6,7 +6,7 @@
     <%= invite.invitee.email %>
   </div>
   <div class="col-md-2">
-    <% if current_user == invite.inviter || current_user == invite.group.owner %>
+    <% if current_user == invite.inviter || current_user == invite.event.user %>
       <%= link_to 'Cancel', invite, method: :delete, data: { confirm: 'Are you sure that you want to cancel this invitation?' }, class: "btn btn-outline-danger btn-sm" %>
     <% end %>
   </div>

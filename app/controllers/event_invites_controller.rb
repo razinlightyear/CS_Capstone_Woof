@@ -13,6 +13,7 @@ class EventInvitesController < ApplicationController
         if @event_invite.save
           UserMailer.event_invite(@event_invite).deliver_later
           format.html { redirect_to event_path(current_user), notice: 'Invite was successfully sent.' }
+          format.js { render :create, status: :created }
         else
           if @event_invite.errors.any?
             error_messages = ["Please fix the following errors with the invite:"]
@@ -143,6 +144,16 @@ class EventInvitesController < ApplicationController
     end
   end
 
+  # DELETE /event_invites/1
+  # DELETE /event_invites/1.json
+  def destroy
+    @event_invite.destroy
+    respond_to do |format|
+      format.html { redirect_to event_path(current_user), notice: 'Invite cancelled.' }
+      format.json { head :no_content }
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event_invite
