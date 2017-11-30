@@ -243,7 +243,7 @@ function draw_marker(data)
       "<li class = 'list-group-item'><strong>Posted By:</strong><strong>&nbsp;" + data.first_name + ' '  + data.last_name + "</strong></li>" +
       "<li class = 'list-group-item'><h5>Lost Dog: " + data.pet_name + "</h5></li>";
     
-    marker.setLabel("LostDog");
+    marker.setLabel("Lost Dog");
   }
   else if(data.event_type == 'FoundDog')
   {
@@ -259,7 +259,7 @@ function draw_marker(data)
               "<p>Description: " + data.description + "<br>" + 
               "Address: " + data.address + "</p>";*/
     
-    marker.setLabel("FoundDog");
+    marker.setLabel("Found Dog");
   }
   else if(data.event_type == 'PostEvent')
   {
@@ -269,7 +269,7 @@ function draw_marker(data)
       "<li class = 'list-group-item'><strong>Posted By:</strong><strong>&nbsp;" + data.first_name + ' '  + data.last_name + "</strong></li>" +
       "<li class = 'list-group-item'><h5>Around Me Event</h5></li>";
     
-    marker.setLabel('PostEvent');
+    marker.setLabel('Around Me');
   }
 
   var link = '';
