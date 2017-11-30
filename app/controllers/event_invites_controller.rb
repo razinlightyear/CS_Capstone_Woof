@@ -13,6 +13,7 @@ class EventInvitesController < ApplicationController
         if @event_invite.save
           UserMailer.event_invite(@event_invite).deliver_later
           format.html { redirect_to event_path(current_user), notice: 'Invite was successfully sent.' }
+          format.js { render :create, status: :created }
         else
           if @event_invite.errors.any?
             error_messages = ["Please fix the following errors with the invite:"]
