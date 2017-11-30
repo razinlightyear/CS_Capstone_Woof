@@ -59,9 +59,16 @@ class User < ApplicationRecord
   # name - is a fuzzy matched on first_name, last_name, email
   scope :contains_not_in_event, -> (name, event_id) {
                                                       contains(name)
-                                                     .where.not(id: User.select(:id)
-                                                                        .joins(:joined_events)
-                                                                        .where('events.id' => event_id))
+                                                     .where.not(id: ((User.joins(:joined_events)
+                                                                         .where('events.id' => event_id)
+                                                                         .pluck(:id)) |
+                                                                     (User.joins(:received_event_invites)
+                                                                         .where('event_invites.event_id' => event_id,
+                                                                                'event_invites.accepted_at' => nil, 
+                                                                                'event_invites.declined_at' => nil)
+                                                                         .pluck(:id))
+                                                                    )
+                                                                )
                                                     }
 
   # User search by email that are not in the given event

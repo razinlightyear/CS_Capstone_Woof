@@ -109,25 +109,30 @@ class EventsController < ApplicationController
   end
   
   # GET /events/1/join
+  # GET /events/1/join.json
   # This will probably only be used for users that are browsing public events that want to join
   def join
-    @event.joined_users << current_user
-    # Probably want to render js on web
     respond_to do |format|
-      format.js { render "" }
-      format.html { render "" }
-      format.json { render "" }
+      if @event && !@event.private
+        @event.joined_users << current_user unless @event.joined_users.include? current_user
+        format.js { render "" }
+        format.html { redirect_to event_path(current_user), notice: 'Successfully left event.' }
+        format.json { head :no_content }
+      else
+        format.html { render :edit }
+        format.json { render json: "Could not leave event", status: :unprocessable_entity }
+      end
     end
   end
   
   # GET /events/1/disjoin
+  # GET /events/1/disjoin.json
   def disjoin
     @event.joined_users.delete(current_user)  # Just deletes the record from the association
-    # Probably want to render js on web
     respond_to do |format|
       format.js { render "" }
-      format.html { render "" }
-      format.json { render "" }
+      format.html { redirect_to event_path(current_user), notice: 'Successfully left event.' }
+      format.json { head :no_content }
     end
   end
   

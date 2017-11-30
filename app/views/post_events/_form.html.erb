@@ -53,20 +53,23 @@
 
     <% end %>
     
-    <% if @invites.any? %>
-      <div class="card">
-        <div class="card-header">
-          <strong>Pending user invitations</strong>
+    <% unless post_event.new_record? %>
+      <% if @invites.any? %>
+        <div class="card">
+          <div class="card-header">
+            <strong>Pending user invitations</strong>
+          </div>
+          <div class="card-block" id="pending_event_invites">
+            <% @invites.each do |invite| %>
+              <%= render 'event_invites/pending_invite', invite: invite %>
+            <% end %>
+          </div>
         </div>
-        <div class="card-block" id="pending_event_invites">
-          <% @invites.each do |invite| %>
-            <%= render 'event_invites/pending_invite', invite: invite %>
-          <% end %>
-        </div>
+      <% end %>
+      <div id='event_invite_form'>
+        <%= render 'event_invites/invite_form', event: post_event, invite: EventInvite.new %>
       </div>
+      <button class="btn btn-outline-primary btn-sm event-invite-btn float-right" id="event_invite_btn" data-event-id="<%=post_event.id%>" style="margin: 10px 0px;">Invite Person</button>
+      
     <% end %>
-    <div id='event_invite_form'>
-      <%= render 'event_invites/invite_form', event: post_event, invite: EventInvite.new %>
-    </div>
-    <button class="btn btn-outline-primary btn-sm event-invite-btn float-right" id="event_invite_btn" data-event-id="<%=post_event.id%>" style="margin: 10px 0px;">Invite Person</button>
 </div>

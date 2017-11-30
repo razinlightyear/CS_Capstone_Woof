@@ -14,6 +14,8 @@ class PostEventsController < ApplicationController
                 @post_event.update(chat_id: @chat.id)
             end
         end
+        
+        @pending_invites = EventInvite.where(accepted_at: nil, declined_at: nil, event: @post_event).eager_load(:invitee)
     end
 
     def new
