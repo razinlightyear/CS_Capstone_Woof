@@ -47,6 +47,10 @@ Rails.application.routes.draw do
       get 'chat'
     end
   end
+
+  # Added by Paarth Lakhani for the group chatting. Ask Andrew about the chat
+  get 'groups_allChats', controller: :groups, action: :groups_allChats
+
   resources :events do
     member do
       get 'chat'
@@ -100,6 +104,8 @@ Rails.application.routes.draw do
   # controller of home - index rediret to the events page.
 
   get 'home/sign_out_profile'
+  get '/about', controller: :home, action: :about
+  get '/about_team', controller: :home, action: :about_team
 
   # Serve websocket cable requests in-process
   mount ActionCable.server => '/cable'

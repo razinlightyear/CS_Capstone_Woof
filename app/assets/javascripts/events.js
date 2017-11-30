@@ -31,8 +31,6 @@ function initMap() {
 
   if(navigator.geolocation){
 
-    
-
     navigator.geolocation.getCurrentPosition(function(position){
       myLatLng = {
         lat: position.coords.latitude,
@@ -86,7 +84,19 @@ function gather_filters(current_user_id)
 
 }
 
-function disable_filters(current_user_id)
+// When all is selected, then other filters should be disabled
+function disable_other_filters()
+{
+  $('#filter_lost').prop('disabled', function(i, v){ return !v});
+  $('#filter_found').prop('disabled', function(i, v){ return !v});
+  $('#filter_post_event').prop('disabled', function(i, v){ return !v});
+  $('#filter_personal').prop('disabled', function(i, v){ return !v});
+
+  gather_filters();
+}
+
+// When viewing my posted events, all other events should be disabled
+function disable_my_filters(current_user_id)
 {
 
   $('#filter_lost').prop('disabled', function(i, v){ return !v});
@@ -215,6 +225,14 @@ function draw_marker(data)
         event_id: data.event_id
     });
 
+    // Checking whether the marker is in map.
+    if(!map.getBounds().contains(marker.getPosition()))
+    {
+      //map.fitBounds(marker.position);
+      map.getBounds().extend(marker.getPosition());
+      map.fitBounds(map.getBounds());
+    }
+
   var contentString = "";
 
   if(data.event_type == 'LostDog')
@@ -222,10 +240,8 @@ function draw_marker(data)
 
     contentString = 
     "<div class = 'list-group'>"+
-      "<li class = 'list-group-item'><h5>" + data.first_name + ' '  + data.last_name + "</h5></li>" +
-      "<li class = 'list-group-item'><h5>" + data.event_type + ": " + data.pet_name + "</h5></li>" +
-      "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
-      "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
+      "<li class = 'list-group-item'><strong>Posted By:</strong><strong>&nbsp;" + data.first_name + ' '  + data.last_name + "</strong></li>" +
+      "<li class = 'list-group-item'><h5>Lost Dog: " + data.pet_name + "</h5></li>";
     
     marker.setLabel("LostDog");
   }
@@ -233,10 +249,8 @@ function draw_marker(data)
   {
     contentString = 
     "<div class = 'list-group'>"+
-      "<li class = 'list-group-item'><h5>" + data.first_name + ' '  + data.last_name + "</h5></li>" +
-      "<li class = 'list-group-item'><h5>" + data.event_type + "</h5></li>" +
-      "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
-      "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
+      "<li class = 'list-group-item'><strong>Posted By:</strong><strong>&nbsp;" + data.first_name + ' '  + data.last_name + "</strong></li>" +
+      "<li class = 'list-group-item'><h5>Found Dog</h5></li>";
 
     /*
     contentString = " <div class = 'event_window'>"+
@@ -252,10 +266,8 @@ function draw_marker(data)
 
     contentString = 
     "<div class = 'list-group'>"+
-      "<li class = 'list-group-item'><h5>" + data.first_name + ' '  + data.last_name + "</h5></li>" +
-      "<li class = 'list-group-item'><h5>" + data.event_type + "</h5></li>" +
-      "<li class = 'list-group-item'><p><h5> Description: </h5><br>" + data.description + "</p></li>" +
-      "<li class = 'list-group-item'><p><h5>Address: </h5><br> " + data.address + "</p></li>";
+      "<li class = 'list-group-item'><strong>Posted By:</strong><strong>&nbsp;" + data.first_name + ' '  + data.last_name + "</strong></li>" +
+      "<li class = 'list-group-item'><h5>Around Me Event</h5></li>";
     
     marker.setLabel('PostEvent');
   }
@@ -265,15 +277,15 @@ function draw_marker(data)
   if(data.event_type == 'LostDog' )
   {
    // link = "<a href='/lost_dogs/"+data.event_id+"' class='btn btn-primary' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a>";
-    link = "<a href='/lost_dogs/" + data.event_id + "' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";
+    link = "<a onclick = 'panMap("+marker.position.lat()+","+marker.position.lng()+")' href='/lost_dogs/" + data.event_id + "' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";
   }
   else if(data.event_type == 'FoundDog')
   {
-    link = "<a href='/found_dogs/" + data.event_id + "' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";    
+    link = "<a onclick = 'panMap("+marker.position.lat()+","+marker.position.lng()+")' href='/found_dogs/" + data.event_id + "' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";    
   }
   else if(data.event_type == 'PostEvent')   // This needs to be given more thought.
   {
-    link = "<a href='/post_events/"+data.event_id+"' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";
+    link = "<a onclick = 'panMap("+marker.position.lat()+","+marker.position.lng()+")' href='/post_events/"+data.event_id+"' class='list-group-item list-group-item-action list-group-item-info' data-toggle='modal' data-target=" + "'#eventModel' data-remote = 'true'>More Details</a></div>";
   }
 
   contentString = contentString + link;
@@ -290,6 +302,12 @@ function draw_marker(data)
   allMarkers.push(marker);
 
   }
+}
+
+function panMap(newLat, newLng)
+{
+  var newCenter = {lat: parseFloat(newLat), lng: parseFloat(newLng)};
+  map.panTo(newCenter);
 }
 
 function open_event_section()

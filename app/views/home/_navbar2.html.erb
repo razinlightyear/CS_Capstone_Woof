@@ -1,17 +1,24 @@
-<nav class = 'navbar navbar-light navbar-fixed-top' style = 'background-color: rgba(224,224,224, 0.7);'>
+<nav class = 'navbar navbar-expand-lg navbar-light navbar-fixed-top' style = 'background-color: rgba(224,224,224, 0.7);'>
 <!-- <nav class = 'navbar navbar-light navbar-fixed-top' style = "background-color: #bae2d8;"> -->
-    <div class = 'container'>
-        <div class = 'row'>
+    <div class = 'container container-top-navbar'>
+        <div class = 'row' style = 'position: relative'>
             <a class='navbar-brand'>
                 <%= link_to(image_tag('woof_word_trans.png', class: 'image-responsive navbar-brand', width: 122, height: 42), root_path, :method => :get) %>
             </a>
-            <ul class = 'nav navbar-nav'>
-                <li class = 'nav-item ml-auto'>
-                    <form class = 'form-inline'>
-                        <%= link_to 'Log In Now', new_user_session_path, class: 'btn btn-success' %>
-                    </form>
+            <!-- use some div with class col and div with class row -->
+            <ul class = 'navbar-nav ml-auto'>
+                <li class = 'nav-item'>
+                    <%= link_to 'Log In Now', new_user_session_path, class: 'btn btn-outline-primary' %>
                 </li>
+                <!--<li class = 'nav-item'>
+                    <%= link_to 'About Woof', about_path, class: 'btn btn-outline-primary' %>
+                </li>
+                <li class = 'nav-item'>
+                    <%= link_to 'About Team', about_team_path, class: 'btn btn-outline-primary' %>
+                </li>-->
             </ul>
         </div>
     </div>
 </nav>
+
+

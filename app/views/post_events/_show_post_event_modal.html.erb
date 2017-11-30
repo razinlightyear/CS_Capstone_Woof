@@ -39,7 +39,22 @@
                 </p>
             <% end %>
         </li>
-
+        <li class = 'list-group-item'>
+            <%= render 'post_events/post_event_chat' %>
+        </li>
+        <!-- If the person has posted the event, they can invite other people and see who has accepted the event -->
+        <% if @post_event.user.id == current_user.id %>
+            <li class = 'list-group-item'>
+                <strong>Friends invited/attending</strong>
+            </li>
+            <li class = 'list-group-item'>
+                <button class="btn btn-outline-primary btn-sm group-invite-btn float-right" >Invite Person</button>
+            </li>
+        <% else %>
+            <li class = 'list-group-item'>
+                <strong>Friends attending</strong>
+            </li>
+        <% end %>
         <!-- 
             Ability to invite people to the event. Only the owner should have the ability to do this.
             People who have access to the event, should be able to see the people in the event and a conversation box should also be there
@@ -48,21 +63,22 @@
 
     <div class = 'card-footer'>
         <% if @post_event.user.id == current_user.id %>
+            <div class = 'btn-group' role = 'group' 'aria-label': 'Three Options' >
+                <%= link_to 'Edit event', edit_post_event_path(@post_event.id), class: 'btn btn-primary',type: 'button', data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+                
+                <%= link_to 'Delete event', @post_event, method: :delete, class: 'btn btn-primary',type: 'button', data: { remote: true, confirm: 'Are you sure? '} %>
+
+                <%= button_tag 'Close Window', 'aria-label': 'Close', class: 'btn btn-primary', type: 'button', onclick: 'close_event_section()' %>
+
+            </div>
+        <% else %>
             <div class = 'row'>
-                <div class = 'col-md-4 offset-md-1'>
-                    <%= link_to 'Edit event', edit_post_event_path(@post_event.id), class: 'btn btn-primary',data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
-                </div>
-                <div class = 'col-md-4 offset-md-2'>
-                    <%= link_to 'Delete event', @post_event, method: :delete, class: 'btn btn-primary',data: { remote: true, confirm: 'Are you sure? '} %>
+                <div class = 'col-md-4 offset-md-3'>
+                    <button type="button" class="btn btn-primary" aria-label="Close" onclick = "close_event_section()">
+                        Close Window
+                    </button>
                 </div>
             </div>
         <% end %>
-        <div class = 'row'>
-            <div class = 'col-md-4 offset-md-3'>
-                <button type="button" class="btn btn-primary" aria-label="Close" onclick = "close_event_section()">
-                    Close Window
-                </button>
-            </div>
-        </div>
     </div>
 </div>

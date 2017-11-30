@@ -3,6 +3,17 @@ class PostEventsController < ApplicationController
     before_action :can_edit_delete, only: [:edit, :update, :destroy] 
 
     def show
+        @chat = @post_event.chat
+        @message = Message.new
+
+        if @chat.nil?
+            @chat = Chat.new(identifier: SecureRandom.hex)
+
+            if !@chat.persisted?
+                @chat.save
+                @post_event.update(chat_id: @chat.id)
+            end
+        end
     end
 
     def new
