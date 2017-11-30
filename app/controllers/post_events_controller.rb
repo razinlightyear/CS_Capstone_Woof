@@ -12,6 +12,7 @@ class PostEventsController < ApplicationController
 
     def edit
         @user = current_user
+        @invites = EventInvite.where(accepted_at: nil, declined_at: nil, event: @post_event)
     end
 
     def create
@@ -84,7 +85,7 @@ class PostEventsController < ApplicationController
     end
 
     def set_post_event
-        @post_event = Event.find(params[:id])
+        @post_event = Event.includes(:joined_users).find(params[:id])
     end
 
     def can_edit_delete

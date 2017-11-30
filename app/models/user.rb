@@ -65,7 +65,7 @@ class User < ApplicationRecord
                                                     }
 
   # User search by email that are not in the given event
-  scope :user_not_in_event, -> (email, group_id) {
+  scope :user_not_in_event, -> (email, event_id) {
                                                       where(email: email)
                                                      .where.not(id: User.select(:id)
                                                                         .joins(:joined_events)
