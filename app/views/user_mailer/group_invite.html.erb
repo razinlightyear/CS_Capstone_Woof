@@ -10,7 +10,7 @@
       You have been invited to join the group: <%= @group_invite.group.name %> by <%= @group_invite.inviter.full_name %><br>
     </p>
     <p>
-      To join this group, just follow this link: <%= link_to 'Sign up/Join group', users_group_invites_accept_url(invite_token: @group_invite.invite_token) %>.
+      To join this group, just follow this link: <%= link_to 'Join group', users_group_invites_accept_url(invite_token: @group_invite.invite_token) %>.
     </p>
     <p><%= link_to 'decline invite', users_group_invites_decline_url(invite_token: @group_invite.invite_token) %></p>
     <p>Thanks and have a great day!</p>

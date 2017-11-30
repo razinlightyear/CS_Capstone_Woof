@@ -44,12 +44,32 @@
 
         <div class = 'form-group'>
             <%= f.label :date_time, "When is your event? " %>
-            <%= f.datetime_select :date_time, start_year: 2016, end_year: 2040 %>
+            <%= f.datetime_select :date_time, {start_year: 2016, end_year: 2040, include_blank: true}, {class: 'form-control', style: "width:15%;display:inline"} %>
         </div>
 
         <div class = 'form-group  actions'>
             <%= f.submit button_name, class: 'btn btn-success btn-block' %>
         </div>
 
+    <% end %>
+    
+    <% unless post_event.new_record? %>
+      <% if @invites.any? %>
+        <div class="card">
+          <div class="card-header">
+            <strong>Pending user invitations</strong>
+          </div>
+          <div class="card-block" id="pending_event_invites">
+            <% @invites.each do |invite| %>
+              <%= render 'event_invites/pending_invite', invite: invite %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div id='event_invite_form'>
+        <%= render 'event_invites/invite_form', event: post_event, invite: EventInvite.new %>
+      </div>
+      <button class="btn btn-outline-primary btn-sm event-invite-btn float-right" id="event_invite_btn" data-event-id="<%=post_event.id%>" style="margin: 10px 0px;">Invite Person</button>
+      
     <% end %>
 </div>

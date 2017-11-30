@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :chat, optional: true
   has_and_belongs_to_many :joined_users, -> { distinct }, class_name: 'User', inverse_of: :joined_events
+  has_many :event_invites
   
   #{ message: "This event needs to belong to a pet." }
   validates :pet, presence: true, unless: Proc.new { |e| [FoundDog, PostEvent].include? e.class }
@@ -12,7 +13,15 @@ class Event < ApplicationRecord
   # scope for around me events. Events.around_me
   scope :around_me, -> { where(is_around_me: true) }
   
+  after_create :add_current_user
+  
   def self.around_me_events
-    [LostDog, FoundDog, WalkingPartner]
+    [LostDog, FoundDog, PostEvent] # WalkingPartner
+  end
+  
+  private
+  
+  def add_current_user
+    self.joined_users << self.user
   end
 end

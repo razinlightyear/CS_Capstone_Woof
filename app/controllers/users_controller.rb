@@ -120,6 +120,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if params[:name] && params[:group_id]
         @users = User.contains_not_in_group(params[:name],params[:group_id])
+      elsif params[:name] && params[:event_id]
+        @users = User.contains_not_in_event(params[:name],params[:event_id])
       else
         @users = User.all.limit 100
       end

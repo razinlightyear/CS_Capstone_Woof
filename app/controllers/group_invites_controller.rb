@@ -26,13 +26,14 @@ class GroupInvitesController < ApplicationController
   # POST /groups.json
   # Expects parameters :invitee_id, :group_id (:inviter is current user)
   def create
-    if !User.where(id: group_invite_params[:invitee_id]).empty? # They selected a public user from the dropdown
+    if User.where(id: group_invite_params[:invitee_id]).any? # They selected a public user from the dropdown
       Rails.logger.debug "Case 1. They selected a public user from the dropdown"
       @group_invite = GroupInvite.new(group_invite_params.merge({inviter: current_user}))
       respond_to do |format|
         if @group_invite.save
-          current_user.groups << @group_invite.group
-          current_user.save!
+          # I don't remember why these 2 lines were here. Looks wrong.
+          # current_user.groups << @group_invite.group
+          # current_user.save!
           UserMailer.group_invite(@group_invite).deliver_later
           format.html { redirect_to groups_pets_path, notice: 'Invite was successfully created.' }
         else
@@ -44,14 +45,15 @@ class GroupInvitesController < ApplicationController
           format.html { redirect_to groups_pets_path }
         end
       end
-    elsif !User.active.contains_not_in_group(group_invite_params[:invitee_id], group_invite_params[:group_id]).empty? # The user is private. They entered an email that they know
+    elsif User.active.user_not_in_group(group_invite_params[:invitee_id], group_invite_params[:group_id]).any? # The user is private. They entered an email that they know but the :invitee_id is just the name and not the id
       Rails.logger.debug "Case 2. The user is private. They entered an email that they know"
       private_user = User.active.user_not_in_group(group_invite_params[:invitee_id], group_invite_params[:group_id]).first
       @group_invite = GroupInvite.new(invitee: private_user, inviter: current_user, group_id: group_invite_params[:group_id])
       respond_to do |format|
         if @group_invite.save
-          current_user.groups << @group_invite.group
-          current_user.save!
+          # I don't remember why these 2 lines were here. Looks wrong.
+          # current_user.groups << @group_invite.group
+          # current_user.save!
           UserMailer.group_invite(@group_invite).deliver_later
           format.html { redirect_to groups_pets_path, notice: 'Invite was successfully created.' }
         else
@@ -134,7 +136,7 @@ class GroupInvitesController < ApplicationController
         puts "The following errors prevented you from joining the group"
         error_messages = ["The following errors prevented you from joining the group: #{@invite.group.name}"]
         error_messages << @invite.errors.messages.values if @invite.errors.any?
-        error_messages << @invite.errors.messages.values if @invite.group.errors.any?
+        error_messages << @invite.group.errors.messages.values if @invite.group.errors.any?
         flash[:error] = error_messages.join('<br/>')
         format.html { redirect_to groups_pets_path }
       end

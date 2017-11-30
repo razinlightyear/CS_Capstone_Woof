@@ -1,0 +1,8 @@
+// Append a row of users to the list of users for the event
+$("#pending_event_invites").append('<%= escape_javascript(render :partial => 'event_invites/pending_invite', locals: {invite: @event_invite} ) %>');
+
+// Replace the form card
+$("#event_invite_form").html('<%= escape_javascript(render :partial => 'event_invites/invite_form', locals: { event: @event_invite.event, invite: EventInvite.new } ) %>');
+
+$("#event_invite_btn").html('Invite Person');
+bindSelect2EventInvite();

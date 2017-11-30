@@ -319,6 +319,16 @@ function open_event_section()
 }
 
 $(document).on('turbolinks:load', function() {
+  $('body').on('click', '.event-invite-btn', function() {
+    if ($(this).text() === 'Invite Person') {
+      $('#event_invite_card').show();
+      return $(this).html('Cancel invite');
+    } else {
+      $('#event_invite_card').hide();
+      return $(this).html('Invite Person');
+    }
+  });
+  
   $('.lost-dog-contact-owner').click(function(e) {
     debugger;
     var event_id;
@@ -334,6 +344,7 @@ $(document).on('turbolinks:load', function() {
       success: function(data, textStatus, jqXHR) {}
     });
   });
+  
   $('#lost_dogs_table').DataTable({
     "columnDefs": [
       {
@@ -348,6 +359,7 @@ $(document).on('turbolinks:load', function() {
       }
     ]
   });
+  
   $('#found_dogs_table').DataTable({
     "columnDefs": [
       {

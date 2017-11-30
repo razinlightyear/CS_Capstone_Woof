@@ -43,17 +43,56 @@
             <%= render 'post_events/post_event_chat' %>
         </li>
         <!-- If the person has posted the event, they can invite other people and see who has accepted the event -->
-        <% if @post_event.user.id == current_user.id %>
-            <li class = 'list-group-item'>
-                <strong>Friends invited/attending</strong>
-            </li>
-            <li class = 'list-group-item'>
-                <button class="btn btn-outline-primary btn-sm group-invite-btn float-right" >Invite Person</button>
-            </li>
-        <% else %>
-            <li class = 'list-group-item'>
-                <strong>Friends attending</strong>
-            </li>
+        <div class="card">
+          <div class="card-header">
+            <strong>Joined Users</strong>
+          </div>
+          <div class="card-block" id="pending_event_invites">
+            <% @post_event.joined_users.each do |user| %>
+              <div class="row" style="margin: 5px 0px;">
+                <div class="col-md-4">
+                  <%= user.first_name %>
+                </div>
+                <div class="col-md-4">
+                  <%= user.last_name %>
+                </div>
+                <div class="col-md-4">
+                  <%= user.email %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <% if @pending_invites.any? %>
+          <div class="card">
+            <div class="card-header">
+              <strong>Pending Invitations</strong>
+            </div>
+            <div class="card-block" id="pending_event_invites">
+              <% @pending_invites.each do |invite| %>
+                <div class="row" style="margin: 5px 0px;">
+                  <div class="col-md-4">
+                    <%= invite.invitee.first_name %>
+                  </div>
+                  <div class="col-md-4">
+                    <%= invite.invitee.last_name %>
+                  </div>
+                  <div class="col-md-4">
+                    <%= invite.invitee.email %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% unless @post_event.user == current_user %>
+          <% if @post_event.joined_users.include? current_user %>
+            <!-- Leave event buttton -->
+            <%= link_to 'Leave Event', disjoin_event_path(@post_event), data: { confirm: 'Are you sure that you want to leave this event?' }, class: "btn btn-outline-danger btn-sm" %>
+          <% else %>
+            <!-- Join event button -->
+            <%= link_to 'Join Event', join_event_path(@post_event), data: { confirm: 'Are you sure that you want to join this group?' }, class: "btn btn-outline-success btn-sm" %>
+          <% end %>
         <% end %>
         <!-- 
             Ability to invite people to the event. Only the owner should have the ability to do this.

@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :update, :destroy, :chat, :contact_owner_modal_body]
+  before_action :set_event, only: [:edit, :update, :destroy, :chat, :contact_owner_modal_body, :join, :disjoin]
   #before_action :get_all_events, only: [:show], if: :format_json
   #before_action :get_all_events, only: [:events_map]
   before_action :get_all_events, only: [:show, :events_map]
@@ -10,7 +10,20 @@ class EventsController < ApplicationController
 
   def show
     if request.format.json?
-      @events = Event.where(:is_around_me => 1)
+      @events = Event.where(:is_around_me => true)   # The events that aren't private
+                     .where.not(id: PostEvent.select(:id)
+                                             .joins(:delegate)
+                                             .where('post_event_delegates.private' => true)
+                                             .where.not(user: current_user)
+                                )
+                                .or(   # The current user already belongs to the private event
+                                    Event.where(id: PostEvent.select(:id)
+                                                             .where(:is_around_me => true)
+                                                             .joins(:joined_users, :delegate)
+                                                             .where('post_event_delegates.private' => true, 
+                                                                    'events_users.user_id' => current_user.id)
+                                                )
+                                    )
     end
 
     @current_user_id = current_user.id
@@ -18,7 +31,20 @@ class EventsController < ApplicationController
   end
 
   def events_map
-    @events = Event.where(:is_around_me => 1)
+    @events = Event.where(:is_around_me => true)   # The events that aren't private
+                   .where.not(id: PostEvent.select(:id)
+                                           .joins(:delegate)
+                                           .where('post_event_delegates.private' => true)
+                                           .where.not(user: current_user)
+                              )
+                              .or(   # The current user already belongs to the private event
+                                  Event.where(id: PostEvent.select(:id)
+                                                           .where(:is_around_me => true)
+                                                           .joins(:joined_users, :delegate)
+                                                           .where('post_event_delegates.private' => true, 
+                                                                  'events_users.user_id' => current_user.id)
+                                              )
+                                  )
     render :show
   end
 
@@ -79,6 +105,34 @@ class EventsController < ApplicationController
     @message = Message.new
     respond_to do |format|
       format.js {render :contact_owner_modal_body}
+    end
+  end
+  
+  # GET /events/1/join
+  # GET /events/1/join.json
+  # This will probably only be used for users that are browsing public events that want to join
+  def join
+    respond_to do |format|
+      if @event && !@event.private
+        @event.joined_users << current_user unless @event.joined_users.include? current_user
+        format.js { render "" }
+        format.html { redirect_to event_path(current_user), notice: 'Successfully left event.' }
+        format.json { head :no_content }
+      else
+        format.html { render :edit }
+        format.json { render json: "Could not leave event", status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  # GET /events/1/disjoin
+  # GET /events/1/disjoin.json
+  def disjoin
+    @event.joined_users.delete(current_user)  # Just deletes the record from the association
+    respond_to do |format|
+      format.js { render "" }
+      format.html { redirect_to event_path(current_user), notice: 'Successfully left event.' }
+      format.json { head :no_content }
     end
   end
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171125231301) do
+ActiveRecord::Schema.define(version: 20171127153941) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -50,6 +50,21 @@ ActiveRecord::Schema.define(version: 20171125231301) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_devices_on_user_id", using: :btree
+  end
+
+  create_table "event_invites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "event_id"
+    t.integer  "inviter_id",   null: false
+    t.integer  "invitee_id",   null: false
+    t.datetime "accepted_at"
+    t.datetime "declined_at"
+    t.string   "invite_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["event_id"], name: "index_event_invites_on_event_id", using: :btree
+    t.index ["invite_token"], name: "index_event_invites_on_invite_token", unique: true, using: :btree
+    t.index ["invitee_id"], name: "fk_rails_a7323f5f93", using: :btree
+    t.index ["inviter_id"], name: "fk_rails_5fc4b8a428", using: :btree
   end
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -242,6 +257,9 @@ ActiveRecord::Schema.define(version: 20171125231301) do
   add_foreign_key "colors_pets", "colors"
   add_foreign_key "colors_pets", "pets"
   add_foreign_key "devices", "users"
+  add_foreign_key "event_invites", "events"
+  add_foreign_key "event_invites", "users", column: "invitee_id"
+  add_foreign_key "event_invites", "users", column: "inviter_id"
   add_foreign_key "events", "chats"
   add_foreign_key "events", "pets"
   add_foreign_key "events", "users"
