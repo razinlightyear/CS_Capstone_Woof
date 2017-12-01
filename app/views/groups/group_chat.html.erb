@@ -8,9 +8,14 @@
   </div><!-- card block -->
 </div><!-- card -->
 
+<%= javascript_tag do %>
+    window.message_current_user_id = "<%= j current_user.id.to_s %>";
+<% end %>
+
 <script>
   createMessageChannel();
-  // app/assets/javascripts/channels/messages.js 
+  // app/assets/javascripts/channels/messages.js
+
   messageForm();
   // app/assets/javascripts/messages_form.js
 </script>

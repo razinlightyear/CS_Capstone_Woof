@@ -2,7 +2,7 @@
         <% @user  = current_user %>
     <% end %>
 
-    <nav id = 'sidebar' >
+    <nav id = 'sidebar' class = 'active' >
         <!-- You have a different class for profile pic. You need not have
         You can use CSS selectors -->
         <div id = 'profile'>
@@ -34,7 +34,7 @@
             <li>
                 <%= link_to 'My Pets and Groups', groups_pets_path, class: 'nav-link' %>
             </li>
-
+            
             <li>
                 <%= link_to 'Group Chats', groups_path, class: 'nav-link' %>
             </li>

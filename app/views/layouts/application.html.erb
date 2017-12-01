@@ -38,8 +38,8 @@
               <div class = 'toggle-button'>
                 <!-- Could use the icon arrow-left and change the icon with jquery -->
                 <%= button_tag type: 'button', id: 'sidebarCollapse', class: 'btn', style: 'background-color: transparent;' do %>
-                  <%= fa_icon 'bars 2x', id: 'sidemenu_show_icon' %>
-                  <%= fa_icon 'arrow-left 2x', id: 'sidemenu_collapse_icon' , style: "display: none;" %>
+                  <%= fa_icon 'bars 2x', id: 'sidemenu_show_icon' , style: "display: none;" %>
+                  <%= fa_icon 'arrow-left 2x', id: 'sidemenu_collapse_icon' %>
                 <% end %>
               </div>
               <%= yield %>
