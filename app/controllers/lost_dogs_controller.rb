@@ -1,5 +1,5 @@
 class LostDogsController < ApplicationController
-    before_action :set_lost_dog, only: [:show, :edit, :update, :destroy]
+    before_action :set_lost_dog, only: [:show, :edit, :update, :destroy, :return]
     before_action :can_edit_delete, only: [:edit, :update, :destroy]
 
     def show
@@ -67,7 +67,7 @@ class LostDogsController < ApplicationController
                     format.json { render :show, status: :ok }
                 else
                     format.html { render :edit }
-                    format.json { render json: lost_dog.errors, status: :unprocessable_entity }
+                    format.json { render json: @lost_dog.errors, status: :unprocessable_entity }
                 end
             else
                 if @lost_dog.update(lost_dog_params)
@@ -77,7 +77,7 @@ class LostDogsController < ApplicationController
                     format.json { render :show, status: :ok }
                 else
                     format.html { render :edit }
-                    format.json { render json: lost_dog.errors, status: :unprocessable_entity }     
+                    format.json { render json: @lost_dog.errors, status: :unprocessable_entity }
                 end
             end
         end
@@ -97,6 +97,23 @@ class LostDogsController < ApplicationController
         end
     end  
 
+    # GET /lost_dogs/1/return
+    # GET /lost_dogs/1/return.json
+    def return
+      @lost_dog.returned = true if @lost_dog
+      respond_to do |format|
+        if @lost_dog.save
+          format.html { redirect_to lost_and_found_events_path, notice: 'Lost Dog has been returned' }
+          format.json { head :no_content }
+        else
+          errors = ['Could not return lost dog for the following reasons:']
+          errors << @lost_dog.errors.messages.values
+          flash[:error] = errors.join('<br/>')
+          format.html { redirect_to lost_and_found_events_path }
+          format.json { render json: @lost_dog.errors, status: :unprocessable_entity }
+        end
+      end
+    end
     private
 
     def lost_dog_params
