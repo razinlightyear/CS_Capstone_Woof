@@ -1,17 +1,21 @@
-<div>
+
   <h5>Chat with your peers</h5>
 
   <% if @chat.messages.any? %>
-    <div id="messages">
+    <div id="messages" class = 'message-box-layout rounded'>
       <%= render partial: 'messages/message', collection: @chat.messages.order(id: :asc)%>
     </div>
   <%else%>
-    <div id="messages">
+    <div id="messages" class = 'message-box-layout rounded'>
     </div>
   <%end%>
-</div>
-<%= render partial: 'messages/message_form', locals: {message: @message, chat: @chat}%>
-</div>
+
+  <div id = 'myMessages'>
+    <%=form_for @message, remote: true,authenticity_token: true do |f|%>
+      <%= f.text_area :content, data: {textarea: "message"}, class: 'form-control' %>
+      <%= f.hidden_field :chat_id, value: @chat.id %>
+    <% end %>
+  </div>
 
 <%= javascript_tag do %>
     window.message_current_user_id = "<%= j current_user.id.to_s %>";
