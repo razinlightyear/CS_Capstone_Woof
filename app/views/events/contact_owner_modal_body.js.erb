@@ -1,5 +1,4 @@
 // Change modal title
-debugger;
 $('#lost_and_found_modal_label').text('Contact Pet Owner');
 modal_body = $('#lost_and_found_modal_body');
 modal_body.html('<%= j render('events/contact_owner_modal_body', :locals => { other_user: @other_user, chat: @chat, messages: @messages }) %>');

@@ -35,11 +35,11 @@
         </td>
         <!-- <td><%= lost_dog.pet.colors.pluck(:name).join(' ') %></td> -->
         <td><%= lost_dog.pet.colors.map { |c| c.color_badge }.join(' ').html_safe %></td>
-        <td><%= lost_dog.created_at %></td>
+        <td><%= lost_dog.created_at.localtime.strftime("%m/%d/%Y %l:%M %p %Z") %></td>
         <td><%= lost_dog.address %></td>
         <td>
           <% if lost_dog.user_id == current_user.id %>
-            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal'} %>
+            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info lost-dog-view-messages', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: lost_dog.id} %>
             </br>
             <%= link_to 'Mark Returned', return_lost_dogs_path(lost_dog), data: { confirm: 'Are you sure that you want to mark this pet as returned?' }, class: "btn btn-success", style: 'margin-top: 5px;' %>
           <% else %>
@@ -89,7 +89,7 @@
           <% colors = "Don't Know" %>
         <% end %>
         <td><%= colors %></td>
-        <td><%= found_dog.created_at %></td>
+        <td><%= found_dog.created_at.localtime.strftime("%m/%d/%Y %l:%M %p %Z") %></td>
         <td><%= found_dog.address %></td>
         <td>
           <% if found_dog.user_id == current_user.id %>
@@ -104,5 +104,6 @@
     <% end %>
   </tbody>
 </table>
+</br>
 <%= render 'events/lost_and_found_modal' %>
 <%= render 'pets/pet_image_modal' %>
