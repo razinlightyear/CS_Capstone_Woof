@@ -13,15 +13,8 @@ class Event < ApplicationRecord
   # scope for around me events. Events.around_me
   scope :around_me, -> { where(is_around_me: true) }
   
-  after_create :add_current_user
-  
   def self.around_me_events
     [LostDog, FoundDog, PostEvent] # WalkingPartner
   end
   
-  private
-  
-  def add_current_user
-    self.joined_users << self.user
-  end
 end
