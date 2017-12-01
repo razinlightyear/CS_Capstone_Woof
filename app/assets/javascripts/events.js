@@ -389,6 +389,23 @@ $(document).on('turbolinks:load', function() {
       }
     ]
   });
+  
+  $('body').on('click', '.lost-view-messages-btn', function() {
+    debugger;
+    var other_user_id, event_id;
+    other_user_id = this.dataset.otherUserId;
+    event_id = this.dataset.eventId;
+    return $.ajax({
+      url: '/events/' + event_id + '/lost_and_found/view_message_from_user_modal_body?other_user='+other_user_id,
+      timeout: 500,
+      type: 'get',
+      dataType: 'script',
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert(errorThrown);
+      },
+      success: function(data, textStatus, jqXHR) {}
+    });
+  });
 });
 
 function close_event_section()
