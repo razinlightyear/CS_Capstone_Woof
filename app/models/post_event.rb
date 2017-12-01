@@ -1,6 +1,8 @@
 class PostEvent < Event
   has_one :delegate, class_name: "PostEventDelegate", inverse_of: :post_event, dependent: :destroy, autosave: true
 
+  after_create :add_current_user
+
   # Get me all of the these methods from the LostDogDelegate class
   methods_to_delegate = [
                         :description, :description=,
@@ -16,5 +18,9 @@ class PostEvent < Event
   # Create the record if it doesn't exist
   def lazily_built_delegates
     delegate || build_delegate
+  end
+  
+  def add_current_user
+    self.joined_users << self.user
   end
 end
