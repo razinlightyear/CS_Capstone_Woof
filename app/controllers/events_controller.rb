@@ -108,6 +108,39 @@ class EventsController < ApplicationController
     end
   end
   
+  def view_messages_modal_body
+    # loop through all of my chats, loop through each chat subscribtions
+    @messaging_users = []
+    current_user.chats.each do |chat|
+      chat.subscriptions.each do |s|
+        if s.user != current_user && !@messaging_users.include?(s.user) && ![1, 3, 4, 5].include?(s.user_id) # TODO fix demo hack!
+          @messaging_users << s.user
+        end
+      end
+    end
+    respond_to do |format|
+      format.js { render :view_messages_modal_body }
+    end
+  end
+  
+  def view_message_from_user_modal_body
+    # http://localhost:3000/users/5/chats?other_user=1
+    # Copied code from chat controller
+    @other_user = User.where(id: params[:other_user]).first
+    @chat = find_chat(@other_user) || Chat.new(identifier: SecureRandom.hex)
+    
+    if !@chat.persisted?
+      @chat.save
+      @chat.subscriptions.create(user_id: current_user.id)
+      @chat.subscriptions.create(user_id: @other_user.id)
+    end
+    
+    @message = Message.new
+    respond_to do |format|
+      format.js {render :view_message_from_user_modal_body}
+    end
+  end
+  
   # GET /events/1/join
   # GET /events/1/join.json
   # This will probably only be used for users that are browsing public events that want to join
