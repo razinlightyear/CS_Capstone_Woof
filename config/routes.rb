@@ -125,6 +125,7 @@ Rails.application.routes.draw do
     put 'lost_dogs/:id' => :update
     patch 'lost_dogs/:id' => :update
     delete 'lost_dogs/:id' => :destroy
+    get 'lost_dogs/:id/return' => :return, as: :return_lost_dogs
   end
   
   controller :found_dogs do
@@ -136,6 +137,7 @@ Rails.application.routes.draw do
     put 'found_dogs/:id' => :update
     patch 'found_dogs/:id' => :update
     delete 'found_dogs/:id' => :destroy
+    get 'found_dogs/:id/return' => :return, as: :return_found_dogs
   end
 
   controller :post_events do
