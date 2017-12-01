@@ -1,5 +1,5 @@
 class FoundDogsController < ApplicationController
-    before_action :set_found_dog, only: [:show, :edit, :update, :destroy]
+    before_action :set_found_dog, only: [:show, :edit, :update, :destroy, :return]
     before_action :can_edit_delete, only: [:edit, :update, :destroy]
 
     def show
@@ -26,7 +26,7 @@ class FoundDogsController < ApplicationController
                 format.html { redirect_to event_path(current_user), notice: 'Found Dog has been created' }
             else
                 format.html { render :new }
-                format.json { render json: @found_dog.errors, status: :unprocessable_entity }          
+                format.json { render json: @found_dog.errors, status: :unprocessable_entity }
             end
         end
     end
@@ -49,7 +49,7 @@ class FoundDogsController < ApplicationController
                     format.json { render :show, status: :ok }
                 else
                     format.html { render :edit }
-                    format.json { render json: found_dog.errors, status: :unprocessable_entity }     
+                    format.json { render json: found_dog.errors, status: :unprocessable_entity }
                 end
             else
                 if @found_dog.update(found_dog_params)
@@ -59,7 +59,7 @@ class FoundDogsController < ApplicationController
                     format.json { render :show, status: :ok }
                 else
                     format.html { render :edit }
-                    format.json { render json: found_dog.errors, status: :unprocessable_entity }     
+                    format.json { render json: found_dog.errors, status: :unprocessable_entity }
                 end
             end
         end
@@ -78,10 +78,27 @@ class FoundDogsController < ApplicationController
         end
     end
 
+    # GET /found_dogs/1/return
+    # GET /found_dogs/1/return.json
+    def return
+      @found_dog.returned = true if @found_dog
+      respond_to do |format|
+        if @found_dog.save
+          format.html { redirect_to lost_and_found_events_path, notice: 'Found Dog has been returned' }
+          format.json { head :no_content }
+        else
+          errors = ['Could not return found dog for the following reasons:']
+          errors << @found_dog.errors.messages.values
+          flash[:error] = errors.join('<br/>')
+          format.html { redirect_to lost_and_found_events_path }
+          format.json { render json: @found_dog.errors, status: :unprocessable_entity }
+        end
+      end
+    end
     private
 
     def found_dog_params
-        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id, :address)
+        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id, :address, :returned)
     end
 
     def set_found_dog

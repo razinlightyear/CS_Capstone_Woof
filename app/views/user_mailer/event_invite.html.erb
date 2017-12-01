@@ -9,7 +9,9 @@
     <p>
       You have been invited by <%= @event_invite.inviter.full_name %> to join an event:<br>
       Where: <%= @event_invite.event.address %><br>
-      When: <%= @event_invite.event.date_time.localtime.strftime("%m/%d/%Y %l:%M %p %Z") %><br>
+      <% if @event_invite.event.date_time %>
+        When: <%= @event_invite.event.date_time.localtime.strftime("%m/%d/%Y %l:%M %p %Z") %><br>
+      <% end %>
       Description: <%= @event_invite.event.description %><br>
     </p>
     <p>

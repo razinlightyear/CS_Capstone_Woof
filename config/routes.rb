@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     member do
       get 'chat'
       get 'lost_and_found/contact_owner_modal_body', controller: :events, action: :contact_owner_modal_body
+      get 'lost_and_found/view_messages_modal_body', controller: :events, action: :view_messages_modal_body
+      get 'lost_and_found/view_message_from_user_modal_body', controller: :events, action: :view_message_from_user_modal_body
       get :join
       get :disjoin
     end
@@ -125,6 +127,7 @@ Rails.application.routes.draw do
     put 'lost_dogs/:id' => :update
     patch 'lost_dogs/:id' => :update
     delete 'lost_dogs/:id' => :destroy
+    get 'lost_dogs/:id/return' => :return, as: :return_lost_dogs
   end
   
   controller :found_dogs do
@@ -136,6 +139,7 @@ Rails.application.routes.draw do
     put 'found_dogs/:id' => :update
     patch 'found_dogs/:id' => :update
     delete 'found_dogs/:id' => :destroy
+    get 'found_dogs/:id/return' => :return, as: :return_found_dogs
   end
 
   controller :post_events do

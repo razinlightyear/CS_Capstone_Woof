@@ -1,0 +1,6 @@
+// Change modal title
+$('#lost_and_found_modal_label').text('Messages from <%= @other_user.full_name %>');
+modal_body = $('#lost_and_found_modal_body');
+modal_body.html('<%= j render('events/view_message_from_user_modal_body', :locals => { other_user: @other_user, chat: @chat, messages: @messages }) %>');
+createMessageChannel();
+messageForm();
