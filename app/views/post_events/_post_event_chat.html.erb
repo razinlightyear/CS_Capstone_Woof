@@ -1,6 +1,6 @@
 <div>
   <h5>Chat with your peers</h5>
-  <p>Event description: <%= @post_event.description %></p>
+
   <% if @chat.messages.any? %>
     <div id="messages">
       <%= render partial: 'messages/message', collection: @chat.messages.order(id: :asc)%>
@@ -12,6 +12,11 @@
 </div>
 <%= render partial: 'messages/message_form', locals: {message: @message, chat: @chat}%>
 </div>
+
+<%= javascript_tag do %>
+    window.message_current_user_id = "<%= j current_user.id.to_s %>";
+<% end %>
+
 <script>
   createMessageChannel();
   // app/assets/javascripts/channels/messages.js 

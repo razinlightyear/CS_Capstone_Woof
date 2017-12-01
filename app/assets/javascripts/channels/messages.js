@@ -16,7 +16,24 @@ function createMessageChannel() {
           return $('#messages').append(this.renderMessage(data));
         },
       renderMessage: function(data) {
-          return "<p> <b>" + data.user + ": </b>" + data.message + "</p>";
+
+        //console.log("URL through controller is: " + data.message_user_image_url);
+
+        try
+        {
+          // is parseInt required here?
+          if(data.user_id == message_current_user_id)
+          {
+            return "<div class = 'my-message-format rounded'><p><img class = 'rounded-circle' width = '50' height= '50' src = '" + data.message_user_image_url + "'>" + data.user + ": " + data.message + "</p></div>";
+          }
+
+        }
+        catch(err)
+        {
+
+        }
+
+        return "<div class = 'other-message-format rounded'><p><img class = 'rounded-circle' width = '50' height = '50' src = '" + data.message_user_image_url + "'>" + data.user + ": " + data.message + "</p></div>";
     },
   });
   return App.messages;

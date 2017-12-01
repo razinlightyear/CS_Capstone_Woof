@@ -1,1 +1,14 @@
-<p><%= message.user.first_name %>: <%=message.content%></p>
+<% if message.user == current_user %>
+    <div class = 'my-message-format rounded'>
+<% else %>
+    <div class = 'other-message-format rounded'>
+<% end %>
+    <p>
+        <% unless message.user.image.thumb.url.nil? %>
+            <%= image_tag message.user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+        <% else %>
+            <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+        <% end %>
+        <%= message.user.first_name %>: <%=message.content%>
+    </p>
+</div>
