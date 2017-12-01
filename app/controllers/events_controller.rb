@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :update, :destroy, :chat, :contact_owner_modal_body, :join, :disjoin]
+  before_action :set_event, only: [:edit, :update, :destroy, :chat, :contact_owner_modal_body, :join, :disjoin, :view_message_from_user_modal_body, :view_messages_modal_body]
   #before_action :get_all_events, only: [:show], if: :format_json
   #before_action :get_all_events, only: [:events_map]
   before_action :get_all_events, only: [:show, :events_map]
