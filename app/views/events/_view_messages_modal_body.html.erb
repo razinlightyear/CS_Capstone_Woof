@@ -1,8 +1,16 @@
 <div>
   <h4 align="center">Direct Messages</h4>
   <% @messaging_users.each do |user| %>
-    <%= user.full_name %>
-    <button class="btn btn-info lost-view-messages-btn float-right" data-other-user-id="<%= user.id %>" data-event-id="<%= @event.id %>" style="margin: 10px 0px;">View Messages</button>
-  </br>
+  <div class="row" align="center">
+    <div class="col-4">
+      <%= user.first_name %>
+    </div>
+    <div class="col-4">
+      <%= user.last_name %>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-info view-messages-btn" data-other-user-id="<%= user.id %>" data-event-id="<%= @event.id %>" style="margin: 10px 0px;">View Messages</button>
+    </div>
+  </div>
   <% end %>
 </div>

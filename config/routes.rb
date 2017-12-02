@@ -54,9 +54,9 @@ Rails.application.routes.draw do
   resources :events do
     member do
       get 'chat'
-      get 'lost_and_found/contact_owner_modal_body', controller: :events, action: :contact_owner_modal_body
-      get 'lost_and_found/view_messages_modal_body', controller: :events, action: :view_messages_modal_body
-      get 'lost_and_found/view_message_from_user_modal_body', controller: :events, action: :view_message_from_user_modal_body
+      get 'contact_owner_modal_body', controller: :events, action: :contact_owner_modal_body
+      get 'view_messages_modal_body', controller: :events, action: :view_messages_modal_body
+      get 'view_message_from_user_modal_body', controller: :events, action: :view_message_from_user_modal_body
       get :join
       get :disjoin
     end

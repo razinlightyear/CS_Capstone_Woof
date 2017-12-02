@@ -329,11 +329,11 @@ $(document).on('turbolinks:load', function() {
     }
   });
   
-  $('.lost-dog-contact-owner').click(function(e) {
+  $('.contact-owner').click(function(e) {
     var event_id;
     event_id = this.dataset.eventId;
     return $.ajax({
-      url: '/events/' + event_id + '/lost_and_found/contact_owner_modal_body',
+      url: '/events/' + event_id + '/contact_owner_modal_body',
       timeout: 500,
       type: 'get',
       dataType: 'script',
@@ -344,12 +344,29 @@ $(document).on('turbolinks:load', function() {
     });
   });
   
-  $('.lost-dog-view-messages').click(function(e) {
+  $('.view-messaging-users').click(function(e) {
     debugger;
     var event_id;
     event_id = this.dataset.eventId;
     return $.ajax({
-      url: '/events/' + event_id + '/lost_and_found/view_messages_modal_body',
+      url: '/events/' + event_id + '/view_messages_modal_body',
+      timeout: 500,
+      type: 'get',
+      dataType: 'script',
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert(errorThrown);
+      },
+      success: function(data, textStatus, jqXHR) {}
+    });
+  });
+  
+  $('body').on('click', '.view-messages-btn', function() {
+    debugger;
+    var other_user_id, event_id;
+    other_user_id = this.dataset.otherUserId;
+    event_id = this.dataset.eventId;
+    return $.ajax({
+      url: '/events/' + event_id + '/view_message_from_user_modal_body?other_user='+other_user_id,
       timeout: 500,
       type: 'get',
       dataType: 'script',
@@ -388,23 +405,6 @@ $(document).on('turbolinks:load', function() {
           "searchable": false
       }
     ]
-  });
-  
-  $('body').on('click', '.lost-view-messages-btn', function() {
-    debugger;
-    var other_user_id, event_id;
-    other_user_id = this.dataset.otherUserId;
-    event_id = this.dataset.eventId;
-    return $.ajax({
-      url: '/events/' + event_id + '/lost_and_found/view_message_from_user_modal_body?other_user='+other_user_id,
-      timeout: 500,
-      type: 'get',
-      dataType: 'script',
-      error: function(jqXHR, textStatus, errorThrown) {
-        return alert(errorThrown);
-      },
-      success: function(data, textStatus, jqXHR) {}
-    });
   });
 });
 
