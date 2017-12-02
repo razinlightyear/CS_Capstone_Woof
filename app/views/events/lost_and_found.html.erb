@@ -39,11 +39,11 @@
         <td><%= lost_dog.address %></td>
         <td>
           <% if lost_dog.user_id == current_user.id %>
-            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info lost-dog-view-messages', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: lost_dog.id} %>
+            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info view-messaging-users', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: lost_dog.id} %>
             </br>
             <%= link_to 'Mark Returned', return_lost_dogs_path(lost_dog), data: { confirm: 'Are you sure that you want to mark this pet as returned?' }, class: "btn btn-success", style: 'margin-top: 5px;' %>
           <% else %>
-            <%= button_tag 'Contact Owner', type: nil, class: 'btn btn-primary lost-dog-contact-owner', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: lost_dog.id} %>
+            <%= button_tag 'Contact Owner', type: nil, class: 'btn btn-primary contact-owner', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: lost_dog.id} %>
           <% end %>
         </td>
       </tr>
@@ -93,11 +93,11 @@
         <td><%= found_dog.address %></td>
         <td>
           <% if found_dog.user_id == current_user.id %>
-            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal'}%>
+            <%= button_tag 'View Messages', type: nil, class: 'btn btn-info view-messaging-users', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: found_dog.id} %>
             </br>
             <%= link_to 'Mark Returned', return_found_dogs_path(found_dog), data: { confirm: 'Are you sure that you want to mark this pet as returned?' }, class: "btn btn-success", style: 'margin-top: 5px;' %>
           <% else %>
-            <%= button_tag 'Contact Owner', type: nil, class: 'btn btn-primary', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal'}%>
+            <%= button_tag 'Contact Owner', type: nil, class: 'btn btn-primary contact-owner', data: {'toggle' => 'modal', 'target'=>'#lost_and_found_modal', event_id: found_dog.id} %>
           <% end %>
         </td>
       </tr>

@@ -4,7 +4,7 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :chat, optional: true
   has_and_belongs_to_many :joined_users, -> { distinct }, class_name: 'User', inverse_of: :joined_events
-  has_many :event_invites
+  has_many :event_invites, dependent: :destroy
   
   #{ message: "This event needs to belong to a pet." }
   validates :pet, presence: true, unless: Proc.new { |e| [FoundDog, PostEvent].include? e.class }

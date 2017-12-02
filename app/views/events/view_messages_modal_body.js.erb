@@ -1,5 +1,5 @@
 // Change modal title
 $('#lost_and_found_modal_label').text('Messages from Users');
 modal_body = $('#lost_and_found_modal_body');
-<% Rails.logger.debug @messaging_users.inspect %>
 modal_body.html('<%= j render('events/view_messages_modal_body', :locals => { messaging_users: @messaging_users }) %>');
+
