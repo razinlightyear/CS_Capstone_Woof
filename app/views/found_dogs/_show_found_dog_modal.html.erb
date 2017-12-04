@@ -8,18 +8,25 @@
     <ul class = 'list-group list-group-flush'>
         <li class = 'list-group-item'>
             <% unless @found_dog.user.image.thumb.url.nil? %>
-                <%= image_tag @found_dog.user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+                <%= image_tag @found_dog.user.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @found_dog.user.id, controller: 'users'} %>
             <% else %>
-                <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+                <%= image_tag 'user_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @found_dog.user.id, controller: 'users'} %>
             <% end %>
             <%= @found_dog.user.first_name %> <%= @found_dog.user.last_name %>
+        </li>
+        <li class = 'list-group-item'>
+            <% unless @found_dog.image.thumb.url.nil? %>
+                <%= image_tag @found_dog.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @found_dog.id, controller: 'found_dogs'} %>
+            <% else %>
+                <%= image_tag 'pet_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @found_dog.id, controller: 'found_dogs'} %>
+            <% end %>
         </li>
         <!-- Before the below description, you have to put the pet image. So the functionality of uploading images needs to be there -->
         <li class = 'list-group-item'>
             <strong>Breed:</strong><%= @found_dog.breed.name %><br>
         </li>
         <li class = 'list-group-item'>
-            <strong>Weight Range: </strong><%= @found_dog.weight.start_weight %> - <%= @found_dog.weight.end_weight %>
+            <strong>Weight: </strong><%= @found_dog.weight.display if @found_dog.weight %>
         </li>
         <li class = 'list-group-item'>
             <div class = 'card-body'>

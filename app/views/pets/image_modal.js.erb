@@ -4,10 +4,11 @@
 <% else %>
   $('#pet_image_modal_label').text('Change Photo')
 <% end %>
-modal_body = $('#image_modal_body');
+modal_body = $('#pet_image_modal_body');
 modal_body.html('<%= j render(:partial => 'pets/image_form', :locals => { pet: @pet, view_only: @view_only }) %>');
 
 $(":file").filestyle({
+  htmlIcon: '<span class="fa fa-file-image-o" style="margin-right: 5px;"></span>',
   btnClass: "btn-outline-primary",
   text: "Choose Picture",
   buttonBefore: true

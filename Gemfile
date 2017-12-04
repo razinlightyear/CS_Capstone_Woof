@@ -92,3 +92,6 @@ gem 'mini_magick', '~> 4.8'  # Tool to resize images
 
 # Fancy tables https://datatables.net/examples/styling/bootstrap4.html
 gem 'jquery-datatables', '~> 1.10', '>= 1.10.16'
+
+# Hack to support uploading files with js ajax using script
+gem 'remotipart', '~> 1.3', '>= 1.3.1'

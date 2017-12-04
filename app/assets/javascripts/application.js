@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require datatables
 //= require turbolinks
 //= require tether
@@ -39,6 +40,22 @@ $(document).on('turbolinks:load', function() {
   });
   $('#profile_pic').on("click",function(e){
     e.preventDefault();
+  });
+  
+  $('body').on('click', '.thumb-image-modal', function() {
+    var id, controller;
+    id = this.dataset.id;
+    controller = this.dataset.controller;
+    return $.ajax({
+      url: '/' + controller + '/' + id + '/image_modal',
+      timeout: 500,
+      type: 'get',
+      dataType: 'script',
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert(errorThrown);
+      },
+      success: function(data, textStatus, jqXHR) {}
+    });
   });
 });
 

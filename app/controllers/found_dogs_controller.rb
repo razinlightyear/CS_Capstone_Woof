@@ -1,5 +1,5 @@
 class FoundDogsController < ApplicationController
-    before_action :set_found_dog, only: [:show, :edit, :update, :destroy, :return]
+    before_action :set_found_dog, only: [:show, :edit, :update, :destroy, :return, :image_modal]
     before_action :can_edit_delete, only: [:edit, :update, :destroy]
 
     def show
@@ -95,10 +95,24 @@ class FoundDogsController < ApplicationController
         end
       end
     end
+
+    # GET /found_dogs/1/image_modal
+    def image_modal
+      if @found_dog
+        respond_to do |format|
+          format.js   { render 'found_dogs/image_modal' }
+        end
+      else
+        respond_to do |format|
+          format.js   { render 'found_dogs/image_modal', status: :unprocessable_entity }
+        end
+      end
+    end
+
     private
 
     def found_dog_params
-        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id, :address, :returned)
+        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id, :address, :returned, :image, :image_cache)
     end
 
     def set_found_dog

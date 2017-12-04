@@ -171,6 +171,20 @@ class UsersController < ApplicationController
     end
   end
   
+  # GET /users/1/image_modal
+  def image_modal
+    @user = User.find(params[:id])
+    if @user
+      respond_to do |format|
+        format.js   { render 'users/image_modal' }
+      end
+    else
+      respond_to do |format|
+        format.js   { render 'users/image_modal', status: :unprocessable_entity }
+      end
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     # callbacks for models and controllers. in models, use them for validation. you can do rich validation on them: when was it created, after it is updated.

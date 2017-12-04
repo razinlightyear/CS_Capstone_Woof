@@ -12,7 +12,9 @@ class FoundDog < Event
                         :color_ids, :color_ids=,
                         :found_dog_id, :found_dog_id=,
                         :found_dog, :found_dog=,
-                        :returned, :returned=
+                        :returned, :returned=,
+                        :image, :image=,
+                        :image_cache, :image_cache=
   ]
   # splat operator *. It removes the surrounding array. ex: arr = [1, 2, 3]; *arr is just 1, 2, 3
   delegate *methods_to_delegate, to: :lazily_built_delegates

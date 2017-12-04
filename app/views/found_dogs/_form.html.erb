@@ -33,11 +33,17 @@
             <%= f.text_field :address, size: '1x1', class: 'form-control', required: :true %>
         </div>
 
+        <div class = 'form-group'>
+            <%= f.label :image %>
+            <%= f.hidden_field :image_cache %>
+            <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+        </div>
+
         <%= f.hidden_field :latitude, value: "" %>
-        <%= f.hidden_field :longitude, value: "" %>        
+        <%= f.hidden_field :longitude, value: "" %>
 
         <div class = 'form-group'>
-            <%= f.submit button_name, class: 'btn btn-success btn-block' %>
+            <%= f.submit button_name, class: 'btn btn-success btn-block', style: 'margin: 20px 0px;' %>
         </div>
 
     <% end %>
