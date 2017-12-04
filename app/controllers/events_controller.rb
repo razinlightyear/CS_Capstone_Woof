@@ -148,8 +148,8 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event && !@event.private
         @event.joined_users << current_user unless @event.joined_users.include? current_user
-        format.js { render "" }
-        format.html { redirect_to event_path(current_user), notice: 'Successfully left event.' }
+        format.js { render :join }
+        format.html { redirect_to event_path(current_user), notice: 'Successfully joined event.' }
         format.json { head :no_content }
       else
         format.html { render :edit }
@@ -163,7 +163,7 @@ class EventsController < ApplicationController
   def disjoin
     @event.joined_users.delete(current_user)  # Just deletes the record from the association
     respond_to do |format|
-      format.js { render "" }
+      format.js { render :disjoin }
       format.html { redirect_to event_path(current_user), notice: 'Successfully left event.' }
       format.json { head :no_content }
     end

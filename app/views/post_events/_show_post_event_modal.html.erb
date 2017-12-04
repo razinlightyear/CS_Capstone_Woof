@@ -46,19 +46,9 @@
           <div class="card-header">
             <strong>Joined Users</strong>
           </div>
-          <div class="card-block" id="pending_event_invites">
+          <div class="card-block" id="event_joined_users">
             <% @post_event.joined_users.each do |user| %>
-              <div class="row" style="margin: 5px 0px;">
-                <div class="col-md-4">
-                  <%= user.first_name %>
-                </div>
-                <div class="col-md-4">
-                  <%= user.last_name %>
-                </div>
-                <div class="col-md-4">
-                  <%= user.email %>
-                </div>
-              </div>
+              <%= render partial: 'events/joined_user_row', locals: { user: user } %>
             <% end %>
           </div>
         </div>
@@ -87,10 +77,12 @@
         <% unless @post_event.user == current_user %>
           <% if @post_event.joined_users.include? current_user %>
             <!-- Leave event buttton -->
-            <%= link_to 'Leave Event', disjoin_event_path(@post_event), data: { confirm: 'Are you sure that you want to leave this event?' }, class: "btn btn-outline-danger btn-sm" %>
+            <%= button_tag 'Leave Event', class: "btn btn-outline-danger btn-sm disjoin-event-btn", type: 'button', id: 'leave_event_btn', data: { event_id: @post_event.id, confirm: 'Are you sure that you want to leave this event?' } %>
+            <%= button_tag 'Join Event', class: "btn btn-outline-success btn-sm join-event-btn", style: 'display: none;', type: 'button', id: 'join_event_btn', data: { event_id: @post_event.id } %>
           <% else %>
             <!-- Join event button -->
-            <%= link_to 'Join Event', join_event_path(@post_event), data: { confirm: 'Are you sure that you want to join this group?' }, class: "btn btn-outline-success btn-sm" %>
+            <%= button_tag 'Join Event', class: "btn btn-outline-success btn-sm join-event-btn", type: 'button', id: 'join_event_btn', data: { event_id: @post_event.id } %>
+            <%= button_tag 'Leave Event', class: "btn btn-outline-danger btn-sm disjoin-event-btn", style: 'display: none;', type: 'button', id: 'leave_event_btn', data: { event_id: @post_event.id, confirm: 'Are you sure that you want to leave this event?' } %>
           <% end %>
         <% end %>
         <!-- 

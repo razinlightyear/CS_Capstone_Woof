@@ -1,0 +1,3 @@
+$('#event_joined_users').append('<%= j render partial: 'events/joined_user_row', locals: { user: current_user } %>');
+$('#leave_event_btn').toggle();
+$('#join_event_btn').toggle();
