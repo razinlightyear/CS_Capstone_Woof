@@ -361,12 +361,41 @@ $(document).on('turbolinks:load', function() {
   });
   
   $('body').on('click', '.view-messages-btn', function() {
-    debugger;
     var other_user_id, event_id;
     other_user_id = this.dataset.otherUserId;
     event_id = this.dataset.eventId;
     return $.ajax({
       url: '/events/' + event_id + '/view_message_from_user_modal_body?other_user='+other_user_id,
+      timeout: 500,
+      type: 'get',
+      dataType: 'script',
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert(errorThrown);
+      },
+      success: function(data, textStatus, jqXHR) {}
+    });
+  });
+  
+  $('body').on('click', '.join-event-btn', function() {
+    var event_id;
+    event_id = this.dataset.eventId;
+    return $.ajax({
+      url: '/events/' + event_id + '/join',
+      timeout: 500,
+      type: 'get',
+      dataType: 'script',
+      error: function(jqXHR, textStatus, errorThrown) {
+        return alert(errorThrown);
+      },
+      success: function(data, textStatus, jqXHR) {}
+    });
+  });
+  
+  $('body').on('click', '.disjoin-event-btn', function() {
+    var event_id;
+    event_id = this.dataset.eventId;
+    return $.ajax({
+      url: '/events/' + event_id + '/disjoin',
       timeout: 500,
       type: 'get',
       dataType: 'script',

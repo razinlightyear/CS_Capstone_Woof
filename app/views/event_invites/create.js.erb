@@ -1,3 +1,5 @@
+$('#pending_event_invites_card').show();
+
 // Append a row of users to the list of users for the event
 $("#pending_event_invites").append('<%= escape_javascript(render :partial => 'event_invites/pending_invite', locals: {invite: @event_invite} ) %>');
 

@@ -54,18 +54,16 @@
     <% end %>
     
     <% unless post_event.new_record? %>
-      <% if @invites.any? %>
-        <div class="card">
-          <div class="card-header">
-            <strong>Pending user invitations</strong>
-          </div>
-          <div class="card-block" id="pending_event_invites">
-            <% @invites.each do |invite| %>
-              <%= render 'event_invites/pending_invite', invite: invite %>
-            <% end %>
-          </div>
+      <div class="card" id="pending_event_invites_card" <%=  @invites.any? ? "" : "style='display: none'".html_safe %>>
+        <div class="card-header">
+          <strong>Pending user invitations</strong>
         </div>
-      <% end %>
+        <div class="card-block" id="pending_event_invites">
+          <% @invites.each do |invite| %>
+            <%= render 'event_invites/pending_invite', invite: invite %>
+          <% end %>
+        </div>
+      </div>
       <div id='event_invite_form'>
         <%= render 'event_invites/invite_form', event: post_event, invite: EventInvite.new %>
       </div>
