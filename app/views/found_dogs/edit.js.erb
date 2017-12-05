@@ -5,6 +5,13 @@ $('.modal-title').text('Editing the found dog event')*/
 
 $("#event-content").html('<%= escape_javascript(render :partial => 'found_dogs/form', locals: {found_dog: @found_dog, path: found_dog_path(@found_dog.id), weight_options: Weight.all, button_name: "Update the Found Dog Event"} ) %>');
 
+$(":file").filestyle({
+  htmlIcon: '<span class="fa fa-file-image-o" style="margin-right: 5px;"></span>',
+  btnClass: "btn-outline-success",
+  text: "Choose Picture",
+  buttonBefore: true
+});
+
 $("#event-section").css("width", "450px");
 
 bindSelect2Elements(); // application.js

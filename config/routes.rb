@@ -114,6 +114,9 @@ Rails.application.routes.draw do
   get '/group_nudge', controller: :nudges, action: :group_nudge 
   resources :users do 
     resources :chats, only: [:index, :show, :create]
+    member do
+      get :image_modal
+    end
   end
   resources :messages, only:[:create]
 
@@ -140,6 +143,7 @@ Rails.application.routes.draw do
     patch 'found_dogs/:id' => :update
     delete 'found_dogs/:id' => :destroy
     get 'found_dogs/:id/return' => :return, as: :return_found_dogs
+    get 'found_dogs/:id/image_modal' => :image_modal
   end
 
   controller :post_events do

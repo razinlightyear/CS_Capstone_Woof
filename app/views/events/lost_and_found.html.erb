@@ -22,9 +22,9 @@
       <tr>
         <td>
           <% unless lost_dog.pet.image.thumb.url.nil? %>
-            <%= image_tag lost_dog.pet.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: lost_dog.pet.id, view_only: true} %><!-- Thumb is alraedy 50x50 -->
+            <%= image_tag lost_dog.pet.image.thumb.url, class: "rounded-circle pet-thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: lost_dog.pet.id, view_only: true} %><!-- Thumb is alraedy 50x50 -->
           <% else %>
-            <%= image_tag 'pet_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: lost_dog.pet.id, view_only: true} %>
+            <%= image_tag 'pet_placeholder', class: "rounded-circle pet-thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: lost_dog.pet.id, view_only: true} %>
           <% end %>
         </td>
         <td><%= lost_dog.pet.name %></td>
@@ -70,7 +70,11 @@
     <% @found_dogs.each do |found_dog| %>
       <tr>
         <td>
-          <%= image_tag 'pet_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+          <% unless found_dog.image.thumb.url.nil? %>
+            <%= image_tag found_dog.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: found_dog.id, controller: 'found_dogs'} %><!-- Thumb is alraedy 50x50 -->
+          <% else %>
+            <%= image_tag 'pet_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: found_dog.id, controller: 'found_dogs'} %>
+          <% end %>
         </td>
         <% breed = (found_dog.breed ? found_dog.breed.name : "Don't Know") %>
         <td><%= breed %></td>
@@ -107,3 +111,4 @@
 </br>
 <%= render 'events/lost_and_found_modal' %>
 <%= render 'pets/pet_image_modal' %>
+<%= render 'shared/image_modal' %>

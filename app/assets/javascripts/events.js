@@ -345,7 +345,6 @@ $(document).on('turbolinks:load', function() {
   });
   
   $('.view-messaging-users').click(function(e) {
-    debugger;
     var event_id;
     event_id = this.dataset.eventId;
     return $.ajax({

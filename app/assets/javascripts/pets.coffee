@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', ->
-  $('.thumb-image-modal').click (e) ->
+  $('.pet-thumb-image-modal').click (e) ->
     pet_id = this.dataset.petId
     view_only = if this.dataset.viewOnly then true else false
     $.ajax

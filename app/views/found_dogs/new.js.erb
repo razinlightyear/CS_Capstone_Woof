@@ -4,3 +4,10 @@ $('#eventModal').modal('show')
 $('.modal-title').text('Create a found dog event')
 
 bindSelect2Elements(); // application.js
+
+$(":file").filestyle({
+  htmlIcon: '<span class="fa fa-file-image-o" style="margin-right: 5px;"></span>',
+  btnClass: "btn-outline-success",
+  text: "Choose Picture",
+  buttonBefore: true
+});

@@ -1,0 +1,7 @@
+<div style='overflow: scroll;'>
+  <% unless resource.image.url.nil? %>
+    <%= image_tag resource.image.url, class: 'rounded mx-auto d-block', style: 'margin: 40px 0px;' %>
+  <% else %>
+    <%= image_tag "#{placeholder}_placeholder", class: "rounded mx-auto d-block", width: 500, height: 500, alt: 'Card image', style: 'margin: 40px 0px;' %>
+  <% end %>
+</div>

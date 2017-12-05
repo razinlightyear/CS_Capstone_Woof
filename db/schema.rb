@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127153941) do
+ActiveRecord::Schema.define(version: 20171204194759) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20171127153941) do
     t.integer "weight_id",                                  null: false
     t.text    "description",  limit: 65535
     t.boolean "returned",                   default: false, null: false
+    t.string  "image"
     t.index ["breed_id"], name: "index_found_dog_delegates_on_breed_id", using: :btree
     t.index ["found_dog_id"], name: "index_found_dog_delegates_on_found_dog_id", using: :btree
     t.index ["weight_id"], name: "index_found_dog_delegates_on_weight_id", using: :btree
