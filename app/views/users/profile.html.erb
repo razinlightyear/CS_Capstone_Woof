@@ -1,81 +1,66 @@
 <div class='container' id='user_profile_view'>
+  <h1 class="display-4" align="center" style="color: #585858;">Profile</h1>
   <div class='row'>
     <div class='col'>
         <%= link_to 'Change Password', update_password_path, :class => 'btn btn-outline-primary float-right' %>
     </div>
   </div>
-  <div class='row'>
-    <div class='col-lg-6'><!-- left side -->
-
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Email</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <%= @user.email %>
-        </div>
-      </div>
-
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>First Name</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <%= @user.first_name %>
-        </div>
-      </div>
-
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Last Name</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <%= @user.last_name %>
-        </div>
-      </div>  
-    </div><!-- end left side -->
-    
-    
-    <div class='col-lg-6'><!-- right side -->
-      
-      <div class='row'>
-        <div class='col-lg-6'>
-          <% unless @user.image.thumb.url.nil? %>
-            <%= image_tag @user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
-          <% else %>
-            <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
-          <% end %>
-        </div>
-        <div class='col-lg-6'>
-          <% unless @user.image.thumb.url.nil? %>
-            <%= @user.image.file.identifier %>
-          <% end %>
-        </div>
-      </div>
-      
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Private Profile</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <% if @user.private %>
-            <%= fa_icon 'check 2x' %>
-          <% else %>
-            <%= fa_icon 'times 2x' %>
-          <% end %>
-        </div>
-      </div>
-      
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Badges here?</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          badges
-        </div>
-      </div>
-    </div><!-- end right side -->
-  </div>
+  <ul class="list-group" style="margin: 10px 0px;">
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Email</strong></p>
+      <span><%= @user.email %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>First Name</strong></p>
+      <span><%= @user.first_name %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Last Name</strong></p>
+      <span><%= @user.last_name %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Public Account</strong>&nbsp<small>(Let people connect with you that don't already know your email)</small></p>
+      <% unless @user.private %>
+        <%= fa_icon 'check 2x' %>
+      <% else %>
+        <%= fa_icon 'times 2x' %>
+      <% end %>
+    </li>
+  </ul>
+  <ul class="list-group" style="margin-bottom: 10px;">
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of people that you have invited to groups</strong></p>
+      <span class="badge badge-default badge-pill"><%= @group_invite_count %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of people that accepted your group invites</strong></p>
+      <span class="badge badge-default badge-pill"><%= @group_invite_accpeted_count %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of events that you have created</strong></p>
+      <span class="badge badge-default badge-pill"><%= @event_count %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of people that you have invited to events</strong></p>
+      <span class="badge badge-default badge-pill"><%= @event_invites_count %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of people that accepted your event invites</strong></p>
+      <span class="badge badge-default badge-pill"><%= @event_invite_accpeted_count %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of around me events that you have joined</strong></p>
+      <span class="badge badge-default badge-pill"><%= @joined_around_me_event_count %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of messages that you have sent</strong></p>
+      <span class="badge badge-default badge-pill"><%= @message_count %></span>
+    </li>
+    <li class="list-group-item justify-content-between">
+      <p class="text-muted"><strong>Number of times you have fed your pets</strong></p>
+      <span class="badge badge-default badge-pill"><%= @feed_count %></span>
+    </li>
+  </ul>
   <div class='row'>
     <div class='col'>
         <%= link_to 'Edit Profile', profile_edit_path, :class => 'btn btn-primary float-right' %>

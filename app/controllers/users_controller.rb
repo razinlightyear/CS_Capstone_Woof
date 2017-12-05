@@ -94,8 +94,9 @@ class UsersController < ApplicationController
     @group_invite_count = GroupInvite.where(inviter: @user).count
     @group_invite_accpeted_count = GroupInvite.where(inviter: @user).where.not(accepted_at: nil).count
     @event_count = Event.where(user: @user).count
-    @event_invites = EventInvite.where(inviter: current_user).count
+    @event_invites_count = EventInvite.where(inviter: current_user).count
     @event_invite_accpeted_count = EventInvite.where(inviter: @user).where.not(accepted_at: nil).count
+    @joined_around_me_event_count = @user.joined_events.count
     @message_count = Message.where(user: @user).count
     @feed_count = FeedingHistory.where(user: current_user).count
   end
