@@ -90,11 +90,20 @@ class UsersController < ApplicationController
   # GET /profile
   def profile
     @user = current_user
+    @user_profile = true
+    @group_invite_count = GroupInvite.where(inviter: @user).count
+    @group_invite_accpeted_count = GroupInvite.where(inviter: @user).where.not(accepted_at: nil).count
+    @event_count = Event.where(user: @user).count
+    @event_invites = EventInvite.where(inviter: current_user).count
+    @event_invite_accpeted_count = EventInvite.where(inviter: @user).where.not(accepted_at: nil).count
+    @message_count = Message.where(user: @user).count
+    @feed_count = FeedingHistory.where(user: current_user).count
   end
 
   # GET /profile/edit
   def profile_edit
     @user = current_user
+    @user_profile = true
   end
 
   # POST /profile/update
@@ -132,6 +141,7 @@ class UsersController < ApplicationController
   # GET /update_password
   # PATCH /update_password
   def update_password
+    @user_profile = true
     if request.patch?
       if @user.update_with_password(user_params)  # Only :password and :password_confirmation are sent to this action
         # Sign in the user by passing validation in case their password changed

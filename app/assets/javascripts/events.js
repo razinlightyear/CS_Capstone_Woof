@@ -318,6 +318,7 @@ function open_event_section()
 
 }
 
+
 $(document).on('turbolinks:load', function() {
   $('body').on('click', '.event-invite-btn', function() {
     if ($(this).text() === 'Invite Person') {
@@ -405,7 +406,7 @@ $(document).on('turbolinks:load', function() {
     });
   });
   
-  $('#lost_dogs_table').DataTable({
+  lost_dog_table = $('#lost_dogs_table').DataTable({
     "columnDefs": [
       {
           "targets": [ 'invisible' ],
@@ -420,7 +421,7 @@ $(document).on('turbolinks:load', function() {
     ]
   });
   
-  $('#found_dogs_table').DataTable({
+  found_dog_table = $('#found_dogs_table').DataTable({
     "columnDefs": [
       {
           "targets": [ 'invisible' ],
@@ -433,6 +434,15 @@ $(document).on('turbolinks:load', function() {
           "searchable": false
       }
     ]
+  });
+  
+  document.addEventListener('turbolinks:before-cache', function() {
+    if (lost_dog_table !== null) {
+     lost_dog_table.destroy();
+     lost_dog_table = null;
+     found_dog_table.destroy();
+     found_dog_table = null;
+    }
   });
 });
 

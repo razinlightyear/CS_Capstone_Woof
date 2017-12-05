@@ -14,6 +14,8 @@
     <% @body_id = 'home-page' %>
   <% elsif @signin %>
     <% @body_id = 'sign-in' %>
+  <% elsif @user_profile %>
+    <% @body_id = 'user-profile' %>
   <% else %>
     <% @body_id = '' %>
   <% end %>
