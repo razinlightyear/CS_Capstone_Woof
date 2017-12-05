@@ -39,9 +39,13 @@ $(document).on 'turbolinks:load', ->
       $(this).html('Invite Person')
   
   $('#user_image_file_input').filestyle
-    input: false
-    badge: true
+    htmlIcon: '<span class="fa fa-file-image-o" style="margin-right: 5px;"></span>'
     btnClass: "btn-outline-primary"
-    text: "Choose Profile Picture"
+    text: "Choose Photo"
+    buttonBefore: true
   
   bindSelect2Elements() # application.js
+
+$(document).on 'turbolinks:before-cache', ->
+  $('#user_image_file_input').filestyle('destroy')
+  

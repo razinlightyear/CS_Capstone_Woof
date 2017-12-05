@@ -51,14 +51,20 @@ body {
 #home-page{
     //background-color: #cdbaba;
     background-color: white;
-    background-image: url('/assets/dogBackground5.jpg');
-    background-size: 100%;
+    background-image: image-url('/assets/dogBackground5.jpg');
+    background-size: 120%;
 }
 
 #sign-in{
     background-color: white;
-    background-image: url('/assets/dogBackground6.jpg');
-    background-size: 100%;
+    background-image: image-url('/assets/dogBackground6.jpg');
+    background-size: 120%;
+}
+
+#user-profile {
+    background-color: white;
+    background-image: image-url('/assets/dogBackground4.jpg');
+    background-size: 120%;
 }
 
 .form-group {
