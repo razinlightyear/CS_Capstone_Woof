@@ -19,7 +19,12 @@ class PostEventsController < ApplicationController
     end
 
     def new
-        @post_event = PostEvent.new
+        if params[:post_event].nil?
+            @post_event = PostEvent.new
+        else    
+            @post_event = PostEvent.new(post_event_params)
+        end
+        
         @user = current_user
     end
 

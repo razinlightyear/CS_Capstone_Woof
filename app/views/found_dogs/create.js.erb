@@ -19,7 +19,7 @@ if("<%= @found_dog.address %>" == "")
         update_address(latitude, longitude, address_event);
     });
 }
-else
+else if("<%= @found_dog.latitude %>" == "")
 {
     address_event = "<%= @found_dog.address %>";
 
@@ -28,6 +28,10 @@ else
         longitude = results[0].geometry.location.lng();
         update_address(latitude, longitude, address_event);
     });
+}
+else
+{
+    get_all_events();
 }
 
 function update_address(latitude, longitude, address_event)

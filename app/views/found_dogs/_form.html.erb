@@ -1,12 +1,12 @@
 <div class = 'container'>
     <%= form_for(found_dog, url: path, remote: true) do |f| %>
-        <%= f.hidden_field :user_id, value: @user.id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
         
         <!-- Breed, weight, color need to be added -->
         <!-- These are hard-coded values. We have to change this soon -->
 
         <div class = 'form-group'>
-            Owner: <h1><%= @user.first_name %>  <%= @user.last_name %></h1>
+            Owner: <h1><%= current_user.first_name %>  <%= current_user.last_name %></h1>
         </div>
 
         <div class = 'form-group'>
@@ -39,8 +39,8 @@
             <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
         </div>
 
-        <%= f.hidden_field :latitude, value: "" %>
-        <%= f.hidden_field :longitude, value: "" %>
+        <%= f.hidden_field :latitude, value: found_dog.latitude %>
+        <%= f.hidden_field :longitude, value: found_dog.longitude %>
 
         <div class = 'form-group'>
             <%= f.submit button_name, class: 'btn btn-success btn-block', style: 'margin: 20px 0px;' %>
