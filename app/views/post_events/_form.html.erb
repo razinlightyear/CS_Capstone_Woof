@@ -1,9 +1,9 @@
 <div class = 'container'>
     <%= form_for(post_event, url: path, remote: true) do |f| %>
-        <%= f.hidden_field :user_id, value: @user.id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
         <div class = 'form-group'>
                     
-        Owner: <h1><%= @user.first_name %>  <%= @user.last_name %></h1>
+        Owner: <h1><%= current_user.first_name %>  <%= current_user.last_name %></h1>
 
         </div>
 
@@ -17,8 +17,8 @@
             <%= f.text_field :address, size: '1x1', class: 'form-control', required: :true %>
         </div>
 
-        <%= f.hidden_field :latitude, value: "" %>
-        <%= f.hidden_field :longitude, value: "" %>    
+        <%= f.hidden_field :latitude, value: post_event.latitude %>
+        <%= f.hidden_field :longitude, value: post_event.longitude %>
 
         <% @private = "unchecked" %>
         <% @public = "checked" %>

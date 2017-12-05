@@ -1,18 +1,18 @@
 <div class = 'container'>
     <%= form_for(lost_dog, url: path, remote: true) do |f| %>
-        <%= f.hidden_field :user_id, value: @user.id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
         <div class = 'form-group'>
-                    
-        Owner: <h1><%= @user.first_name %>  <%= @user.last_name %></h1>
+        
+        Owner: <h1><%= current_user.first_name %>  <%= current_user.last_name %></h1>
 
         </div>
         <div class = 'form-group'>
             <%= label_tag(:group_id, 'Select a group:') %>
             <% @group_list = [] %>
             <% @group_list << ['', ''] %>
-            <% @user.groups.each do |group| %>
+            <% current_user.groups.each do |group| %>
                 <% @group_list << [group.name, group.id] %>
-            <% end %>     
+            <% end %>
             <%= select_tag(:group_id, options_for_select(@group_list), class: 'form-control', required: :true, onchange: "get_pets_div(this.value)") %>
         </div>
 
@@ -44,8 +44,8 @@
 
         <div class="pac-container pac-logo"></div>
 
-        <%= f.hidden_field :latitude, value: "" %>
-        <%= f.hidden_field :longitude, value: "" %>
+        <%= f.hidden_field :latitude, value: lost_dog.latitude %>
+        <%= f.hidden_field :longitude, value: lost_dog.longitude %>
 
         <div class = 'form-group  actions'>
             <%= f.submit button_name, class: 'btn btn-success btn-block' %>

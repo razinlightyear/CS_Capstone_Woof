@@ -8,7 +8,11 @@ class FoundDogsController < ApplicationController
     # for creating new found dog empty form
     # have to check this functionality
     def new
-        @found_dog = FoundDog.new
+        if params[:found_dog].nil?
+            @found_dog = FoundDog.new
+        else    
+            @found_dog = FoundDog.new(found_dog_params)
+        end
         @user = current_user
     end
 

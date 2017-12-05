@@ -10,7 +10,7 @@ var icons = {};
 
 function initMap() {
 
-  // Below is done because when updating the events, it doesn't display anything onto the map  
+  // Below is done because when updating the events, it doesn't display anything onto the map
   allMarkers = [];
   markerObjectsId = [];
 
@@ -42,10 +42,86 @@ function initMap() {
         zoom: 13
       });
 
-      /*map.addListener('click', function(e){
-        console.log("Latitude is: " + e.latLng.lat());
-        console.log("Longitude is: " + e.latLng.lng());
-      });*/
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+
+      map.addListener('rightclick', function(e){
+
+      var latitude = e.latLng.lat();
+      var longitude = e.latLng.lng();
+      
+      var geocoder;
+      geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({"location": {"lat": latitude, "lng": longitude}}, function(results){
+          
+          address_event = results[0].formatted_address;
+
+
+          $('.modal-body.event_content').html('<div id = "context-menu" class="list-group">'+
+          '<button type="button" class="list-group-item list-group-item-action" id = "lost_dog_form">Lost Dog</button>'+
+          '<button type="button" class="list-group-item list-group-item-action" id = "found_dog_form">Found Dog</button>'+
+          '<button type="button" class="list-group-item list-group-item-action" id = "around_me_form">AroundMe Event</button>'+
+          '<button type="button" class="list-group-item list-group-item-action"><strong>Address:</strong>'+address_event+'</button></div>');
+
+          $('#eventModal').modal('show');
+          $('.modal-title').text("Choose the event type");
+
+          $('#lost_dog_form').click(function(d){
+
+            jQuery.ajax({
+              url: '/lost_dogs/new',
+              dataType: 'script',
+              type: 'GET',
+              data: { lost_dog : {latitude: latitude, longitude: longitude,address: address_event} },
+              success: function(data){
+                $('#lost_dog_address').prop('disabled', true);
+              },
+              error: function(data){
+                console.log("Error is: " + data.error);
+                console.log("Status is: " + data.status);
+              }
+            });
+
+          });
+
+          $('#found_dog_form').click(function(d){
+            jQuery.ajax({
+              url: '/found_dogs/new',
+              dataType: 'script',
+              type: 'GET',
+              data: { found_dog : {latitude: latitude, longitude: longitude,address: address_event} },
+              success: function(data){
+                $('#found_dog_address').prop('disabled', true);
+              },
+              error: function(data){
+                console.log("Error is: " + data.error);
+                console.log("Status is: " + data.status);
+              }
+            });
+          });
+
+          $('#around_me_form').click(function(d){
+            jQuery.ajax({
+              url: '/post_events/new',
+              dataType: 'script',
+              type: 'GET',
+              data: { post_event : {latitude: latitude, longitude: longitude,address: address_event} },
+              success: function(data){
+                $('#post_event_address').prop('disabled', true);
+              },
+              error: function(data){
+                console.log("Error is: " + data.error);
+                console.log("Status is: " + data.status);
+              }
+            });
+
+
+          });
+
+        });
+
+        });
+      });
 
       get_all_events();
 
@@ -426,7 +502,7 @@ function open_filter_menu()
   $("#map").css("height", map_height);
 
   var filter_button_values = $("#google-filter-button button");
-  filter_button_values.text("Close Filter Menu");
+  filter_button_values.text("Close Google Map Menu");
   filter_button_values.attr("onclick", "close_filter_menu();");
 }
 
@@ -440,6 +516,6 @@ function close_filter_menu()
   $("#map").css("height", map_height);
 
   var filter_button_values = $("#google-filter-button button");
-  filter_button_values.text("Open Filter Menu");
+  filter_button_values.text("Your Google Map Menu");
   filter_button_values.attr("onclick", "open_filter_menu();");
 }
