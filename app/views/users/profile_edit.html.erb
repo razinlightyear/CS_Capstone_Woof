@@ -1,82 +1,78 @@
 <div class='container' id='user_profile_edit'>
-  <div class='row'>
-    <div class='col'>
-        <%= link_to 'Change Password', update_password_path, :class => 'btn btn-outline-primary float-right', style: 'margin-bottom: 10px;' %>
+  <div class='form-group row' style="margin-bottom: 10px;">
+    <div class='col-sm-3'>
+      <% unless @user.image.thumb.url.nil? %>
+        <%= image_tag @user.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @user.id, controller: 'users'} %>
+      <% else %>
+        <%= image_tag 'user_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @user.id, controller: 'users'} %>
+      <% end %>
+    </div>
+    <div class='col-sm-9' style='padding-top: 20px;'>
+        <%= link_to 'Change Password', update_password_path, :class => 'btn btn-outline-primary float-right' %>
     </div>
   </div>
+  
   <%= form_for(@user, url: profile_update_path, method: 'post', html: {multipart: true}) do |f| %>
-  <div class='row'>
-    <div class='col-lg-6'><!-- left side -->
-
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Email</strong></p>
-        </div>
-        <div class='col-lg-6 form-group'>
-          <%= f.text_field :email, class: "form-control" %>
-        </div>
+    <div class="form-group row" style="margin-bottom: 10px;">
+      <%= f.label :image, class: "col-sm-3 col-form-label" do %>
+        <p class="text-muted"><strong>Photo</strong></p>
+      <% end %>
+      <div class="col-sm-9">
+        <%= f.file_field :image, id: 'user_image_file_input', accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+        <%= f.hidden_field :image_cache %><!-- used to keep the file in case a validation fails -->
       </div>
-
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>First Name</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <%= f.text_field :first_name, class: "form-control" %>
-        </div>
+    </div>
+    <div class="form-group row" style="margin-bottom: 10px;">
+      <%= f.label :email, class: "col-sm-3 col-form-label" do %>
+        <p class="text-muted"><strong>Email</strong></p>
+      <% end %>
+      <div class="col-sm-9">
+        <%= f.text_field :email, class: "form-control", disabled: true %>
       </div>
-
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Last Name</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <%= f.text_field :last_name, class: "form-control" %>
-        </div>
-      </div>  
-    </div><!-- end left side -->
-    
-    
-    <div class='col-lg-6'><!-- right side -->
-      
-      <div class='row'>
-        <div class='col-lg-6'>
-          <% unless @user.image.thumb.url.nil? %>
-            <%= image_tag @user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
-          <% else %>
-            <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+    </div>
+    <div class="form-group row" style="margin-bottom: 10px;">
+      <%= f.label :first_name, class: "col-sm-3 col-form-label" do %>
+        <p class="text-muted"><strong>First Name</strong></p>
+      <% end %>
+      <div class="col-sm-9">
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group row" style="margin-bottom: 10px;">
+      <%= f.label :last_name, class: "col-sm-3 col-form-label" do %>
+        <p class="text-muted"><strong>Last Name</strong></p>
+      <% end %>
+      <div class="col-sm-9">
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group row" style="margin-bottom: 10px;">
+      <div class="col-sm-3"><p class="text-muted"><strong>Private Account</strong></p></div>
+      <div class="col-sm-9">
+        <div class="form-check">
+          <%= f.label :private, class: "form-check-label" do %>
+            <%= f.check_box :private, class: 'form-check-input', title: "don't allow people to see your profile. (If they know your email, they can still invite you)" %>
+            <small>Don't allow people to see your profile. (If they know your email, they can still invite you)</small>
           <% end %>
         </div>
-        <div class='col-lg-6'>
-          <%= f.file_field :image, id: 'user_image_file_input', accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
-          <%= f.hidden_field :image_cache %><!-- used to keep the file in case a validation fails -->
-        </div>
       </div>
-      
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Private Profile</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <%= f.check_box :private, class: 'form-control', title: "don't allow people to see your profile. (If they know your email, they can still invite you)" %>
-        </div>
-      </div>
-      
-      <div class='row'>
-        <div class='col-lg-6'>
-          <p class="text-muted"><strong>Active account</strong></p>
-        </div>
-        <div class='col-lg-6'>
-          <%= f.check_box :active, class: 'form-control', data: {confirm: "Are you really going to leave us?"} %>
-        </div>
-      </div>
-      
-    </div><!-- end right side -->
-  </div>
-  <div class='row'>
-    <div class='col'>
-      <%= f.submit "Update Profile",  class: 'btn btn-primary float-right' %>
     </div>
-  </div>
+    <div class="form-group row" style="margin-bottom: 10px;">
+      <div class="col-sm-3"><p class="text-muted"><strong>Active Account</strong></p></div>
+      <div class="col-sm-9">
+        <div class="form-check">
+          <%= f.label :active, class: "form-check-label" do %>
+            <%= f.check_box :active, class: 'form-check-input', data: {confirm: "Are you really going to leave us?"} %>
+            <small>If you want to leave Woof, uncheck</small>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        <%= f.submit "Save",  class: 'btn btn-primary float-right', data: {disable_with: 'Saving...'} %>
+      </div>
+    </div>
   <% end %>
 </div>
+<%= render 'shared/image_modal' %>

@@ -3,19 +3,19 @@
     <ul class = 'list-group list-group-flush'>
         <li class = 'list-group-item'>
             <% unless @lost_dog.user.image.thumb.url.nil? %>
-                <%= image_tag @lost_dog.user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+              <%= image_tag @lost_dog.user.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @lost_dog.user.id, controller: 'users'} %>
             <% else %>
-                <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+              <%= image_tag 'user_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @lost_dog.user.id, controller: 'users'} %>
             <% end %>
             <%= @lost_dog.user.first_name %> <%= @lost_dog.user.last_name %>
         </li>
         <li class = 'list-group-item'>
-            <% unless @lost_dog.pet.image.thumb.url.nil? %>
-                <%= image_tag @lost_dog.pet.image.thumb.url, class: "rounded-circle", width:50, height: 50, alt: 'Card image' %>
-            <% else %>
-                <%= image_tag 'pet_placeholder', class: "rounded-circle", width: 50, height: 50, alt: 'Pet image' %>
-            <% end %>
-            <%= @lost_dog.pet.name %>
+          <% unless @lost_dog.pet.image.thumb.url.nil? %>
+            <%= image_tag @lost_dog.pet.image.thumb.url, class: "rounded-circle pet-thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: @lost_dog.pet.id, view_only: true} %><!-- Thumb is alraedy 50x50 -->
+          <% else %>
+            <%= image_tag 'pet_placeholder', class: "rounded-circle pet-thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#pet_image_modal', pet_id: @lost_dog.pet.id, view_only: true} %>
+          <% end %>
+          <%= @lost_dog.pet.name %>
         </li>
         <li class = 'list-group-item'>
             <div class = 'card-body'>

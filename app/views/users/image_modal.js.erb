@@ -1,2 +1,3 @@
+$('#image_modal_label').text('<%= @user.full_name %>')
 modal_body = $('#image_modal_body');
 modal_body.html('<%= j render(:partial => 'shared/image_modal_body', :locals => { resource: @user, placeholder: 'user' }) %>');

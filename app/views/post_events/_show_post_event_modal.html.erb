@@ -6,9 +6,9 @@
     <ul class = 'list-group list-group-flush'>
         <li class = 'list-group-item'>
             <% unless @post_event.user.image.thumb.url.nil? %>
-                <%= image_tag @post_event.user.image.thumb.url, class: "rounded-circle", width: 50, height: 50 %>
+              <%= image_tag @post_event.user.image.thumb.url, class: "rounded-circle thumb-image-modal", alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @post_event.user.id, controller: 'users'} %>
             <% else %>
-                <%= image_tag 'user_placeholder', class: "rounded-circle", width: 50, height: 50 %>
+              <%= image_tag 'user_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @post_event.user.id, controller: 'users'} %>
             <% end %>
             <%= @post_event.user.first_name %> <%= @post_event.user.last_name %>
         </li>
