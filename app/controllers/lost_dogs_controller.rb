@@ -8,7 +8,12 @@ class LostDogsController < ApplicationController
     # for creating new lost dog empty form
     # have to check this functionality
     def new
-        @lost_dog = LostDog.new
+        if params[:lost_dog].nil?
+            @lost_dog = LostDog.new
+        else    
+            @lost_dog = LostDog.new(lost_dog_params)
+        end
+
         @user = current_user
         # have to deal with the case when user doesn;t have any pets.
     end

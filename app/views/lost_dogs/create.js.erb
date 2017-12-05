@@ -10,7 +10,6 @@ var longitude;
 
 if("<%= @lost_dog.address %>" == "")
 {
-    
     latitude  = parseFloat("<%= @lost_dog.latitude %>")
     longitude = parseFloat("<%= @lost_dog.longitude %>")
 
@@ -20,16 +19,21 @@ if("<%= @lost_dog.address %>" == "")
         update_address(latitude, longitude, address_event);
     });
 }
-else
+else if("<%= @lost_dog.latitude %>" == "")
 {
     
     address_event = "<%= @lost_dog.address %>";
 
     geocoder.geocode({"address": address_event}, function(results){
+        // Do the error checking here
         latitude = results[0].geometry.location.lat();
         longitude = results[0].geometry.location.lng();
         update_address(latitude, longitude, address_event);
     });
+}
+else
+{
+    get_all_events();
 }
 
 function update_address(latitude, longitude, address_event)
