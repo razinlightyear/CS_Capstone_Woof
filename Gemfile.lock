@@ -111,6 +111,8 @@ GEM
     mini_magick (4.8.0)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    momentjs-rails (2.17.1)
+      railties (>= 3.1)
     mono_logger (1.1.0)
     multi_json (1.12.1)
     mustermann (1.0.1)
@@ -247,6 +249,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   mini_magick (~> 4.8)
+  momentjs-rails (~> 2.17, >= 2.17.1)
   mysql2 (>= 0.3.18, < 0.5)
   puma (~> 3.0)
   rails (~> 5.0.2)

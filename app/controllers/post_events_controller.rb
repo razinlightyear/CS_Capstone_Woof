@@ -34,6 +34,7 @@ class PostEventsController < ApplicationController
     end
 
     def create
+        massage_date unless request.format.json?
         @post_event = PostEvent.new(post_event_params)
         @post_event.is_around_me = true
         
@@ -57,7 +58,7 @@ class PostEventsController < ApplicationController
     end
 
     def update
-
+        massage_date unless request.format.json?
         respond_to do |format|
             if @post_event.address != params[:post_event][:address]
                 if @post_event.update(post_event_params)
@@ -114,4 +115,9 @@ class PostEventsController < ApplicationController
         end 
     end
 
+    def massage_date
+      if params[:post_event][:date_time] && !params[:post_event][:date_time].empty?
+        params[:post_event][:date_time] = DateTime.strptime(params[:post_event][:date_time],"%m/%d/%Y %l:%M %p")
+      end
+    end
 end

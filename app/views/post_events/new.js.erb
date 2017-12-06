@@ -1,3 +1,7 @@
 $('.modal-body.event_content').html('<%= escape_javascript(render :partial => 'post_events/form', locals: {post_event: @post_event, path: post_events_create_path, button_name: "Submit this event"} ) %>')
+$('#post_event_datetimepicker').datetimepicker({
+  sideBySide: true,
+  ignoreReadonly: true
+});
 $('#eventModal').modal('show')
 $('.modal-title').text("Create an around me event")
