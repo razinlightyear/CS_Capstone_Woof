@@ -33,12 +33,18 @@
 
     <div class = 'card-footer'>
         <% if @lost_dog.user.id == current_user.id %>
-            <div class = 'btn-group' role = 'group' 'aria-label': 'Three Options' >
-                <%= link_to 'Edit event', edit_lost_dog_path(@lost_dog.id), class: 'btn btn-primary',type: 'button', data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
-                
-                <%= link_to 'Delete event', @lost_dog, method: :delete, class: 'btn btn-primary',type: 'button', data: { remote: true, confirm: 'Are you sure? '} %>
+            <div class = 'row' >
+                <div class = 'col-md-4'>
+                    <%= link_to 'Edit event', edit_lost_dog_path(@lost_dog.id), class: 'btn btn-primary',type: 'button', data: {:remote => true, 'data-toggle' => 'modal', 'data-target'=>'#eventModal'} %>
+                </div>
 
-                <%= button_tag 'Close Window', 'aria-label': 'Close', class: 'btn btn-primary', type: 'button', onclick: 'close_event_section()' %>
+                <div class = 'col-md-4'>
+                    <%= link_to 'Delete event', @lost_dog, method: :delete, class: 'btn btn-primary',type: 'button', data: { remote: true, confirm: 'Are you sure? '} %>
+                </div>
+
+                <div class = 'col-md-4'>
+                    <%= button_tag 'Close Window', 'aria-label': 'Close', class: 'btn btn-primary', type: 'button', onclick: 'close_event_section()' %>
+                </div>
 
             </div>
         <% else %>

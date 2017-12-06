@@ -68,6 +68,10 @@
         <%= render 'event_invites/invite_form', event: post_event, invite: EventInvite.new %>
       </div>
       <button class="btn btn-outline-primary btn-sm event-invite-btn float-right" id="event_invite_btn" data-event-id="<%=post_event.id%>" style="margin: 10px 0px;">Invite Person</button>
-      
+
     <% end %>
+
+    <div id = 'post_close_button'>
+    </div>
+        
 </div>
