@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require moment
 //= require datatables
 //= require turbolinks
 //= require tether
@@ -20,6 +21,7 @@
 //= require underscore
 //= require select2
 //= require bootstrap-filestyle.min
+//= require bootstrap-datetimepicker.js
 //= require_tree .
 //= require_tree ./channels
 
