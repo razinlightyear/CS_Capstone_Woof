@@ -1,6 +1,11 @@
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
+
 <div class = 'row'>
     <div class = 'col-sm-12'>
         <div id = 'map'>
+          <%= image_tag 'loading_dog', style: "position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0;" %>
         </div>
     </div>
     <div id = "event-section">
@@ -39,5 +44,13 @@
 <%= render 'shared/image_modal' %>
 <%= render 'pets/pet_image_modal' %>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGAMfpUVwJJYpahbklrZ0Q_RPU0NgpuP4&callback=initMap">
+<script>
+  if(window.google){
+    initMap();
+  } else{
+    $.ajax('https://maps.googleapis.com/maps/api/js?key=AIzaSyBGAMfpUVwJJYpahbklrZ0Q_RPU0NgpuP4&callback=initMap', {
+      crossDomain: true,
+      dataType: 'script'
+    });
+  }
 </script>
