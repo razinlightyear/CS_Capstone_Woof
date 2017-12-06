@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204194759) do
+ActiveRecord::Schema.define(version: 20171205234521) do
 
   create_table "breeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20171204194759) do
 
   create_table "found_dog_delegates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "found_dog_id"
-    t.integer "breed_id",                                   null: false
+    t.integer "breed_id"
     t.integer "weight_id",                                  null: false
     t.text    "description",  limit: 65535
     t.boolean "returned",                   default: false, null: false
