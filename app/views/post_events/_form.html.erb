@@ -44,11 +44,16 @@
 
         <div class = 'form-group'>
             <%= f.label :date_time, "When is your event? " %>
-            <%= f.datetime_select :date_time, {start_year: 2016, end_year: 2040, include_blank: true}, {class: 'form-control', style: "width:15%;display:inline"} %>
+            <div class="input-group date" id="post_event_datetimepicker">
+              <%= f.text_field :date_time, class: 'form-control', :placeholder=>"mm/dd/yyyy hh:mm AM/PM", readonly: true, :value=>(post_event.date_time) ? post_event.date_time.strftime("%m/%d/%Y %l:%M %p") : '' %>
+              <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+              </span>
+            </div>
         </div>
 
         <div class = 'form-group  actions'>
-            <%= f.submit button_name, class: 'btn btn-success btn-block' %>
+            <%= f.submit button_name, class: 'btn btn-success btn-block', style: 'margin-top: 10px;' %>
         </div>
 
     <% end %>

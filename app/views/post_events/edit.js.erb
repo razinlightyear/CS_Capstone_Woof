@@ -4,6 +4,9 @@ $('#eventModal').modal('show')
 $('.modal-title').text('Editing the around me event')*/
 <% locals = {post_event: @post_event, path: post_event_path(@post_event.id), button_name: "Update the Around Me Event"} %>
 $("#event-content").html('<%= escape_javascript(render :partial => 'post_events/form', locals: locals ) %>');
-
+$('#post_event_datetimepicker').datetimepicker({
+  sideBySide: true,
+  ignoreReadonly: true
+});
 $("#event-section").css("width", "450px");
 bindSelect2EventInvite();

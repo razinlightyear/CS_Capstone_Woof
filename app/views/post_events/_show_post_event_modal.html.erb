@@ -25,11 +25,15 @@
         </li>
         <li class = 'list-group-item'>
             <strong>Date:</strong>
+            <% if @post_event.date_time %>
             <%= @post_event.date_time.month %>/<%= @post_event.date_time.day %>/<%= @post_event.date_time.year %>
+            <% end %>
         </li>
         <li class = 'list-group-item'>
             <strong>Time:</strong>
+            <% if @post_event.date_time %>
             <%= @post_event.date_time.hour %>:<%= @post_event.date_time.min %>
+            <% end %>
         </li>
         <li class = 'list-group-item'>
             <% if @post_event.private %>

@@ -95,3 +95,6 @@ gem 'jquery-datatables', '~> 1.10', '>= 1.10.16'
 
 # Hack to support uploading files with js ajax using script
 gem 'remotipart', '~> 1.3', '>= 1.3.1'
+
+# date time picker
+gem 'momentjs-rails', '~> 2.17', '>= 2.17.1'
