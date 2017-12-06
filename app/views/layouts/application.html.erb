@@ -8,6 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag "icon.png" %>
     <%= favicon_link_tag "icon.png", :rel => 'icon', :type => 'image/png' %>
+    <%= content_for?(:head) ? yield(:head) : "" %>
   </head>
 
   <% if @homepage %>
