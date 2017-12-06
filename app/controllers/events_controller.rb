@@ -10,20 +10,24 @@ class EventsController < ApplicationController
 
   def show
     if request.format.json?
-      @events = Event.where(:is_around_me => true)   # The events that aren't private
-                     .where.not(id: PostEvent.select(:id)
+      @events = Event.where(:is_around_me => true)
+                     .where.not(id: PostEvent.select(:id)  # The events that aren't private
                                              .joins(:delegate)
                                              .where('post_event_delegates.private' => true)
-                                             .where.not(user: current_user)
-                                )
-                                .or(   # The current user already belongs to the private event
-                                    Event.where(id: PostEvent.select(:id)
-                                                             .where(:is_around_me => true)
-                                                             .joins(:joined_users, :delegate)
-                                                             .where('post_event_delegates.private' => true, 
-                                                                    'events_users.user_id' => current_user.id)
-                                                )
-                                    )
+                                             .where.not(user: current_user))
+                     .where.not(id: LostDog.select(:id)  # Lost dogs that haven't been returned
+                                    .joins(:delegate)
+                                    .where('lost_dog_delegates.returned' => true))
+                     .where.not(id: FoundDog.select(:id)  # Found dogs that haven't been returned
+                                    .joins(:delegate)
+                                    .where('found_dog_delegates.returned' => true))
+                     .or(                    # The current user already belongs to the private event
+                         Event.where(id: PostEvent.select(:id)
+                                                  .where(:is_around_me => true)
+                                                  .joins(:joined_users, :delegate)
+                                                  .where('post_event_delegates.private' => true, 
+                                                         'events_users.user_id' => current_user.id))
+                         )
     end
 
     @current_user_id = current_user.id
@@ -31,20 +35,24 @@ class EventsController < ApplicationController
   end
 
   def events_map
-    @events = Event.where(:is_around_me => true)   # The events that aren't private
-                   .where.not(id: PostEvent.select(:id)
+    @events = Event.where(:is_around_me => true)
+                   .where.not(id: PostEvent.select(:id)  # The events that aren't private
                                            .joins(:delegate)
                                            .where('post_event_delegates.private' => true)
-                                           .where.not(user: current_user)
-                              )
-                              .or(   # The current user already belongs to the private event
-                                  Event.where(id: PostEvent.select(:id)
-                                                           .where(:is_around_me => true)
-                                                           .joins(:joined_users, :delegate)
-                                                           .where('post_event_delegates.private' => true, 
-                                                                  'events_users.user_id' => current_user.id)
-                                              )
-                                  )
+                                           .where.not(user: current_user))
+                   .where.not(id: LostDog.select(:id)  # Lost dogs that haven't been returned
+                                  .joins(:delegate)
+                                  .where('lost_dog_delegates.returned' => true))
+                   .where.not(id: FoundDog.select(:id)  # Found dogs that haven't been returned
+                                  .joins(:delegate)
+                                  .where('found_dog_delegates.returned' => true))
+                   .or(                    # The current user already belongs to the private event
+                       Event.where(id: PostEvent.select(:id)
+                                                .where(:is_around_me => true)
+                                                .joins(:joined_users, :delegate)
+                                                .where('post_event_delegates.private' => true, 
+                                                       'events_users.user_id' => current_user.id))
+                       )
     render :show
   end
 
@@ -113,7 +121,7 @@ class EventsController < ApplicationController
     @messaging_users = []
     current_user.chats.each do |chat|
       chat.subscriptions.each do |s|
-        if s.user != current_user && !@messaging_users.include?(s.user) && ![1, 3, 4, 5].include?(s.user_id) # TODO fix demo hack!
+        if s.user != current_user && !@messaging_users.include?(s.user)
           @messaging_users << s.user
         end
       end
