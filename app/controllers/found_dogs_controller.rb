@@ -116,7 +116,7 @@ class FoundDogsController < ApplicationController
     private
 
     def found_dog_params
-        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id, :address, :returned, :image, :image_cache)
+        params.require(:found_dog).permit(:user_id, :longitude, :latitude, :description, :breed_id, :weight_id, :address, :returned, :image, :image_cache, :color_ids => [])
     end
 
     def set_found_dog

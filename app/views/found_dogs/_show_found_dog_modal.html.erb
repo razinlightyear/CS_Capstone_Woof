@@ -21,18 +21,40 @@
                 <%= image_tag 'pet_placeholder', class: "rounded-circle thumb-image-modal", width: 50, height: 50, alt: 'Card image', data: {toggle: 'modal', target: '#image_modal', id: @found_dog.id, controller: 'found_dogs'} %>
             <% end %>
         </li>
+
         <!-- Before the below description, you have to put the pet image. So the functionality of uploading images needs to be there -->
-        <li class = 'list-group-item'>
-            <strong>Breed:</strong><%= @found_dog.breed.name %><br>
-        </li>
-        <li class = 'list-group-item'>
-            <strong>Weight: </strong><%= @found_dog.weight.display if @found_dog.weight %>
-        </li>
-        <li class = 'list-group-item'>
-            <div class = 'card-body'>
-                <%= @found_dog.description %><br>
-            </div>
-        </li>
+        
+        <% if !@found_dog.breed.nil? %>
+            <li class = 'list-group-item'>
+                <strong>Breed:</strong><%= @found_dog.breed.name %><br>
+            </li>
+        <% end %>
+
+        <% if !@found_dog.weight.nil? %>
+            <li class = 'list-group-item'>
+                <strong>Weight: </strong><%= @found_dog.weight.display if @found_dog.weight %>
+            </li>
+        <% end %>
+
+        
+        <% if !@found_dog.colors.empty? %>
+            <li class = 'list-group-item'>
+                <strong>Colors:</strong>
+                <% @found_dog.colors.each do |c| %>
+                <span class="badge badge-default badge-<%=c.name%>"><%=c.name%></span>
+                <% end %>
+            </li>
+        <% end %>
+
+        
+        <% if !@found_dog.description.empty? %>
+            <li class = 'list-group-item'>
+                <div class = 'card-body'>
+                    <%= @found_dog.description %><br>
+                </div>
+            </li>
+        <% end %>
+
         <li class = 'list-group-item'>
             The dog was found at: <br>
             <%= @found_dog.address %>
