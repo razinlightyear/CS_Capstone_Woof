@@ -33,7 +33,10 @@
     min-width: 250px;
     max-width: 250px;
     /* Ask the below thing to andrew */
-    min-height: 100vh;
+/*    min-height: 100vh;*/
+/*    min-height: calc(100vh - 94px);*/
+    /*height: calc(100% - 94px);*/
+    height: 100%;
     color: white;
     border-top: 2px black;
 }

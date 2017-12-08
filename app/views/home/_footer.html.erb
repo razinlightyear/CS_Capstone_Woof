@@ -1,18 +1,20 @@
 <div id = "custom-footer" style="background-color: <%= BACKGROUND_COLOR %>;">
-    <div class="copyright" style="text-align: center">
+    <div class="copyright" style="text-align: center; margin-top: 5px;">
         <!--The below line prints the 'W'' logo-->
         <% if user_signed_in? %>
             <% @home_root = event_path(current_user) %>
         <% else %>
             <% @home_root =  root_path %>
         <% end %>
-
-        <%= link_to(image_tag("icon.png", class: 'image-responsive', width: 30, height: 30), @home_root, :method => :get) %>
-        Copyright &copy; 2017 Team Woof
-
-        <% if user_signed_in? %>
-            <%= link_to "About Team", about_team_path %>
-            <%= link_to "About Woof Project", about_path %>
-        <% end %>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <%= link_to(image_tag("icon.png", class: 'image-responsive', width: 30, height: 30), @home_root, :method => :get) %>
+          </li>
+          <li class="list-inline-item text-muted">Copyright &copy; 2017 Team Woof</li>
+          <% if user_signed_in? %>
+              <li class="list-inline-item"><%= link_to "About Team", about_team_path %></li>
+              <li class="list-inline-item"><%= link_to "About Woof Project", about_path %></li>
+          <% end %>
+        </ul>
     </div>
 </div>
